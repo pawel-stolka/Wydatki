@@ -17,12 +17,14 @@ export class ExpensesComponent implements OnInit {
     // console.log(form.value);
     let _bill = {
       name: form.value.name,
-      price: form.value.price,
+      price: form.value.price.replace(",","."),
       date: form.value.date,
       extra: form.value.extra
     }
+    
     console.log(_bill);
     this.expenseService.addBill(_bill)
+    form.reset()
   }
 
 }

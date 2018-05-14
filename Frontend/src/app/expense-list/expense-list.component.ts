@@ -16,10 +16,19 @@ export class ExpenseListComponent implements OnInit {
     // this.bills = 
     this.expenseService.getBills()
       .subscribe((data: any) => {
-        console.log(data)
-        let ordered = data.map(data => data)
-        console.log(ordered)
-        this.bills = data.json()
+        // let ordered = data.map(data => data)
+        console.log(data.json())
+        let _data = data.json()
+        let _mapped = _data.map(x => ({
+          // createdAt: x.createdAt,
+          name: x.name,
+          date: x.date.substr(0,10),
+          fulldate: new Date(x.date),
+          price: x.price,//.replace(",","."),
+          extra: x.extra          
+        }))
+        console.log(_mapped)
+        this.bills = _mapped // data.json()
       })
   }
 
