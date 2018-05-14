@@ -1,0 +1,22 @@
+<form #tdForm="ngForm" (ngSubmit)="submit(tdForm)">
+
+  <label>date</label>
+  <input type="date" name="date" ngModel>
+
+  <label>name</label>
+  <input name="name" ngModel>
+
+  <label>price</label>
+  <input name="price" ngModel>
+
+  <label>extra</label>
+  <input name="extra" ngModel>
+
+
+  <!-- <fieldset ngModelGroup="userData">
+    <label>products</label><input name="products" ngModel>
+    <label>extra</label><input name="extra" ngModel>
+  </fieldset> -->
+
+  <button type="submit">Send</button>
+</form>
