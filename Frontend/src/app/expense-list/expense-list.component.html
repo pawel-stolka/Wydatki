@@ -1,9 +1,9 @@
 <div *ngIf="bills">
   <div class="row">
-    <div class="col"><strong>date</strong></div>
-    <div class="col"><strong>name</strong></div>
-    <div class="col"><strong>price</strong></div>
-    <div class="col"><strong>extra</strong></div>
+    <div class="col"><button class="btn" (click)="byDate()">date</button></div>
+    <div class="col"><button class="btn" (click)="byName()">name</button></div>
+    <div class="col"><button class="btn" (click)="byPrice()">price</button></div>
+    <div class="col"><button class="btn" (click)="byExtra()">extra</button></div>
   </div>
   <div *ngFor="let bill of bills">
     <div class="row">
