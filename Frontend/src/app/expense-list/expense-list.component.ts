@@ -27,7 +27,7 @@ export class ExpenseListComponent implements OnInit {
     if(dateA < dateB)
       comparison = -1
 
-    console.log(comparison, dateA, dateB)
+    // console.log(comparison, dateA, dateB)
     return comparison
   }
 
@@ -38,7 +38,7 @@ export class ExpenseListComponent implements OnInit {
     if(dataA < dataB)
     comparison = -1
 
-    console.log(comparison, dataA, dataB)
+    // console.log(comparison, dataA, dataB)
     return comparison
   }
 
@@ -49,7 +49,7 @@ export class ExpenseListComponent implements OnInit {
     if(dataA < dataB)
     comparison = -1
 
-    console.log(comparison, dataA, dataB)
+    // console.log(comparison, dataA, dataB)
     return comparison
   }
 
@@ -57,7 +57,7 @@ export class ExpenseListComponent implements OnInit {
     this.expenseService.getBills()
     .subscribe((data: any) => {
       // let ordered = data.map(data => data)
-      console.log(data.json())
+      // console.log(data.json())
       let _data = data.json()
       let _mapped = _data.map(x => ({
         name: x.name,

@@ -1,5 +1,5 @@
 export class Bill{
-    name: String;
+    public name: String;
     price: Number;
     date: Date;
     // products: Array;
@@ -7,9 +7,9 @@ export class Bill{
     extra: String;
     createdAt: Date;
 
-    // constructor() {
-    // //   this.date = Date.now()
-    //   this.dirty = false
-    //   this.errors = null
-    // }
+    constructor(name: String, price: Number, date: Date) {
+      this.name = name;
+      this.price = price;
+      this.date = date// Date.now.toString()
+    }
   }
