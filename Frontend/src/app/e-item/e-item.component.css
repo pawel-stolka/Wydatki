@@ -1,10 +1,40 @@
 .item {
     padding: 0 5px;
-    margin: 0px auto;
-    background-color: greenyellow;
+    margin: 3px auto;
+    background-color: #e7f3d3;
 }
 
 .total {
     /* background-color: #eb7b7b; */
     margin: 0 0 20px 0;
 }
+
+.strike {
+    text-decoration-line: line-through;
+}
+
+.block {
+    width: 100%;
+}
+
+/* animations */
+.inner{
+    /* background-color: lightgray; */
+    /* width: 60vw; */
+    /* margin-left: 20%; */
+ }
+  
+ .inner #stateDiv {
+    height: 0px;
+    overflow: hidden;
+    /* border: 1px solid rgba(0, 0, 0, 0.055); */
+    /* background-color: rgba(116, 114, 114, 0.185); */
+    
+ }
+
+ .header {
+     font-size: 10px;
+     font-weight: bold;
+     text-transform: uppercase;
+     background-color: white;
+ }

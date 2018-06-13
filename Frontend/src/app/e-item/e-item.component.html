@@ -1,17 +1,34 @@
-<div class="item">
-  <div *ngFor="let bill of dailyBills">
-    <div class="row">
-      <div class="col">{{bill.date}}</div>
-      <div class="col">{{bill.name}}</div>
-      <div class="col">{{bill.price}}</div>
-      <div class="col">{{bill.extra}}</div>
+
+<button (click)='animateMe()' 
+  class="btn btn-outline-primary block">
+  {{currentDate}} 
+  | TOTAL <strong>{{totalPrice}} zł</strong>
+  | <span class="strike">najdroższe</span> 
+  | items: {{dailyBills.length}}
+</button>
+
+<div class="inner">
+  <div [@detailsanimation]='state' 
+    id="stateDiv" class="item" >
+    <div class="row header">
+      <div class="col">co</div>
+      <div class="col">cena</div>
+      <div class="col">gdzie</div>
+    </div>
+    <div *ngFor="let bill of dailyBills">
+      <div class="row">
+        <!-- <div class="col">{{bill.date}}</div> -->
+        <div class="col">{{bill.name}}</div>
+        <div class="col">{{bill.price}} zł</div>
+        <div class="col">{{bill.extra}}</div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="row total">
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col">total: {{totalPrice}}</div>
-  <div class="col"></div>
+  
+  <!-- <div class="row total">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col">total: {{totalPrice}}</div>
+    <div class="col"></div>
+  </div> -->
 </div>
