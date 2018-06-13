@@ -35,6 +35,12 @@
  .header {
      font-size: 10px;
      font-weight: bold;
+     font-weight: 800;
      text-transform: uppercase;
      background-color: white;
+ }
+
+ .top {
+     font-size: 10px;
+     color: red;
  }

@@ -9,15 +9,32 @@ import { trigger,state,style,transition,animate,keyframes } from '@angular/anima
   animations: [
     trigger('detailsanimation',[
       state('small', style({
-        height : '0px',
+        // height : '0',
+        // backgroundColor: 'white'
+        // opacity: 0
        //  width: '1000px'
       })),
       state('large', style({
-        height : '100px',
+        // height : '300px',
+        // backgroundColor: 'lightgrey',
+        height: '100%'
+        // opacity: 1
        //  width: '1000px'
       })),
       transition('small <=> large', animate('250ms ease-out')),
     ]),
+
+    // trigger('shrinkOut', [
+    //   state('in', style({})),
+    //   transition('* => void', [
+    //     style({ height: '!', opacity: 1 }),
+    //     animate(1000, style({ height: 0, opacity: 0 }))
+    //   ]),
+    //   transition('void => *', [
+    //     style({ height: 0, opacity: 0 }),
+    //     animate(1000, style({ height: '*', opacity: 1 }))
+    //   ])
+    // ])
   ]
 })
 export class EItemComponent implements OnInit {
@@ -28,11 +45,15 @@ export class EItemComponent implements OnInit {
 
   currentDate
   totalPrice: number
+  highest: any
   
   constructor() { }
 
   ngOnInit() {
-    this.totalPrice = 0;
+    this.totalPrice = 0
+    this.highest = {
+      price: 0
+    }
     // console.log(this.bills)
     this.sumPrice()
     // console.log('this.totalPrice', this.totalPrice)
@@ -43,6 +64,11 @@ export class EItemComponent implements OnInit {
     this.dailyBills.forEach(item => {
       total += item.price
       this.currentDate = item.date
+      if(item.price > this.highest.price) {
+        this.highest = {
+          name: item.name,
+          price: item.price
+      }
     });
     this.totalPrice = Math.ceil(total * 100)/100;
     // console.log('T: ', total, _t)
