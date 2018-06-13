@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../expense.service';
 import { Bill } from '../models/Bill';
+import * as moment from 'moment';
 
 @Component({
   selector: 'e-list',
@@ -8,7 +9,7 @@ import { Bill } from '../models/Bill';
   styleUrls: ['./e-list.component.css']
 })
 export class EListComponent implements OnInit {
-  bills: Bill[]
+  groupBills: Bill[]
 
   constructor(public expenseService: ExpenseService) { }
 
@@ -29,9 +30,32 @@ export class EListComponent implements OnInit {
         price: x.price,
         extra: x.extra          
       }))
-      console.log(_mapped)
-      this.bills = _mapped.sort(this.compareDate) // data.json()
+      console.log('_mapped', _mapped)
+      let bills = _mapped.sort(this.compareDate) // data.json()
+      console.log('groupBills', bills)
+      
+      let groupDates = this.groupBy(_mapped, item => item.date)
+      console.log(groupDates)
+
+      // let groupedByDay = _mapped.groupBy('fulldate', (result) => {
+      //   let res = moment(result['Date'], 'DD/MM/YYYY').startOf('isoWeek')
+      //   console.log(res)
+      //   return res;
+      // })
     })
+  }
+
+  groupBy(list, prop) {
+    const map = new Map();
+    list.forEach(item => {
+      const key = prop(item)
+      const collection = map.get(key)
+      if(!collection)
+        map.set(key, [item])
+      else
+        collection.push(item)
+    });
+    return map;
   }
 
   compareDate(a,b) {
