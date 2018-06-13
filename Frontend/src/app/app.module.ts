@@ -11,6 +11,7 @@ import { ExpenseService } from './expense.service';
 import { HttpModule } from '@angular/http';
 import { ExpenseGroupComponent } from './expense-group/expense-group.component';
 import { ExpenseList2Component } from './expense-list2/expense-list2.component';
+import { EListComponent } from './e-list/e-list.component';
 
 const routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes = [
     HomeComponent,
     ExpensesComponent,
     ExpenseGroupComponent,
-    ExpenseList2Component
+    ExpenseList2Component,
+    EListComponent
   ],
   imports: [
     BrowserModule,
