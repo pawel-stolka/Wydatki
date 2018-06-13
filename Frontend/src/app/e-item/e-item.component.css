@@ -1,4 +1,10 @@
-/* .item {
-    margin: 5px auto;
+.item {
+    padding: 0 5px;
+    margin: 0px auto;
     background-color: greenyellow;
-} */
+}
+
+.total {
+    /* background-color: #eb7b7b; */
+    margin: 0 0 20px 0;
+}

@@ -8,7 +8,7 @@ import { Bill } from '../models/Bill';
 })
 export class EItemComponent implements OnInit {
   @Input()
-  bills: any[]
+  dailyBills: any[]
   totalPrice: number
   
   constructor() { }
@@ -22,7 +22,7 @@ export class EItemComponent implements OnInit {
 
   sumPrice() {
     let total = 0
-    this.bills.forEach(item => {
+    this.dailyBills.forEach(item => {
       total += item.price
     });
     this.totalPrice = Math.ceil(total * 100)/100;

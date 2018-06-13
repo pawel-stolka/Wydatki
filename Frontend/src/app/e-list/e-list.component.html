@@ -21,9 +21,7 @@
   </div>
 
   <div *ngFor="let bill of groupBills">
-    <div class="item">
-      <e-item [bills]="bill[1]" class="item"></e-item>
-    </div>
+      <e-item [dailyBills]="bill[1]"></e-item>
   </div>
 
   <!-- <div *ngFor="let bill of bills">
