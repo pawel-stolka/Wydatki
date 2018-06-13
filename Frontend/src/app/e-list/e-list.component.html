@@ -2,17 +2,28 @@
   e-list works!
 </p>
 
-<div *ngIf="bills">
+<!-- <div *ngIf="bills"> -->
+<div>
 
   <div class="row">
-    <div class="col"><button class="btn" disabled (click)="byDate()">date</button></div>
-    <div class="col"><button class="btn" disabled (click)="byName()">name</button></div>
-    <div class="col"><button class="btn" disabled (click)="byPrice()">price</button></div>
-    <div class="col"><button class="btn" disabled (click)="byExtra()">extra</button></div>
+    <div class="col">
+      <button class="btn" disabled (click)="byDate()">date</button>
+    </div>
+    <div class="col">
+      <button class="btn" disabled (click)="byName()">name</button>
+    </div>
+    <div class="col">
+      <button class="btn" disabled (click)="byPrice()">price</button>
+    </div>
+    <div class="col">
+      <button class="btn" disabled (click)="byExtra()">extra</button>
+    </div>
   </div>
 
   <div *ngFor="let bill of groupBills">
-    <e-item></e-item>
+    <div class="item">
+      <e-item [bills]="bill[1]" class="item"></e-item>
+    </div>
   </div>
 
   <!-- <div *ngFor="let bill of bills">

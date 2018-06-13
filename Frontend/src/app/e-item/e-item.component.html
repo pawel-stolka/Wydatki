@@ -1,12 +1,15 @@
-<p>
-  e-item works!
-</p>
-
-<!-- <div *ngFor="let bill of bills">
+<div *ngFor="let bill of bills"  class="item">
     <div class="row">
       <div class="col">{{bill.date}}</div>
       <div class="col">{{bill.name}}</div>
       <div class="col">{{bill.price}}</div>
       <div class="col">{{bill.extra}}</div>
     </div>
-  </div> -->
+  </div>
+  
+  <div class="row">
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col">total: {{totalPrice}}</div>
+      <div class="col"></div>
+    </div>

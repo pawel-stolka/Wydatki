@@ -9,7 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./e-list.component.css']
 })
 export class EListComponent implements OnInit {
-  groupBills: Bill[]
+  groupBills//: Bill[][]
 
   constructor(public expenseService: ExpenseService) { }
 
@@ -30,12 +30,14 @@ export class EListComponent implements OnInit {
         price: x.price,
         extra: x.extra          
       }))
-      console.log('_mapped', _mapped)
+      // console.log('_mapped', _mapped)
       let bills = _mapped.sort(this.compareDate) // data.json()
-      console.log('groupBills', bills)
+      // console.log('groupBills', bills)
       
       let groupDates = this.groupBy(_mapped, item => item.date)
-      console.log(groupDates)
+      // let _gr
+      this.groupBills = Array.from(groupDates)
+      console.log('this.groupBills', this.groupBills)
 
       // let groupedByDay = _mapped.groupBy('fulldate', (result) => {
       //   let res = moment(result['Date'], 'DD/MM/YYYY').startOf('isoWeek')
