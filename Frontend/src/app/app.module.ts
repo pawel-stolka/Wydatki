@@ -12,12 +12,14 @@ import { HttpModule } from '@angular/http';
 import { ExpenseGroupComponent } from './expense-group/expense-group.component';
 import { ExpenseList2Component } from './expense-list2/expense-list2.component';
 import { EListComponent } from './e-list/e-list.component';
+import { EItemComponent } from './e-item/e-item.component';
 
 const routes = [
   { path: '', component: HomeComponent },
   { path: 'expenses', component: ExpensesComponent },
   { path: 'expense-list', component: ExpenseListComponent },
-  { path: 'expense-list2', component: ExpenseList2Component }
+  { path: 'expense-list2', component: ExpenseList2Component },
+  { path: 'e-list', component: EListComponent }
 ]
 
 
@@ -29,7 +31,8 @@ const routes = [
     ExpensesComponent,
     ExpenseGroupComponent,
     ExpenseList2Component,
-    EListComponent
+    EListComponent,
+    EItemComponent
   ],
   imports: [
     BrowserModule,
