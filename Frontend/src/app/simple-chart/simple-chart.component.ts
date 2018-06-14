@@ -33,17 +33,17 @@ export class SimpleChartComponent implements OnInit {
 
   ngOnChanges() {
     if (this.chart) {
-      this.updateChart();
+      // this.updateChart();
     }
   }
 
   createChart() {
     let element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
-    this.height = 400// element.offsetHeight - this.margin.top - this.margin.bottom;
+    this.height = 300// element.offsetHeight - this.margin.top - this.margin.bottom;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
-      .attr('height', element.offsetHeight);
+      .attr('height', this.height)// element.offsetHeight);
     console.log(this.width, this.height, element.offsetHeight)
 
     // chart plot area
