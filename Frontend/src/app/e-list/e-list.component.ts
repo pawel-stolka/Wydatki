@@ -20,21 +20,18 @@ export class EListComponent implements OnInit {
   getBy() {
     this.expenseService.getBills()
     .subscribe((data: any) => {
-      // let ordered = data.map(data => data)
-      // console.log(data.json())
       let _data = data.json()
-      let _mapped = _data.map(x => ({
+      let mapped = _data.map(x => ({
         name: x.name,
         date: x.date.substr(0,10),
         fulldate: new Date(x.date),
         price: x.price,
         extra: x.extra          
       }))
-      // console.log('_mapped', _mapped)
-      let bills = _mapped.sort(this.compareDate) // data.json()
-      // console.log('groupBills', bills)
+
+      let bills = mapped.sort(this.compareDate) // data.json()
       
-      let groupDates = this.groupBy(_mapped, item => item.date)
+      let groupDates = this.groupBy(mapped, item => item.date)
       // let _gr
       this.groupBills = Array.from(groupDates)
       console.log('this.groupBills', this.groupBills)
@@ -46,12 +43,16 @@ export class EListComponent implements OnInit {
       // })
     })
   }
-//   weekOfYear(date){
-//     let d = new Date(+date);
-//     d.setHours(0,0,0);
-//     d.setDate(d.getDate()+4-(d.getDay()||7));
-//     let res = Math.ceil((((d - new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
-// };
+  // weekOfYear(date){
+  //   let d = new Date(+date);
+  //   d.setHours(0,0,0);
+  //   d.setDate(d.getDate()+4-(d.getDay()||7));
+  //   let _x = new Date(d.getFullYear(), 0, 1)
+  //   console.log('58', d)
+  //   console.log('59', _x)
+  //   let res = Math.ceil(( ((d - _x ) /8.64e7)+1)/7);
+  //   // let res = Math.ceil(( ((d - new Date(d.getFullYear(),0,1) ) /8.64e7)+1)/7);
+  // };
 
   groupBy(list, prop) {
     const map = new Map();

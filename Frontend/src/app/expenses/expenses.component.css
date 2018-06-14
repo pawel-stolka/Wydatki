@@ -1,3 +1,23 @@
 .warn {
-    color: red
+    color: rgb(253, 115, 115)
+}
+
+.block {
+    width: 100%;
+}
+
+.header {
+    font-size: 18px;
+    text-align:center;
+    padding: 5px;
+    margin: 10px 0;
+    background-color: rgba(220, 53, 70, 0.507);
+}
+
+.center {
+    text-align: center;
+}
+
+.form-control {
+    margin: 5px 0;
 }
