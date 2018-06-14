@@ -14,6 +14,7 @@ import { ExpenseGroupComponent } from './expense-group/expense-group.component';
 import { ExpenseList2Component } from './expense-list2/expense-list2.component';
 import { EListComponent } from './e-list/e-list.component';
 import { EItemComponent } from './e-item/e-item.component';
+import { DataService } from './data.service';
 
 const routes = [
   { path: '', component: HomeComponent },
@@ -43,7 +44,7 @@ const routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
   ],
-  providers: [ExpenseService],
+  providers: [ExpenseService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../expense.service';
 import { Bill } from '../models/Bill';
 import * as moment from 'moment';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'e-list',
@@ -11,7 +12,9 @@ import * as moment from 'moment';
 export class EListComponent implements OnInit {
   groupBills: Bill[][]
 
-  constructor(public expenseService: ExpenseService) { }
+  constructor(
+    public expenseService: ExpenseService,
+    public dataService: DataService) { }
 
   ngOnInit() {
     this.getBy()
@@ -33,11 +36,19 @@ export class EListComponent implements OnInit {
       let byDay = this.groupBy(mapped, item => item.date),
           byMonth = this.groupBy(mapped, item => item.date.substr(5,2))
 
-      if(by === 'byDay')
+      if(by === 'byDay') {
         this.groupBills = Array.from(byDay)//groupDates)
-      if(by === 'byMonth')
+
+      }
+      if(by === 'byMonth') {
         this.groupBills = Array.from(byMonth)
+
+      }
       console.log('this.groupBills', this.groupBills)
+
+      console.log('before', this.dataService.groupBills.length)
+      this.dataService.groupBills = this.groupBills
+      console.log('after', this.dataService.groupBills.length)
     })
   }
   
