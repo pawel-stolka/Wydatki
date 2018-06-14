@@ -16,6 +16,7 @@ import { EListComponent } from './e-list/e-list.component';
 import { EItemComponent } from './e-item/e-item.component';
 import { DataService } from './data.service';
 import { SimpleChartComponent } from './simple-chart/simple-chart.component';
+import { ContainerComponent } from './container/container.component';
 
 const routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,8 @@ const routes = [
   { path: 'expense-list', component: ExpenseListComponent },
   { path: 'expense-list2', component: ExpenseList2Component },
   { path: 'e-list', component: EListComponent },
-  { path: 's-chart', component: SimpleChartComponent }
+  { path: 's-chart', component: SimpleChartComponent },
+  { path: 'container', component: ContainerComponent }
 ]
 
 
@@ -37,7 +39,8 @@ const routes = [
     ExpenseList2Component,
     EListComponent,
     EItemComponent,
-    SimpleChartComponent
+    SimpleChartComponent,
+    ContainerComponent
   ],
   imports: [
     BrowserModule,
