@@ -17,7 +17,8 @@ export class EListComponent implements OnInit {
     public dataService: DataService) { }
 
   ngOnInit() {
-    this.getBy()
+    // this.getBy()
+    this.groupBills = this.dataService.groupBills
   }
 
   getBy(by: string = 'byDay') {
