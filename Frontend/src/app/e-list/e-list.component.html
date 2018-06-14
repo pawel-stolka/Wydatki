@@ -1,6 +1,12 @@
 <!-- <div *ngIf="bills"> -->
 <div class="container">
   <br>
+  <button (click)='getBy("byDay")' 
+    class="btn btn-outline-success">
+  Days</button>
+  <button (click)='getBy("byMonth")' 
+  class="btn btn-outline-warning">
+  Months</button>
 
   <div *ngFor="let bill of groupBills">
     <e-item [dailyBills]="bill[1]"></e-item>

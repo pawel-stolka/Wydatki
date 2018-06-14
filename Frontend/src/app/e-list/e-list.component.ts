@@ -9,7 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./e-list.component.css']
 })
 export class EListComponent implements OnInit {
-  groupBills//: Bill[][]
+  groupBills: Bill[][]
 
   constructor(public expenseService: ExpenseService) { }
 
@@ -17,7 +17,7 @@ export class EListComponent implements OnInit {
     this.getBy()
   }
 
-  getBy() {
+  getBy(by: string = 'byDay') {
     this.expenseService.getBills()
     .subscribe((data: any) => {
       let _data = data.json()
@@ -28,32 +28,19 @@ export class EListComponent implements OnInit {
         price: x.price,
         extra: x.extra          
       }))
+      .sort(this.compareDate)
 
-      let bills = mapped.sort(this.compareDate) // data.json()
-      
-      let groupDates = this.groupBy(mapped, item => item.date)
-      // let _gr
-      this.groupBills = Array.from(groupDates)
+      let byDay = this.groupBy(mapped, item => item.date),
+          byMonth = this.groupBy(mapped, item => item.date.substr(5,2))
+
+      if(by === 'byDay')
+        this.groupBills = Array.from(byDay)//groupDates)
+      if(by === 'byMonth')
+        this.groupBills = Array.from(byMonth)
       console.log('this.groupBills', this.groupBills)
-
-      // let groupedByDay = _mapped.groupBy('fulldate', (result) => {
-      //   let res = moment(result['Date'], 'DD/MM/YYYY').startOf('isoWeek')
-      //   console.log(res)
-      //   return res;
-      // })
     })
   }
-  // weekOfYear(date){
-  //   let d = new Date(+date);
-  //   d.setHours(0,0,0);
-  //   d.setDate(d.getDate()+4-(d.getDay()||7));
-  //   let _x = new Date(d.getFullYear(), 0, 1)
-  //   console.log('58', d)
-  //   console.log('59', _x)
-  //   let res = Math.ceil(( ((d - _x ) /8.64e7)+1)/7);
-  //   // let res = Math.ceil(( ((d - new Date(d.getFullYear(),0,1) ) /8.64e7)+1)/7);
-  // };
-
+  
   groupBy(list, prop) {
     const map = new Map();
     list.forEach(item => {
