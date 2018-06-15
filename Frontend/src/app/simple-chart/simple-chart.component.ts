@@ -33,17 +33,17 @@ export class SimpleChartComponent implements OnInit {
 
   ngOnChanges() {
     if (this.chart) {
-      // this.updateChart();
+      this.updateChart();
     }
   }
 
   createChart() {
     let element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
-    this.height = 300// element.offsetHeight - this.margin.top - this.margin.bottom;
+    this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
-      .attr('height', this.height)// element.offsetHeight);
+      .attr('height', element.offsetHeight);
     console.log(this.width, this.height, element.offsetHeight)
 
     // chart plot area
@@ -56,11 +56,17 @@ export class SimpleChartComponent implements OnInit {
     let yDomain = [0, d3.max(this.data, d => d[1])];
 
     // create scales
-    this.xScale = d3.scaleBand().padding(0.1).domain(xDomain).rangeRound([0, this.width]);
-    this.yScale = d3.scaleLinear().domain(yDomain).range([this.height, 0]);
+    this.xScale = d3.scaleBand().padding(0.1)
+      .domain(xDomain)
+      .rangeRound([0, this.width]);
+    this.yScale = d3.scaleLinear()
+      .domain(yDomain)
+      .range([this.height, 0]);
 
     // bar colors
-    this.colors = d3.scaleLinear().domain([0, this.data.length]).range(<any[]>['red', 'blue']);
+    this.colors = d3.scaleLinear()
+      .domain([0, this.data.length])
+      .range(<any[]>['red', 'blue']);
 
     // x & y axis
     this.xAxis = svg.append('g')
@@ -81,6 +87,7 @@ export class SimpleChartComponent implements OnInit {
     this.xAxis.transition().call(d3.axisBottom(this.xScale));
     this.yAxis.transition().call(d3.axisLeft(this.yScale));
 
+    console.log(this.data)
     let update = this.chart.selectAll('.bar')
       .data(this.data);
 
