@@ -20,7 +20,7 @@ export class EListComponent implements OnInit {
     // this.getBy()
     this.groupBills = this.dataService.groupBills
     if(this.groupBills.length == 0)
-      this.getBy()
+      this.getBy('byMonth')
       // console.log('[]')
   }
 

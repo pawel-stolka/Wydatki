@@ -68,6 +68,7 @@ export class EItemComponent implements OnInit {
         this.highest = {
           name: item.name,
           price: item.price
+        }
       }
     });
     this.totalPrice = Math.ceil(total * 100)/100;
