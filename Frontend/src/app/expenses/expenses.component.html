@@ -1,4 +1,3 @@
-
 <!-- 
 <div class="warn">
   todo: validation of forms!</div>
@@ -27,38 +26,29 @@
 
 <hr>
 <div class="col-md-6">
-  <form [formGroup]="complexGroup" 
-    (ngSubmit)="submitForm()">
+  <form [formGroup]="complexGroup" (ngSubmit)="submitForm()">
 
     <div class="header">
       Dodaj produkt
     </div>
     <div class="form-group">
       <!-- <label for="nameInput">Product name</label> -->
-      <input type="text" class="form-control" 
-        [formControl]="nameFormControl" 
-        id="nameInput" placeholder="Product name">
+      <input type="text" class="form-control" [formControl]="nameFormControl" id="nameInput" placeholder="Product name">
       <!-- aria-describedby="emailHelp"  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
       <!-- <br> -->
 
-    <div class="form-row">
-      <div class="col">
-        <input type="date" class="form-control" 
-          [formControl]="dateFormControl" 
-          id="dateInput" placeholder="Date">
+      <div class="form-row">
+        <div class="col">
+          <input type="date" class="form-control" [formControl]="dateFormControl" id="dateInput" placeholder="Date">
+        </div>
+        <div class="col">
+          <input type="number" class="form-control" min="0" [formControl]="priceFormControl" id="priceInput" placeholder="Price">
+        </div>
       </div>
-      <div class="col">
-        <input type="number" class="form-control" 
-          min="0" [formControl]="priceFormControl" 
-          id="priceInput" placeholder="Price">
-      </div>
-    </div>
-    <!-- <br> -->
-      <input type="text" class="form-control" 
-      min="0" [formControl]="extraFormControl" 
-      id="addressInput" placeholder="(Adres)">
+      <!-- <br> -->
+      <input type="text" class="form-control" min="0" [formControl]="extraFormControl" id="addressInput" placeholder="(Adres)">
 
-  </div>
+    </div>
     <br>
 
     <!-- <input [formControl]="nameFormControl" type="text" 
@@ -71,3 +61,57 @@
     </button>
   </form>
 </div>
+
+<!-- <div class="col-md-5">
+  <mat-card class="my-card central window">
+    <mat-card-header>
+      <mat-card-title>
+        <h4>Dodaj produkt</h4>
+      </mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="complexGroup" (ngSubmit)="submitForm()" 
+    (keydown.enter)="$event.preventDefault()">
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Product name" 
+        [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          <strong>Nazwa musi być!</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-50-width">
+        <input type="date" matInput placeholder="Date" 
+        [formControl]="dateFormControl" [errorStateMatcher]="matcher">
+
+        <mat-error *ngIf="dateFormControl.hasError('required')">
+          Data musi być!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-50-width">
+          <input type="number" matInput placeholder="Cena" min="0.0"
+          [formControl]="dateFormControl" [errorStateMatcher]="matcher">
+  
+          <mat-error *ngIf="dateFormControl.hasError('required')">
+            Data musi być!
+          </mat-error>
+        </mat-form-field>
+
+
+      <!-- <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field> -->
+
+      <!-- <button (click)="submitForm()" class="btn btn-success btn-block" 
+      [disabled]="!emailFormControl.valid">Register</button> 
+
+    </form>
+  </mat-card>
+</div> -->

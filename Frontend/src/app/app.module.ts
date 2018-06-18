@@ -5,7 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ToasterModule, ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-
+import { MatCardModule } from '@angular/material/card'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatInputModule } from '@angular/material/input'
+import { MatListModule } from '@angular/material/list'
+import { MatButtonModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
@@ -20,6 +24,7 @@ import { EItemComponent } from './e-item/e-item.component';
 import { DataService } from './data.service';
 import { SimpleChartComponent } from './simple-chart/simple-chart.component';
 import { ContainerComponent } from './container/container.component';
+
 
 const routes = [
   { path: '', component: HomeComponent },
@@ -50,6 +55,11 @@ const routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     HttpModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatListModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ToasterModule,

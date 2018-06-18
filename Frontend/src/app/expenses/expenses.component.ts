@@ -2,6 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExpenseService } from '../expense.service';
 import { FormControl, FormGroupDirective, Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
+import { ErrorStateMatcher } from '@angular/material';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'expenses',
@@ -22,6 +31,8 @@ export class ExpensesComponent implements OnInit {
     'priceFormControl': this.priceFormControl,
     'extraFormControl': this.extraFormControl
   })
+
+  matcher = new MyErrorStateMatcher();
   
   constructor(
     private expenseService: ExpenseService,
