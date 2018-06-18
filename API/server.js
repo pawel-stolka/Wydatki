@@ -9,7 +9,8 @@ mongoose.Promise = Promise
 
 var app = express(),
     port = process.env.PORT || 7000,
-    mongoString = 'mongodb://localhost:27017/Wydatki'
+    mongoString = //'mongodb://localhost:27017/Wydatki'
+    'mongodb://user12:pass12@ds161520.mlab.com:61520/wydatki10'
 
 app.use(cors())
 app.use(bodyParser.json())
