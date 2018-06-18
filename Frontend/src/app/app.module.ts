@@ -3,6 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
+import { ToasterModule, ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+
 
 import { AppComponent } from './app.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
@@ -49,8 +52,14 @@ const routes = [
     HttpModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    ToasterModule,
   ],
-  providers: [ExpenseService, DataService],
+  providers: [ExpenseService, DataService,
+    ToasterService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DataService,// AuthInterceptorService,
+      multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

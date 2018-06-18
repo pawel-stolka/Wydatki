@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExpenseService } from '../expense.service';
 import { FormControl, FormGroupDirective, Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { ToasterConfig, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'expenses',
@@ -24,10 +25,32 @@ export class ExpensesComponent implements OnInit {
   
   constructor(
     private expenseService: ExpenseService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private toasterService: ToasterService
   ) { }
 
+  public config1: ToasterConfig = new ToasterConfig({
+    limit: 7,
+    tapToDismiss: true,
+    showCloseButton: true,
+    mouseoverTimerStop: true
+  });
+
   ngOnInit() {
+  }
+
+  popMeUp(type = 'error', title, body) {
+    var toast = {
+      type: type,// 'success', 'info', 'warning', 'error'
+      title: title,
+      timeout: 3000,
+      // onShowCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onShow callback') ,
+      // onHideCallback: (toast) => this.toasterService.pop('info', 'invoked from ' + toast.title + ' onHide callback'),
+      body: body
+      // bodyOutputType: BodyOutputType.TrustedHtml
+    };
+
+    this.toasterService.pop(toast);
   }
 
   submitForm() {
@@ -44,6 +67,7 @@ export class ExpensesComponent implements OnInit {
 
     this.expenseService.addBill(expense)
     console.log(expense)
+    this.popMeUp('warning', 'Added.', name)
   }
 
   // submit(form) : void {
