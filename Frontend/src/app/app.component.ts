@@ -14,24 +14,25 @@ export class AppComponent {
     tapToDismiss: true,
     showCloseButton: true,
     positionClass: 'toast-top-right',
-    mouseoverTimerStop: true
+    mouseoverTimerStop: true,
+    
   });
 
   constructor(
     private toasterService: ToasterService) {}
 
-    popMeUp(type = 'error') {
-      var toast = {
-        type: type,// 'success', 'info', 'warning', 'error'
-        title: 'My Toast Demo',
-        timeout: 3000,
-        positionClass: 'toast-top-right',
-        // onShowCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onShow callback') ,
-        // onHideCallback: (toast) => this.toasterService.pop('info', 'invoked from ' + toast.title + ' onHide callback'),
-        body: '<h5}>this is an angular2 toast</h5>',
-        bodyOutputType: BodyOutputType.TrustedHtml
-      };
+    // popMeUp(type = 'error') {
+    //   var toast = {
+    //     type: type,// 'success', 'info', 'warning', 'error'
+    //     title: 'My Toast Demo',
+    //     timeout: 3000,
+    //     positionClass: 'toast-top-left',
+    //     // onShowCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onShow callback') ,
+    //     // onHideCallback: (toast) => this.toasterService.pop('info', 'invoked from ' + toast.title + ' onHide callback'),
+    //     body: '<h5}>this is an angular2 toast</h5>',
+    //     bodyOutputType: BodyOutputType.TrustedHtml
+    //   };
   
-      this.toasterService.pop(toast);
-    }
+    //   this.toasterService.pop(toast);
+    // }
 }

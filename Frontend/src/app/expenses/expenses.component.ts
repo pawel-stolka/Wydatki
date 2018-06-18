@@ -39,11 +39,11 @@ export class ExpensesComponent implements OnInit {
   ngOnInit() {
   }
 
-  popMeUp(type = 'error', title, body) {
+  popMeUp(type = 'info', title, body) {
     var toast = {
       type: type,// 'success', 'info', 'warning', 'error'
       title: title,
-      timeout: 3000,
+      timeout: 5000,
       // onShowCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onShow callback') ,
       // onHideCallback: (toast) => this.toasterService.pop('info', 'invoked from ' + toast.title + ' onHide callback'),
       body: body
@@ -67,7 +67,8 @@ export class ExpensesComponent implements OnInit {
 
     this.expenseService.addBill(expense)
     console.log(expense)
-    this.popMeUp('warning', 'Added.', name)
+    let message = `${expense.name} - ${expense.price} zł`
+    this.popMeUp('success', 'Added', message)// )
   }
 
   // submit(form) : void {
