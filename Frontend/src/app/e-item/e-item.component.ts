@@ -46,6 +46,7 @@ export class EItemComponent implements OnInit {
   currentDate
   totalPrice: number
   highest: any
+  week: number
   
   constructor() { }
 

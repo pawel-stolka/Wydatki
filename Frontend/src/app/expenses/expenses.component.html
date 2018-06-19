@@ -25,6 +25,8 @@
 </form> -->
 
 <hr>
+
+<div *ngIf="error">{{error}}</div>
 <div class="col-md-6">
   <form [formGroup]="complexGroup" (ngSubmit)="submitForm()">
 

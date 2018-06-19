@@ -1,6 +1,6 @@
 .item {
     padding: 0 5px;
-    margin: 3px auto;
+    margin: 0px auto;
     background-color: #e7f3d3;
 }
 
@@ -48,6 +48,10 @@
  .left {
      float: left;
      /* background-color: #784512; */
+ }
+
+ .top5 {
+     margin-top: 5px;
  }
 
  /* .block2 {

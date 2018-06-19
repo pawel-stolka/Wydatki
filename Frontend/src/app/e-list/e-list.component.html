@@ -3,10 +3,15 @@
   <br>
   <button (click)='getBy()' 
     class="btn btn-outline-success">
-  Days</button>
-  <button (click)='getBy("byMonth")' 
+  Dni</button>
+
+  <button (click)='getBy("byWeek")' 
   class="btn btn-outline-warning">
-  Months</button>
+  Tygodnie</button>
+
+  <button (click)='getBy("byMonth")' 
+  class="btn btn-outline-info">
+  Miesiące</button>
 
   <div *ngFor="let bill of groupBills">
     <e-item [dailyBills]="bill[1]"></e-item>

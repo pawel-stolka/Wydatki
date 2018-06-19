@@ -3,6 +3,7 @@ import { ExpenseService } from '../expense.service';
 import { FormControl, FormGroupDirective, Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
 import { ErrorStateMatcher } from '@angular/material';
+import { Bill } from '../models/Bill';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -19,6 +20,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ExpensesComponent implements OnInit {
   @ViewChild(FormGroupDirective) myForm;
+
+  error
 
   dateFormControl = new FormControl('', [ Validators.required ])
   nameFormControl = new FormControl('', [ Validators.required ])
@@ -65,35 +68,26 @@ export class ExpensesComponent implements OnInit {
   }
 
   submitForm() {
-    let expense = {
+    let ex = {
       date: this.complexGroup.value.dateFormControl,
       name: this.complexGroup.value.nameFormControl,
       price: this.complexGroup.value.priceFormControl,
       extra: this.complexGroup.value.extraFormControl
     }
 
+    try {
+      let bill = new Bill(ex.name, ex.price, ex.date, ex.extra)
+      this.expenseService.addBill(bill)
+      console.log(bill)
+      let message = `${bill.name} - ${bill.price} zł`
+      this.popMeUp('success', 'Added', message)// )
+    } catch (error) {
+      this.error = error
+      console.error('something with Bill', error)
+    }
+
     if (this.myForm) {
       this.myForm.resetForm();
     }
-
-    this.expenseService.addBill(expense)
-    console.log(expense)
-    let message = `${expense.name} - ${expense.price} zł`
-    this.popMeUp('success', 'Added', message)// )
   }
-
-  // submit(form) : void {
-  //   // console.log(form.value);
-  //   let _bill = {
-  //     name: form.value.name,
-  //     price: form.value.price.replace(",","."),
-  //     date: form.value.date,
-  //     extra: form.value.extra
-  //   }
-    
-  //   console.log(_bill);
-  //   this.expenseService.addBill(_bill)
-  //   form.reset()
-  // }
-
 }

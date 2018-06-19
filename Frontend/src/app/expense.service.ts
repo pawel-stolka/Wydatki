@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Bill } from './models/Bill';
 
 @Injectable()
 export class ExpenseService {
@@ -19,14 +20,19 @@ export class ExpenseService {
       // .catch(this.handleError)
   }
 
-  addBill(bill) {
+  addBill(bill: Bill) {
     return this.http.post(`${this.url}/bill`, bill)
 
     // return this.http.post<any>(this.path + '/loginbyemail', email)
-    .subscribe(res => {
-      console.log('what?')
-      console.log(res)
-    })
+    .subscribe(
+      res => {
+        console.log('what?')
+        console.log(res)
+      },
+      err => {
+        this.error = err
+      }
+    )
   }
 
   private extractData(res: Response) {

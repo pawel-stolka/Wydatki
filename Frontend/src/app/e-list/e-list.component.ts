@@ -11,6 +11,7 @@ import { DataService } from '../data.service';
 })
 export class EListComponent implements OnInit {
   groupBills: Bill[][]
+  
 
   constructor(
     public expenseService: ExpenseService,
@@ -38,22 +39,39 @@ export class EListComponent implements OnInit {
       .sort(this.compareDate)
 
       let byDay = this.groupBy(mapped, item => item.date),
-          byMonth = this.groupBy(mapped, item => item.date.substr(5,2))
+          byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
+          byWeek = this.groupBy(mapped, x => moment(x.date).week())
 
       if(by === 'byDay') {
         this.groupBills = Array.from(byDay)//groupDates)
-
       }
       if(by === 'byMonth') {
         this.groupBills = Array.from(byMonth)
-
       }
-      console.log('this.groupBills', this.groupBills)
+      if(by === 'byWeek') {
+        // this.groupBills = Array.from(byWeek)
+        let date = mapped.map(x => ({
+          date: x.date,
+          week: moment(x.date).week()
+        }))
+        console.log(date)
+        this.groupBills = Array.from(byWeek)
+        // this.weeks = true
+        // this.getWeek()
+      }
+      
+      // console.log('this.groupBills', this.groupBills)
 
       console.log('before', this.dataService.groupBills.length)
       this.dataService.groupBills = this.groupBills
       console.log('after', this.dataService.groupBills.length)
     })
+  }
+
+  getWeek() {
+    let _date = new Date()
+    let oneJan = new Date(_date.getFullYear(), 0, 1)
+    console.log(oneJan)
   }
   
   groupBy(list, prop) {
