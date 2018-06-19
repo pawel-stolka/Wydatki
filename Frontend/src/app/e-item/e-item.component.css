@@ -44,3 +44,13 @@
      font-size: 10px;
      color: red;
  }
+
+ .left {
+     float: left;
+     /* background-color: #784512; */
+ }
+
+ /* .block2 {
+    margin: auto 0;
+    width: 100%;
+ } */
