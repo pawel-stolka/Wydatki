@@ -24,6 +24,9 @@ import { EItemComponent } from './e-item/e-item.component';
 import { DataService } from './data.service';
 import { SimpleChartComponent } from './simple-chart/simple-chart.component';
 import { ContainerComponent } from './container/container.component';
+import { Chart1Component } from './chart1/chart1.component';
+import { D3Service } from 'd3-ng2-service';
+import { Chart2Component } from './chart2/chart2.component';
 
 
 const routes = [
@@ -33,7 +36,10 @@ const routes = [
   { path: 'expense-list2', component: ExpenseList2Component },
   { path: 'e-list', component: EListComponent },
   { path: 's-chart', component: SimpleChartComponent },
-  { path: 'container', component: ContainerComponent }
+  { path: 'container', component: ContainerComponent },
+  // testing chart
+  { path: 'chart1', component: Chart1Component },
+  { path: 'chart2', component: Chart2Component }
 ]
 
 
@@ -48,7 +54,9 @@ const routes = [
     EListComponent,
     EItemComponent,
     SimpleChartComponent,
-    ContainerComponent
+    ContainerComponent,
+    Chart1Component,
+    Chart2Component
   ],
   imports: [
     BrowserModule,
@@ -64,7 +72,7 @@ const routes = [
     ReactiveFormsModule,
     ToasterModule,
   ],
-  providers: [ExpenseService, DataService,
+  providers: [ExpenseService, DataService, D3Service,
     ToasterService, {
       provide: HTTP_INTERCEPTORS,
       useClass: DataService,// AuthInterceptorService,
