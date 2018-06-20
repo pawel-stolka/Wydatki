@@ -8,4 +8,9 @@ export class DataService {
   constructor() { 
     this.groupBills = []
   }
+
+  getBills() {
+    console.log(this.groupBills)
+    return this.groupBills
+  }
 }
