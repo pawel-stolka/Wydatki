@@ -172,8 +172,41 @@ export class Chart2Component implements OnInit {
       .range([0, this.height])
 
     let xScale = this.d3.scaleLinear()
-      .domain([0, maxHeight])
-      .range([0, this.height])
+      .domain([0, this.apiData.length])
+      .range([0, this.width])
+
+    // let g = svg.select('g')
+    // g.selectAll('rect')
+    var arr = [10, 8, 40, 34, 52, 45, 33, 75];
+    console.log(this.apiData)
+
+    svg
+    .selectAll("rect")
+    .data(arr)
+    // .data(this.apiData)
+    .enter()
+    .append('rect')
+    .attrs({
+      width: this.width / arr.length,
+      height: (d) => yScale(d),
+      x: (d,i) => { 
+        return i * this.width/arr.length
+      },
+      y: (d) => this.height - yScale(d)
+    })
+    // .attrs({
+    //   width: this.width / this.apiData.length,
+    //   height: (d) => yScale(d),
+    //   x: (d,i) => { 
+    //     return i * this.width/this.apiData.length
+    //   },
+    //   y: (d) => this.height - yScale(d)
+    // })
+    .style('fill', 'red')
+    .style('stroke', 'black')
+    .style('stroke-width', '2px')
+    
+
 
   }
 
