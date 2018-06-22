@@ -166,10 +166,11 @@ export class Chart2Component implements OnInit {
             + this.margin.left + "," + this.margin.top
             + ")");
     
-    let maxHeight = 100;
+    let maxHeight = 250;
     let yScale = this.d3.scaleLinear()
       .domain([0, maxHeight])
       .range([0, this.height])
+      console.log('HEIGHT', this.height)
 
     let xScale = this.d3.scaleLinear()
       .domain([0, this.apiData.length])
@@ -177,28 +178,61 @@ export class Chart2Component implements OnInit {
 
     // let g = svg.select('g')
     // g.selectAll('rect')
-    var arr = [10, 8, 40, 34, 52, 45, 33, 75];
+    // var arr = [10, 8, 40, 34, 52, 45, 33, 75];
     console.log(this.apiData)
 
+    // let data = this.apiData//arr
+    let data2 = this.apiData.map((d) => d[1])
+    let data = data2[1]
+    console.log(data)
     svg
     .selectAll("rect")
-    .data(arr)
+    .data(data)
     // .data(this.apiData)
     .enter()
     .append('rect')
     .attrs({
-      width: this.width / arr.length,
-      height: (d) => yScale(d),
-      x: (d,i) => { 
-        return i * this.width/arr.length
+      width: this.width / data.length,
+      height: (d) => {
+        let res = yScale(d.price)// 20// yScale(d)
+        console.log(res)
+        return res
       },
-      y: (d) => this.height - yScale(d)
+      x: (d,i) => { 
+        let res = i * this.width/data.length
+        // console.log(res, data.length)
+        return res
+      },
+      y: (d) => {
+        // d = d[1]
+        // console.log(d)
+        let res = this.height - yScale(d.price)
+        let d1 = d,
+            d2 = yScale(d.price)
+        // console.log(res)//,d1, d2, d.price)
+        return res;
+      } 
     })
-    // .attrs({
+// .attrs({
     //   width: this.width / this.apiData.length,
     //   height: (d) => yScale(d),
     //   x: (d,i) => { 
     //     return i * this.width/this.apiData.length
+    //   },
+    //   y: (d) => this.height - yScale(d)
+    // })
+
+    // svg
+    // .selectAll("rect")
+    // .data(arr)
+    // // .data(this.apiData)
+    // .enter()
+    // .append('rect')
+    // .attrs({
+    //   width: this.width / arr.length,
+    //   height: (d) => yScale(d),
+    //   x: (d,i) => { 
+    //     return i * this.width/arr.length
     //   },
     //   y: (d) => this.height - yScale(d)
     // })
