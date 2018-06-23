@@ -62,7 +62,13 @@ export class Chart2Component implements OnInit {
     // .catch((err) => this.error = `error: ${this.apiService.error}`)
   }
 
-  loadData() {
+  getBy(by){
+    this.loadData(by)
+      .then(() => this.loadD3())
+      .then(() => this.loadGraph())
+  }
+
+  loadData(by=null) {
     let bills
 
     return this.expenseService.getBills()
@@ -81,12 +87,24 @@ export class Chart2Component implements OnInit {
       // console.log(mapped)
 
       let byDay = this.groupBy(mapped, item => item.date),
-          byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
-          byWeek = this.groupBy(mapped, x => moment(x.date).week())
-
-      // if(by === 'byMonth') {
-        // this.groupBills = 
-        bills = Array.from(byWeek)//byDay)//byMonth)
+      byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
+      byWeek = this.groupBy(mapped, x => moment(x.date).week())
+      
+      switch (by) {
+        case 'byDay':
+          bills = Array.from(byDay)//byMonth)
+          break;
+        case 'byWeek':
+          bills = Array.from(byWeek)
+          break;
+        case 'byMonth':
+          bills = Array.from(byMonth)
+          break;
+        default:
+          bills = Array.from(byDay)//byMonth)
+          break;
+      }
+      
         let sum = [];
         bills.forEach(element => {
           let _sum = 0
@@ -194,6 +212,10 @@ export class Chart2Component implements OnInit {
         return res;
       } 
     })
+    .style('fill', 'red')
+    .style('stroke', 'black')
+    .style('stroke-width', '2px')
+    
 // .attrs({
     //   width: this.width / this.apiData.length,
     //   height: (d) => yScale(d),
@@ -217,11 +239,14 @@ export class Chart2Component implements OnInit {
     //   },
     //   y: (d) => this.height - yScale(d)
     // })
-    .style('fill', 'red')
-    .style('stroke', 'black')
-    .style('stroke-width', '2px')
-    
 
+    
+    svg
+    .selectAll("rect")
+    // .data(data)
+    .data(data)
+    .exit()
+    .remove()
 
   }
 
