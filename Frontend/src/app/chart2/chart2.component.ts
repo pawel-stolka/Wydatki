@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, AfterViewInit, Input } from '@angular/co
 import { D3Service, D3, Selection } from 'd3-ng2-service';
 import { ExpenseService } from '../expense.service';
 import { DataService } from '../data.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'chart2',
@@ -80,51 +81,28 @@ export class Chart2Component implements OnInit {
       // console.log(mapped)
 
       let byDay = this.groupBy(mapped, item => item.date),
-          byMonth = this.groupBy(mapped, item => item.date.substr(5,2))
-          // byWeek = this.groupBy(mapped, x => moment(x.date).week())
+          byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
+          byWeek = this.groupBy(mapped, x => moment(x.date).week())
 
       // if(by === 'byMonth') {
         // this.groupBills = 
-        bills = Array.from(byMonth)
+        bills = Array.from(byWeek)//byDay)//byMonth)
+        let sum = [];
+        bills.forEach(element => {
+          let _sum = 0
+          element[1].forEach(el => {
+            _sum += el.price
+          });
+          _sum = parseFloat(_sum.toFixed(2))
+          sum.push(_sum)
+          element[1] = _sum
+        });
+        console.log('sum', sum)
+        console.log(bills)
         this.apiData = bills
         console.log(this.apiData)
     })
     
-      // .subscribe(data => {
-      //   bills = data.json()
-      //   bills.sort()
-
-      //   console.log(bills)
-      //   this.loadGraph()
-      // })
-      
-    // bills.sort()
-    // return bills
-      // .toPromise()
-
-    // 2.
-    // let data = this.dataService.getBills
-      
-    // console.log(data)
-    // return data.toPromise()  
-
-    // 1.
-    // // return this.apiService.getSimpleGraph()
-    // return this.expenseService.getBills()
-    //   .toPromise()
-    //   .then(
-    //     data => {
-    //       console.log(data.json())
-    //       // // format the data
-    //       // data.forEach(d => {
-    //       //   d.date = this.parseTime(d.date)
-    //       //   d.close = +d.close;
-    //       // });
-
-    //       // this.apiData = data;
-    //       // console.log('getSimpleGraph', data)
-    //     }
-    //   )
   }
 
   groupBy(list, prop) {
@@ -168,9 +146,12 @@ export class Chart2Component implements OnInit {
     
     let maxHeight = 250;
     let yScale = this.d3.scaleLinear()
-      .domain([0, maxHeight])
-      .range([0, this.height])
-      console.log('HEIGHT', this.height)
+      .domain([0, this.height])
+      .range([0, maxHeight])
+    // console.log('maxHeight, this.height', maxHeight, this.height)
+    // console.log('yScale(100)', yScale(100))
+    // console.log('yScale(200)', yScale(200))
+    // console.log('yScale(300)', yScale(300))
 
     let xScale = this.d3.scaleLinear()
       .domain([0, this.apiData.length])
@@ -183,30 +164,30 @@ export class Chart2Component implements OnInit {
 
     // let data = this.apiData//arr
     let data2 = this.apiData.map((d) => d[1])
-    let data = data2[1]
-    console.log(data)
+    let data = this.apiData// data2[1]
+    // console.log(data)
     svg
     .selectAll("rect")
+    // .data(data)
     .data(data)
-    // .data(this.apiData)
     .enter()
     .append('rect')
     .attrs({
       width: this.width / data.length,
       height: (d) => {
-        let res = yScale(d.price)// 20// yScale(d)
+        let res = yScale(d[1])// 20// yScale(d)
         console.log(res)
         return res
       },
       x: (d,i) => { 
         let res = i * this.width/data.length
-        // console.log(res, data.length)
+        console.log(res, data.length)
         return res
       },
       y: (d) => {
         // d = d[1]
         // console.log(d)
-        let res = this.height - yScale(d.price)
+        let res = this.height - yScale(d[1])
         let d1 = d,
             d2 = yScale(d.price)
         // console.log(res)//,d1, d2, d.price)
