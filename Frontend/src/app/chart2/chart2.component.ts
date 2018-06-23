@@ -162,9 +162,22 @@ export class Chart2Component implements OnInit {
             + this.margin.left + "," + this.margin.top
             + ")");
     
-    let maxHeight = 200;
+    // let g = svg.select('g')
+    // g.selectAll('rect')
+    // var arr = [10, 8, 40, 34, 52, 45, 33, 75];
+    // console.log(this.apiData)
+    
+    // let data = this.apiData//arr
+    let data2 = this.apiData.map((d) => d[1])
+    let data = this.apiData// data2[1]
+    console.log(data)
+
+    let maxSum = this.d3.max(this.apiData.map( x => x[1]))
+    console.log(maxSum)
+
+    let maxHeight = 350;
     let yScale = this.d3.scaleLinear()
-      .domain([0, this.height])
+      .domain([0, maxSum])
       .range([0, maxHeight])
     // console.log('maxHeight, this.height', maxHeight, this.height)
     // console.log('yScale(100)', yScale(100))
@@ -175,15 +188,7 @@ export class Chart2Component implements OnInit {
       .domain([0, this.apiData.length])
       .range([0, this.width])
 
-    // let g = svg.select('g')
-    // g.selectAll('rect')
-    // var arr = [10, 8, 40, 34, 52, 45, 33, 75];
-    console.log(this.apiData)
-
-    // let data = this.apiData//arr
-    let data2 = this.apiData.map((d) => d[1])
-    let data = this.apiData// data2[1]
-    // console.log(data)
+    
     svg
     .selectAll("rect")
     // .data(data)
@@ -194,12 +199,12 @@ export class Chart2Component implements OnInit {
       width: this.width / data.length,
       height: (d) => {
         let res = yScale(d[1])// 20// yScale(d)
-        console.log(res)
+        // console.log('height',res)
         return res
       },
       x: (d,i) => { 
         let res = i * this.width/data.length
-        console.log(res, data.length)
+        // console.log(res, data.length)
         return res
       },
       y: (d) => {
@@ -208,7 +213,7 @@ export class Chart2Component implements OnInit {
         let res = this.height - yScale(d[1])
         let d1 = d,
             d2 = yScale(d.price)
-        // console.log(res)//,d1, d2, d.price)
+        // console.log('y',res)//,d1, d2, d.price)
         return res;
       } 
     })
