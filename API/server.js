@@ -45,8 +45,35 @@ app.get('/bills', async (req, res) => {
     }
 })
 
-app.post('/bill', (req, res) => {
+app.post('/bill', async (req, res) => {
     var billData = req.body;
+    console.log(billData)
+    if(billData.name == '' 
+    || billData.price == '' 
+    || billData.date == ''
+    || billData.name == null 
+    || billData.price == null 
+    || billData.date == null)
+        return res.status(400)
+            .send({
+                message: 'not enough data...'
+            })
+
+    var exist = await Bill.find({
+        name: billData.name,
+        price: billData.price,
+        date: billData.date
+    }, '-__v')
+    console.log(exist)
+
+    if(exist.length > 0 ) {
+        console.log('exists', exist)
+        return res.status(400)
+        .send({
+            message: 'Already in database!',
+            exist
+        })
+    }
 
     var bill = new Bill(billData)
 

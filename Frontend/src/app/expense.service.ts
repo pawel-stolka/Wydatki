@@ -24,15 +24,15 @@ export class ExpenseService {
     return this.http.post(`${this.url}/bill`, bill)
 
     // return this.http.post<any>(this.path + '/loginbyemail', email)
-    .subscribe(
-      res => {
-        console.log('what?')
-        console.log(res)
-      },
-      err => {
-        this.error = err
-      }
-    )
+    // .subscribe(
+    //   res => {
+    //     console.log('what?')
+    //     console.log(res)
+    //   },
+    //   err => {
+    //     this.error = err
+    //   }
+    // )
   }
 
   private extractData(res: Response) {

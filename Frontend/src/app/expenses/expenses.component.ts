@@ -78,9 +78,22 @@ export class ExpensesComponent implements OnInit {
     try {
       let bill = new Bill(ex.name, ex.price, ex.date, ex.extra)
       this.expenseService.addBill(bill)
-      console.log(bill)
-      let message = `${bill.name} - ${bill.price} zł`
-      this.popMeUp('success', 'Added', message)// )
+      .subscribe(
+        res => {
+          // this.error = { message: 'fake'}
+          // console.log('what2?')
+          // console.log(res)
+          this.error = null
+          console.log(bill)
+          let message = `${bill.name} - ${bill.price} zł`
+          this.popMeUp('success', 'Added', message)// )
+        },
+        err => {
+          this.error = err
+          console.log(err)
+        }
+      )
+      
     } catch (error) {
       this.error = error
       console.error('something with Bill', error)

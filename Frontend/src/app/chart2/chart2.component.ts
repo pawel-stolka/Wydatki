@@ -228,9 +228,11 @@ export class Chart2Component implements OnInit {
       .append('text')
       .attrs({
         x: (d,i) => 5 + i * this.width/data.length,
-        y: (d) => this.height - yScale(d[1]) - 5
+        y: (d) => this.height - yScale(d[1]) + 15
       })
       .text((d) => d[1] + ' zł')
+      // .attr('class', 'chartText')
+      // .style('fill', 'white')
 
     g
       .selectAll('text')
