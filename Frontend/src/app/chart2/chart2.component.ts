@@ -101,7 +101,7 @@ export class Chart2Component implements OnInit {
           bills = Array.from(byMonth)
           break;
         default:
-          bills = Array.from(byDay)//byMonth)
+          bills = Array.from(byWeek)//byMonth)
           break;
       }
       
@@ -154,7 +154,7 @@ export class Chart2Component implements OnInit {
     // append width, height to the svg object
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    let svg = this.svg
+    let g = this.svg
       .attr("width", totalWidth)
       .attr("height", totalHeight)
       .append('g')
@@ -189,7 +189,7 @@ export class Chart2Component implements OnInit {
       .range([0, this.width])
 
     
-    svg
+    g
     .selectAll("rect")
     // .data(data)
     .data(data)
@@ -220,6 +220,35 @@ export class Chart2Component implements OnInit {
     .style('fill', 'red')
     .style('stroke', 'black')
     .style('stroke-width', '2px')
+
+    g
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attrs({
+        x: (d,i) => 5 + i * this.width/data.length,
+        y: (d) => this.height - yScale(d[1]) - 5
+      })
+      .text((d) => d[1] + ' zł')
+
+    g
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attrs({
+        x: (d,i) => 5 + i * this.width/data.length,
+        y: (d) => -20
+      })
+      .text((d) => d[0])
+
+      // svg
+      // .selectAll('text')
+      // .data(data)
+      // .exit()
+      // .remove()
+
     
 // .attrs({
     //   width: this.width / this.apiData.length,
@@ -246,7 +275,7 @@ export class Chart2Component implements OnInit {
     // })
 
     
-    svg
+    g
     .selectAll("rect")
     // .data(data)
     .data(data)
