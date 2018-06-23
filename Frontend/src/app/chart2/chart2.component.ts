@@ -162,7 +162,7 @@ export class Chart2Component implements OnInit {
             + this.margin.left + "," + this.margin.top
             + ")");
     
-    let maxHeight = 250;
+    let maxHeight = 200;
     let yScale = this.d3.scaleLinear()
       .domain([0, this.height])
       .range([0, maxHeight])
