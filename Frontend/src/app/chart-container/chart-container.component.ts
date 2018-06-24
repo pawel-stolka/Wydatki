@@ -14,9 +14,9 @@ export class ChartContainerComponent implements OnInit {
     this.generateData()
 
      // change the data periodically
-    setInterval(() => {
-      this.generateData(), 100
-    }, 1000);
+    // setInterval(() => {
+    //   this.generateData(), 100
+    // }, 1000);
   }
 
   generateData(): any {
@@ -41,4 +41,7 @@ export class ChartContainerComponent implements OnInit {
     console.log(this.chartData)
   }
 
+  change() {
+    this.generateData()
+  }
 }
