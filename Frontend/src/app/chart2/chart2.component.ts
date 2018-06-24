@@ -196,7 +196,7 @@ export class Chart2Component implements OnInit {
     .enter()
     .append('rect')
     .attrs({
-      width: this.width / data.length,
+      width: this.width / data.length -10,
       height: (d) => {
         let res = yScale(d[1])// 20// yScale(d)
         // console.log('height',res)
