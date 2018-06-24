@@ -31,7 +31,7 @@ export class ChartContainerComponent implements OnInit {
     // }
 
     // random interval
-    let rowNumber = 5 + Math.floor(Math.random() * 10);
+    let rowNumber = 2 + Math.floor(Math.random() * 10);
     for (var i = 1; i <= rowNumber; i++) {
       this.chartData.push([
         `${i}.`,

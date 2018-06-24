@@ -65,7 +65,8 @@ export class ChartUpdateComponent implements OnInit {
     // bar colors
     this.colors = d3.scaleLinear()
       .domain([0, this.data.length])
-      .range(<any[]>['red', 'blue']);
+      // .range(<any[]>['red', 'blue']);
+      .range(<any[]>['orange', 'blueviolet']);
 
     // x & y axis
     this.xAxis = svg.append('g')

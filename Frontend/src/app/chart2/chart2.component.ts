@@ -21,6 +21,7 @@ export class Chart2Component implements OnInit {
   height
   x
   y
+  colors
 
 
   constructor(
@@ -188,6 +189,12 @@ export class Chart2Component implements OnInit {
       .domain([0, this.apiData.length])
       .range([0, this.width])
 
+      // bar colors
+    this.colors = this.d3.scaleLinear()
+    .domain([0, this.apiData.length])
+    .range(<any[]>['orange', 'red']);
+    // .range(<any[]>['orange', 'blueviolet']);
+
     
     g
     .selectAll("rect")
@@ -217,7 +224,8 @@ export class Chart2Component implements OnInit {
         return res;
       } 
     })
-    .style('fill', 'red')
+    .style('fill', (d, i) => this.colors(i))
+    // .style('fill', 'red')
     .style('stroke', 'black')
     .style('stroke-width', '2px')
 
@@ -232,7 +240,7 @@ export class Chart2Component implements OnInit {
       })
       .text((d) => d[1] + ' zł')
       // .attr('class', 'chartText')
-      // .style('fill', 'white')
+      .style('fill', 'white')
 
     g
       .selectAll('text')
