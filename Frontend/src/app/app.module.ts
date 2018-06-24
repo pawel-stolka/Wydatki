@@ -27,6 +27,8 @@ import { ContainerComponent } from './container/container.component';
 import { Chart1Component } from './chart1/chart1.component';
 import { D3Service } from 'd3-ng2-service';
 import { Chart2Component } from './chart2/chart2.component';
+import { ChartUpdateComponent } from './chart-update/chart-update.component';
+import { ChartContainerComponent } from './chart-container/chart-container.component';
 
 
 const routes = [
@@ -39,7 +41,8 @@ const routes = [
   { path: 'container', component: ContainerComponent },
   // testing chart
   { path: 'chart1', component: Chart1Component },
-  { path: 'chart2', component: Chart2Component }
+  { path: 'chart2', component: Chart2Component },
+  { path: 'chart-update', component: ChartContainerComponent }
 ]
 
 
@@ -56,7 +59,9 @@ const routes = [
     SimpleChartComponent,
     ContainerComponent,
     Chart1Component,
-    Chart2Component
+    Chart2Component,
+    ChartUpdateComponent,
+    ChartContainerComponent
   ],
   imports: [
     BrowserModule,
