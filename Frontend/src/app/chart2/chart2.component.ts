@@ -55,11 +55,8 @@ export class Chart2Component implements OnInit {
 
   ngOnInit() {
     this.loadData()
-    // this.loadD3()
-    // this.loadGraph()
-    
-    .then(() => this.loadD3())
-    .then(() => this.loadGraph())
+      .then(() => this.loadD3())
+      .then(() => this.loadGraph())
     // .catch((err) => this.error = `error: ${this.apiService.error}`)
   }
 

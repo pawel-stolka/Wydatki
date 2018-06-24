@@ -44,7 +44,8 @@ const routes = [
   // testing chart
   { path: 'chart1', component: Chart1Component },
   { path: 'chart2', component: Chart2Component },
-  { path: 'chart-update', component: ChartContainerComponent }
+  { path: 'chart-update', component: ChartContainerComponent },
+  { path: 'chart-update2', component: ChartContainer2Component }
 ]
 
 
