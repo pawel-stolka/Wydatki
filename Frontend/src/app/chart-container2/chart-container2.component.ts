@@ -21,10 +21,10 @@ export class ChartContainer2Component implements OnInit {
   generateData() {
     this.chartData = []
     // random interval
-    let rowNumber = 2 + Math.floor(Math.random() * 10);
+    let rowNumber = 10 + Math.floor(Math.random() * 10);
     for (var i = 1; i <= rowNumber; i++) {
       this.chartData.push([
-        `${i}.`,
+        `x=${i}`,
         Math.floor(Math.random() * 10)
       ])
     }

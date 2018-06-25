@@ -11,7 +11,7 @@ export class Chart3Component implements OnInit {
   @Input() private data: Array<any>;
 
   private chart: any;
-  private margin: any = 25;
+  private margin: any = 15;
   private width;
   private height;
 
@@ -38,8 +38,8 @@ export class Chart3Component implements OnInit {
 
   createChart() {
     let element = this.chartContainer.nativeElement;
-    this.width = element.offsetWidth //- 2 *this.margin;
-    this.height = element.offsetHeight //- 2 * this.margin;
+    this.width = element.offsetWidth - 2 *this.margin;
+    this.height = element.offsetHeight +8*  this.margin;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
       .attr('height', element.offsetHeight);
@@ -65,8 +65,8 @@ export class Chart3Component implements OnInit {
       // bar colors
     this.colors = d3.scaleLinear()
     .domain([0, this.data.length])
-    // .range(<any[]>['red', 'blue']);
-    .range(<any[]>['orange', 'yellow']);
+    .range(<any[]>['red', 'blue']);
+    // .range(<any[]>['orange', 'yellow']);
 
     // x & y axis
     this.xAxis = svg.append('g')
@@ -80,9 +80,11 @@ export class Chart3Component implements OnInit {
   }
 
   updateChart() {
+    console.log('update')
     // update scales & axis
     this.xScale.domain(this.data.map(d => d[0]));
     this.yScale.domain([0, d3.max(this.data, d => d[1])]);
+    // console.log(d3.max(this.data, d => d[1]))
     this.colors.domain([0, this.data.length]);
     this.xAxis.transition().call(d3.axisBottom(this.xScale));
     this.yAxis.transition().call(d3.axisLeft(this.yScale));
@@ -96,7 +98,11 @@ export class Chart3Component implements OnInit {
    // update existing bars
    this.chart.selectAll('.bar').transition()
      .attr('x', d => this.xScale(d[0]))
-     .attr('y', d => this.yScale(d[1]))
+     .attr('y', d => {
+        let res = this.yScale(d[1])
+        console.log('y',res)
+        return res
+      })
      .attr('width', d => this.xScale.bandwidth())
      .attr('height', d => this.height - this.yScale(d[1]))
      .style('fill', (d, i) => this.colors(i));
@@ -107,13 +113,21 @@ export class Chart3Component implements OnInit {
      .append('rect')
      .attr('class', 'bar')
      .attr('x', d => this.xScale(d[0]))
-     .attr('y', d => this.yScale(0))
+     .attr('y', d => {
+      let res = this.yScale(0)
+      console.log('y1',res)
+      return res
+      })
      .attr('width', this.xScale.bandwidth())
      .attr('height', 0)
      .style('fill', (d, i) => this.colors(i))
      .transition()
      .delay((d, i) => i * 10)
-     .attr('y', d => this.yScale(d[1]))
+     .attr('y', d => {
+      let res = this.yScale(d[1])
+      console.log('y2',res, d[1])
+      return res
+      })//this.yScale(d[1]))
      .attr('height', d => this.height - this.yScale(d[1]));
   }
 }

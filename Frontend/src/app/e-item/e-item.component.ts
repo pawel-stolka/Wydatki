@@ -74,10 +74,41 @@ export class EItemComponent implements OnInit {
     });
     this.totalPrice = Math.ceil(total * 100)/100;
     // console.log('T: ', total, _t)
+
+    let byName = this.groupBy(this.dailyBills, item => item.name)
+    console.log('byName', byName, this.dailyBills)
+
+    // this.dailyBills = Array.from(byName)
   }
 
   animateMe(){
     this.state = (this.state === 'small' ? 'large' : 'small');
+  }
+
+  //-------------------
+
+  groupBy(list, prop) {
+    const map = new Map();
+    list.forEach(item => {
+      const key = prop(item)
+      const collection = map.get(key)
+      if(!collection)
+        map.set(key, [item])
+      else
+        collection.push(item)
+    });
+    return map;
+  }
+
+  compareName(a,b) {
+    const nameA = a.name,
+          nameB = b.name
+    let comparison = 1
+    if(nameA < nameB)
+      comparison = -1
+
+    // console.log(comparison, dateA, dateB)
+    return comparison
   }
 
 }
