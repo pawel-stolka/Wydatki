@@ -61,12 +61,17 @@ export class ChartContainer2Component implements OnInit {
     
     let byDay = this.groupBy(mapped, item => item.date),
         byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
-        byWeek = this.groupBy(mapped, x => moment(x.date).week())
+        byWeek = this.groupBy(mapped, x => {
+          let res = moment(x.date).week()
+          console.log(res, x.date)
+          return res
+        })
         
     let bills
     switch (by) {
       case 'byWeek':
         bills = Array.from(byWeek)
+        console.log(byWeek)
         break;
       case 'byMonth':
         bills = Array.from(byMonth)
@@ -79,13 +84,17 @@ export class ChartContainer2Component implements OnInit {
       
     let sum = [];
     bills.forEach(element => {
-      let _sum = 0
+      let _sum = 0,
+          _date
       element[1].forEach(el => {
         _sum += el.price
+        // console.log('el', el.date)
       });
       _sum = parseFloat(_sum.toFixed(2))
       sum.push(_sum)
       element[1] = _sum
+
+      element[2] ="dwa"
     });
 
     this.apiData = bills
