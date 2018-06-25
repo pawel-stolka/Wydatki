@@ -3,8 +3,17 @@
 </p>
 
 <hr>
-<button (click)='change()' 
+
+<button (click)='by("byDay")' 
+class="btn btn-outline-primary">
+by day</button>
+
+<button (click)='by("byWeek")' 
 class="btn btn-outline-warning">
-change</button>
+by week</button>
+
+<button (click)='by("byMonth")' 
+class="btn btn-outline-secondary">
+by month</button>
 
 <chart3 *ngIf="chartData" [data]="chartData"></chart3>

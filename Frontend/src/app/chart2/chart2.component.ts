@@ -70,23 +70,23 @@ export class Chart2Component implements OnInit {
     let bills
 
     return this.expenseService.getBills()
-    .toPromise()
-    .then((data: any) => {
-    // .subscribe((data: any) => {
-      let _data = data.json()
-      let mapped = _data.map(x => ({
-        name: x.name,
-        date: x.date.substr(0,10),
-        fulldate: new Date(x.date),
-        price: x.price,
-        extra: x.extra          
-      }))
+      .toPromise()
+      .then((data: any) => {
+        // .subscribe((data: any) => {
+        let _data = data.json()
+        let mapped = _data.map(x => ({
+          name: x.name,
+          date: x.date.substr(0,10),
+          fulldate: new Date(x.date),
+          price: x.price,
+          extra: x.extra          
+        }))
       .sort(this.compareDate)
       // console.log(mapped)
 
       let byDay = this.groupBy(mapped, item => item.date),
-      byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
-      byWeek = this.groupBy(mapped, x => moment(x.date).week())
+        byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
+        byWeek = this.groupBy(mapped, x => moment(x.date).week())
       
       switch (by) {
         case 'byDay':
