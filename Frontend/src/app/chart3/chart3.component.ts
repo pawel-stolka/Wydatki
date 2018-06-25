@@ -11,7 +11,7 @@ export class Chart3Component implements OnInit {
   @Input() private data: Array<any>;
 
   private chart: any;
-  private margin: any = 15;
+  private margin: any = 30;
   private width;
   private height;
 
@@ -38,8 +38,8 @@ export class Chart3Component implements OnInit {
 
   createChart() {
     let element = this.chartContainer.nativeElement;
-    this.width = element.offsetWidth - 2 *this.margin;
-    this.height = element.offsetHeight +8*  this.margin;
+    this.width = element.offsetWidth - 2 * this.margin;
+    this.height = element.offsetHeight - 2 * this.margin;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
       .attr('height', element.offsetHeight);

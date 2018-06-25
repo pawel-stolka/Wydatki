@@ -38,7 +38,7 @@ export class ChartUpdateComponent implements OnInit {
 
   createChart() {
     let element = this.chartContainer.nativeElement;
-    this.width = element.offsetWidth - 2 *this.margin;
+    this.width = element.offsetWidth - 2 * this.margin;
     this.height = element.offsetHeight - 2 * this.margin;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
