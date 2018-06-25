@@ -1,19 +1,15 @@
-<p>
-  chart-container2 works!
-</p>
-
 <hr>
 
 <button (click)='by("byDay")' 
-class="btn btn-outline-primary">
+class="btn btn-primary">
 by day</button>
 
 <button (click)='by("byWeek")' 
-class="btn btn-outline-warning">
+class="btn btn-warning">
 by week</button>
 
 <button (click)='by("byMonth")' 
-class="btn btn-outline-secondary">
+class="btn btn-secondary">
 by month</button>
 
 <chart3 *ngIf="chartData" [data]="chartData"></chart3>

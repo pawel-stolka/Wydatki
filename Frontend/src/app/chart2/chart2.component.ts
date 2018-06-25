@@ -41,7 +41,7 @@ export class Chart2Component implements OnInit {
 
     // var width = +this.svg.attr("width"),
     //     height = +this.svg.attr("height")
-    this.margin = { top: 40, right: 20, bottom: 100, left: 70 }
+    this.margin = { top: 20, right: 20, bottom: 10, left: 50 }
     this.width = _width - this.margin.left - this.margin.right
     this.height = _height - this.margin.top - this.margin.bottom
   
