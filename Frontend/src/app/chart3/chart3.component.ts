@@ -125,5 +125,18 @@ export class Chart3Component implements OnInit {
       return res
       })//this.yScale(d[1]))
      .attr('height', d => this.height - this.yScale(d[1]));
+
+    // update
+    // .enter()
+    // .append('text')
+    // .attrs({
+    //   x: d => this.xScale(d[0]) + 5,
+    //   y: d => this.yScale(d[1]) + 15
+    // })
+    // .text((d) => d[1] + ' zł')
+    // // .attr('class', 'chartText')
+    // .style('fill', 'white')
+
+     
   }
 }
