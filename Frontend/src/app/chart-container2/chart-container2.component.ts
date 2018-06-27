@@ -63,7 +63,7 @@ export class ChartContainer2Component implements OnInit {
         byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
         byWeek = this.groupBy(mapped, x => {
           let res = moment(x.date).week()
-          console.log(res, x.date)
+          // console.log(res, x.date)
           return res
         })
         
@@ -103,11 +103,11 @@ export class ChartContainer2Component implements OnInit {
     for (var i = 0; i < this.apiData.length; i++) {
       let x = `${this.apiData[i][0]}`,
           y = this.apiData[i][1]
-          console.log(x, 'TERAZ'.substr(2,2))
-      let x1 = x.substr(6,1),
+          // console.log(x, 'TERAZ'.substr(2,2))
+      let x1 = x.substr(5,2),
           x2 = x.substr(8)
       if(x.startsWith('2018'))
-        x = x2+'/'+x1
+        x = x2+'-'+x1
       this.chartData.push([x,y])
     }
     // console.log(this.chartData)

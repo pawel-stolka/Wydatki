@@ -86,7 +86,16 @@ export class Chart3Component implements OnInit {
     this.xScale.domain(this.data.map(d => d[0]));
     this.yScale.domain([0, d3.max(this.data, d => d[1])]);
     this.colors.domain([0, this.data.length]);
-    this.xAxis.transition().call(d3.axisBottom(this.xScale));
+    this.xAxis.transition()
+      .call(d3.axisBottom(this.xScale))
+      .selectAll('text')
+      .style('text-anchor', 'end')
+      .attrs({
+        dx: '-1.50em',
+        dy: '0.25em',
+        // transform: 'rotate(-65)',
+      })
+      .attr('transform', 'rotate(-65)')
     this.yAxis.transition().call(d3.axisLeft(this.yScale));
 
     let update = this.chart.selectAll('.bar')
