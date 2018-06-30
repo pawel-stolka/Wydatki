@@ -21,6 +21,7 @@ export class PieComponent implements OnInit {
 
   ngOnInit() {
     this.createPie();
+    console.log(this.data)
     if (this.data) {
       this.updatePie();
     }
@@ -54,29 +55,11 @@ export class PieComponent implements OnInit {
       `translate(${this.width/2}, 150)`);
 
     let arcGenerator = d3.arc()
+      .innerRadius(50)
+      .outerRadius(150)
+      .padAngle(.03)
+      .padRadius(100)
       .cornerRadius(5)
-    let pathData = arcGenerator({
-      startAngle: 0,
-      endAngle: 1.2 * Math.PI,
-      innerRadius: 50,
-      outerRadius: 150
-    })
-    let pathData2 = arcGenerator({
-      startAngle: 1.2 * Math.PI,
-      endAngle: 2 * Math.PI,
-      innerRadius: 50,
-      outerRadius: 150
-    })
-    console.log(pathData)
-
-    // let arc = d3.arc()
-    //   .innerRadius(180)
-    //   .outerRadius(240)
-    //   .startAngle(0);
-    // // let arc = d3.arc()
-    // //   .innerRadius(0)
-    // //   .outerRadius(this.radius)
-    // console.log(arc)
 
     let pie = d3.pie()
       .value((d:any) => d.value)
@@ -96,19 +79,9 @@ export class PieComponent implements OnInit {
       .append('g')
       .append('path')
       .attrs({
-        d: pathData,
+        d: arcGenerator,
         fill: "orange"
       })
-
-      // let path2 = g.selectAll('path')
-      // .data(pie(this.data))
-      // .enter()
-      // .append('g')
-      // .append('path')
-      // .attrs({
-      //   d: pathData2,
-      //   fill: "red"
-      // })
   }
 
   updatePie() {
