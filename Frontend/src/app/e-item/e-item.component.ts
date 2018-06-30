@@ -41,6 +41,8 @@ export class EItemComponent implements OnInit {
   @Input()
   dailyBills: any[]
 
+  groupedItems: any[] = []
+
   state: string = 'small';
 
   currentDate
@@ -58,6 +60,7 @@ export class EItemComponent implements OnInit {
     // console.log(this.bills)
     this.sumPrice()
     // console.log('this.totalPrice', this.totalPrice)
+    this.groupBatches()
   }
 
   sumPrice() {
@@ -75,10 +78,25 @@ export class EItemComponent implements OnInit {
     this.totalPrice = Math.ceil(total * 100)/100;
     // console.log('T: ', total, _t)
 
-    let byName = this.groupBy(this.dailyBills, item => item.name)
-    console.log('byName', byName, this.dailyBills)
+    
+    
+  }
+  _groupedItems: any[] = []
+  groupBatches(){
+    let items = []
+    this.dailyBills.forEach(element => {
+      items.push(element)
+      // console.log('element', element)
+    });
+    console.log(items)
+    let byName = this.groupBy(items, item => item.name)
+    // console.log('dailyBills', this.dailyBills.length)
+    this._groupedItems = Array.from(byName)
+    
 
-    // this.dailyBills = Array.from(byName)
+    this._groupedItems.forEach(el3 => {
+      // console.log('el3', el3)//.length)
+    });
   }
 
   animateMe(){

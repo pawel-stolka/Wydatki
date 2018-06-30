@@ -28,6 +28,8 @@ import { ChartUpdateComponent } from './chart-update/chart-update.component';
 import { ChartContainerComponent } from './chart-container/chart-container.component';
 import { ChartContainer2Component } from './chart-container2/chart-container2.component';
 import { Chart3Component } from './chart3/chart3.component';
+import { PieComponent } from './pie/pie.component';
+import { PieContainerComponent } from './pie-container/pie-container.component';
 
 
 const routes = [
@@ -40,7 +42,8 @@ const routes = [
   { path: 'chart1', component: Chart1Component },
   { path: 'chart2', component: Chart2Component },
   { path: 'chart-update', component: ChartContainerComponent },
-  { path: 'chart-update2', component: ChartContainer2Component }
+  { path: 'chart-update2', component: ChartContainer2Component },
+  { path: 'pie', component: PieContainerComponent },
 ]
 
 
@@ -58,7 +61,9 @@ const routes = [
     ChartUpdateComponent,
     ChartContainerComponent,
     ChartContainer2Component,
-    Chart3Component
+    Chart3Component,
+    PieComponent,
+    PieContainerComponent
   ],
   imports: [
     BrowserModule,
