@@ -35,8 +35,9 @@ export class PieComponent implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
+    // element.offsetHeight = 500
     this.width = element.offsetWidth - 2 * this.margin.top;
-    this.height = 500//element.offsetHeight - this.margin.top;
+    this.height = element.offsetHeight;
     this.radius = this.height/2
     console.log(element)
     let svg = d3.select(element)
@@ -52,25 +53,25 @@ export class PieComponent implements OnInit {
     // chart plot area
     let g = svg.append('g')
       .attr('transform', 
-      `translate(${this.width/2}, 150)`);
+      `translate(${this.width/2}, ${this.height/2})`);
 
     let arcGenerator = d3.arc()
-      .innerRadius(50)
+      .innerRadius(75)
       .outerRadius(150)
       .padAngle(.03)
       .padRadius(100)
       .cornerRadius(5)
 
-    let pie = d3.pie()
-      .value((d:any) => d.value)
-      .sort(null)
+    function ln(factor = 1) {
+      return factor * 2 * Math.PI
+    }
+
+    let colors = ["red", "orange", "green"]
 
     var arcData = [
-        {startAngle: 0, endAngle: 0.2},
-        {startAngle: 0.2, endAngle: 0.6},
-        {startAngle: 0.6, endAngle: 1.4},
-        {startAngle: 1.4, endAngle: 3},
-        {startAngle: 3, endAngle: 2* Math.PI}
+        {startAngle: 0, endAngle: ln(0.4), label: 'One'},
+        {startAngle: ln(0.4), endAngle: ln(0.7), label: 'Two'},
+        {startAngle: ln(0.7), endAngle: ln(), label: 'Three'}
       ];
 
     let path = g.selectAll('path')
@@ -80,8 +81,21 @@ export class PieComponent implements OnInit {
       .append('path')
       .attrs({
         d: arcGenerator,
-        fill: "orange"
+        fill: (d,i) => colors[i]
       })
+    // d3.selectAll('g')
+    g
+      .selectAll('text')
+      .data(arcData)
+      .enter()
+      .append('text')
+      .attrs({
+        x: (d:any) => arcGenerator.centroid(d)[0],
+        y: (d:any) => arcGenerator.centroid(d)[1],
+        'text-anchor': 'middle',
+        fill: 'white'
+      })
+      .text((d: any) => d.label)
   }
 
   updatePie() {
