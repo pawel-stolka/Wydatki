@@ -68,11 +68,37 @@ export class PieComponent implements OnInit {
 
     let colors = ["red", "orange", "green"]
 
-    var arcData = [
-        {startAngle: 0, endAngle: ln(0.4), label: 'One'},
-        {startAngle: ln(0.4), endAngle: ln(0.7), label: 'Two'},
-        {startAngle: ln(0.7), endAngle: ln(), label: 'Three'}
-      ];
+    // var arcData = [
+    //     {startAngle: 0, endAngle: ln(0.4), label: 'One'},
+    //     {startAngle: ln(0.4), endAngle: ln(0.7), label: 'Two'},
+    //     {startAngle: ln(0.7), endAngle: ln(), label: 'Three'}
+    //   ];
+    let arcData = []
+
+    let parts = [.33, .45, 1].sort()
+
+    for (var i = 0; i < parts.length; i++) {
+      let el = parts[i],
+          start,
+          data = {}
+
+      if(i==0) {
+        data = { startAngle: 0, endAngle: ln(el) }
+      }
+      if(i>0){
+        data = { startAngle: ln(el), endAngle: ln(parts[i-1]) }
+      } 
+      data.label = colors[i]
+      let percentage = null
+      data.perc = el.toString().substr(2)
+      arcData.push(data)
+    }
+    // console.log(arcData)
+    // parts.forEach(element => {
+    //   console.log('part', element)
+    //   // let data = {startAngle: element}
+    //   // arcData.push()
+    // });
 
     let path = g.selectAll('path')
       .data(arcData)
@@ -95,7 +121,7 @@ export class PieComponent implements OnInit {
         'text-anchor': 'middle',
         fill: 'white'
       })
-      .text((d: any) => d.label)
+      .text((d: any) => `${d.label} ${d.perc}%`)
   }
 
   updatePie() {
