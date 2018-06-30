@@ -66,7 +66,7 @@ export class PieComponent implements OnInit {
       return factor * 2 * Math.PI
     }
 
-    let colors = ["red", "orange", "green"]
+    
 
     // var arcData = [
     //     {startAngle: 0, endAngle: ln(0.4), label: 'One'},
@@ -75,22 +75,50 @@ export class PieComponent implements OnInit {
     //   ];
     let arcData = []
 
-    let parts = [.33, .45, 1].sort()
+    let parts = [.15, .75, 1]//.sort()
+    let colorDef = ["red", "orange", "green"]
+    let colors //= ["red", "orange", "green"]
+        = d3.scaleLinear()
+      .domain([0, parts.length])
+      .range(<any[]> colorDef)//['yellow', 'blue']);
 
     for (var i = 0; i < parts.length; i++) {
-      let el = parts[i],
-          start,
+      let //el = parts[i],
+          // start,
           data = {}
 
       if(i==0) {
-        data = { startAngle: 0, endAngle: ln(el) }
+        let factor = parseFloat((parts[i]*100)
+          .toString())
+          .toFixed(0)
+        // console.log('factor', factor)
+        // let factor = parts[i]
+        let p = parts[i]
+        let perc = p.toString().substr(2)
+        let color =  colors(i)
+        data = { 
+          startAngle: 0, 
+          endAngle: ln(parts[i]),
+          label: color,
+          percentage: factor
+        }
       }
       if(i>0){
-        data = { startAngle: ln(el), endAngle: ln(parts[i-1]) }
+        let factor = parseFloat(((parts[i] - parts[i-1])*100)
+          .toString())
+          .toFixed(0)
+        // console.log('factor', factor.toFixed(1))
+        let color =  colors(i)
+        data = { 
+          startAngle: ln(parts[i]), 
+          endAngle: ln(parts[i-1]),
+          label: color,
+          percentage: factor// parts[i].toString().substr(2)
+        }
       } 
-      data.label = colors[i]
-      let percentage = null
-      data.perc = el.toString().substr(2)
+      // data.label = colors[i]
+      // let percentage = null
+      // data.percentage = parts[i].toString().substr(2)
       arcData.push(data)
     }
     // console.log(arcData)
@@ -107,7 +135,7 @@ export class PieComponent implements OnInit {
       .append('path')
       .attrs({
         d: arcGenerator,
-        fill: (d,i) => colors[i]
+        fill: (d,i) => colors(i)
       })
     // d3.selectAll('g')
     g
@@ -121,7 +149,7 @@ export class PieComponent implements OnInit {
         'text-anchor': 'middle',
         fill: 'white'
       })
-      .text((d: any) => `${d.label} ${d.perc}%`)
+      .text((d: any) => `${d.label} ${d.percentage}%`)
   }
 
   updatePie() {
