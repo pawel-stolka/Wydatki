@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  Input
+} from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -8,16 +14,21 @@ import * as d3 from 'd3';
 })
 export class PieComponent implements OnInit {
   @ViewChild('pie') private pieContainer: ElementRef;
-  @Input() private data: Array<any>;
-  
+  @Input() private data: Array < any > ;
+
   private pie: any;
   private margin: any //= 30;
-    = { top: 50, right: 20, bottom: 100, left: 50 }
+  = {
+    top: 50,
+    right: 20,
+    bottom: 100,
+    left: 50
+  }
   private width;
   private height;
   private radius;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.createPie();
@@ -38,7 +49,7 @@ export class PieComponent implements OnInit {
     // element.offsetHeight = 500
     this.width = element.offsetWidth - 2 * this.margin.top;
     this.height = element.offsetHeight;
-    this.radius = this.height/2
+    this.radius = this.height / 2
     console.log(element)
     let svg = d3.select(element)
       .append('svg')
@@ -47,13 +58,13 @@ export class PieComponent implements OnInit {
         width: element.offsetWidth,
         height: element.offsetHeight
       })
-    
+
 
     console.log('pie')
     // chart plot area
     let g = svg.append('g')
-      .attr('transform', 
-      `translate(${this.width/2}, ${this.height/2})`);
+      .attr('transform',
+        `translate(${this.width/2}, ${this.height/2})`);
 
     let arcGenerator = d3.arc()
       .innerRadius(75)
@@ -66,7 +77,7 @@ export class PieComponent implements OnInit {
       return factor * 2 * Math.PI
     }
 
-    
+
 
     // var arcData = [
     //     {startAngle: 0, endAngle: ln(0.4), label: 'One'},
@@ -75,47 +86,49 @@ export class PieComponent implements OnInit {
     //   ];
     let arcData = []
 
-    let parts = [.15, .75, 1]//.sort()
-    let colorDef = ["red", "orange", "green"]
+    let parts = [.1, .35, .85, 1];
+    let names = ['a', 'b', 'c', 'finito']
+
+    let colorDef = ["orange", "red"]
     let colors //= ["red", "orange", "green"]
-        = d3.scaleLinear()
+    = d3.scaleLinear()
       .domain([0, parts.length])
-      .range(<any[]> colorDef)//['yellow', 'blue']);
+      .range( < any[] > colorDef) //['yellow', 'blue']);
 
     for (var i = 0; i < parts.length; i++) {
       let //el = parts[i],
-          // start,
-          data = {}
+        // start,
+        data = {}
 
-      if(i==0) {
-        let factor = parseFloat((parts[i]*100)
-          .toString())
+      if (i == 0) {
+        let factor = parseFloat((parts[i] * 100)
+            .toString())
           .toFixed(0)
-        // console.log('factor', factor)
+        console.log('factor', factor)
         // let factor = parts[i]
         let p = parts[i]
         let perc = p.toString().substr(2)
-        let color =  colors(i)
-        data = { 
-          startAngle: 0, 
+        let color = colors(i)
+        data = {
+          startAngle: 0,
           endAngle: ln(parts[i]),
-          label: color,
+          label: names[i], // parts[i].name,// color,
           percentage: factor
         }
       }
-      if(i>0){
-        let factor = parseFloat(((parts[i] - parts[i-1])*100)
-          .toString())
+      if (i > 0) {
+        let factor = parseFloat(((parts[i] - parts[i - 1]) * 100)
+            .toString())
           .toFixed(0)
-        // console.log('factor', factor.toFixed(1))
-        let color =  colors(i)
-        data = { 
-          startAngle: ln(parts[i]), 
-          endAngle: ln(parts[i-1]),
-          label: color,
-          percentage: factor// parts[i].toString().substr(2)
+        console.log('factor', factor)
+        let color = colors(i)
+        data = {
+          startAngle: ln(parts[i]),
+          endAngle: ln(parts[i - 1]),
+          label: names[i], // parts[i-1].name,// color,
+          percentage: factor // parts[i].toString().substr(2)
         }
-      } 
+      }
       // data.label = colors[i]
       // let percentage = null
       // data.percentage = parts[i].toString().substr(2)
@@ -135,11 +148,7 @@ export class PieComponent implements OnInit {
       .append('path')
       .attrs({
         d: arcGenerator,
-        fill: (d,i) => {
-          let c = colors(i)
-          console.log(c)
-          return c
-        }
+        fill: (d, i) => colors(i)
       })
     // d3.selectAll('g')
     g
@@ -148,8 +157,8 @@ export class PieComponent implements OnInit {
       .enter()
       .append('text')
       .attrs({
-        x: (d:any) => arcGenerator.centroid(d)[0],
-        y: (d:any) => arcGenerator.centroid(d)[1],
+        x: (d: any) => arcGenerator.centroid(d)[0],
+        y: (d: any) => arcGenerator.centroid(d)[1],
         'text-anchor': 'middle',
         fill: 'white'
       })
