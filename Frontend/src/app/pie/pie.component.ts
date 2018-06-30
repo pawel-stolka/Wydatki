@@ -86,8 +86,10 @@ export class PieComponent implements OnInit {
     //   ];
     let arcData = []
 
-    let parts = [.1, .35, .85, 1];
+    let parts = [.1, .35, .5, .85, .9, 1];
     let names = ['a', 'b', 'c', 'finito']
+    let _letters = 'abcdefghijklmnopqrstuvwxyz'
+    let letters = _letters.split('')
 
     let colorDef = ["orange", "red"]
     let colors //= ["red", "orange", "green"]
@@ -112,7 +114,7 @@ export class PieComponent implements OnInit {
         data = {
           startAngle: 0,
           endAngle: ln(parts[i]),
-          label: names[i], // parts[i].name,// color,
+          label: letters[i],// names[i], // parts[i].name,// color,
           percentage: factor
         }
       }
@@ -125,7 +127,7 @@ export class PieComponent implements OnInit {
         data = {
           startAngle: ln(parts[i]),
           endAngle: ln(parts[i - 1]),
-          label: names[i], // parts[i-1].name,// color,
+          label: letters[i],// names[i], // parts[i-1].name,// color,
           percentage: factor // parts[i].toString().substr(2)
         }
       }
