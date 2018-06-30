@@ -135,7 +135,11 @@ export class PieComponent implements OnInit {
       .append('path')
       .attrs({
         d: arcGenerator,
-        fill: (d,i) => colors(i)
+        fill: (d,i) => {
+          let c = colors(i)
+          console.log(c)
+          return c
+        }
       })
     // d3.selectAll('g')
     g
