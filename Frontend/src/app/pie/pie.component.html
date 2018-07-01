@@ -4,6 +4,21 @@
     <div class="header">Gender Distribution</div>
     <div id="chart" class="chart-container"></div>
 </div> -->
-
+<div>
+<!-- <div> -->
+    currData: <span *ngIf="currData.length>0">
+        {{currData[0].label}}
+        </span>
+</div>
 <!-- <div class="d3-chart" #pie></div> -->
+<button (click)='enter()' 
+class="btn btn-outline-default">
+enter</button>
+
+<button (click)='exit()' 
+class="btn btn-outline-success">
+exit</button>
+
+<div id="en">enter</div>
+<div id="ex">exit</div>
 

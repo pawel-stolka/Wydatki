@@ -17,3 +17,14 @@
   margin: 20px;
   height: 400px;
 }
+
+.test2 {
+  display: inline-block;
+	margin: 5px;
+	background-color: orange;
+	color: white;
+	padding: 10px;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+}

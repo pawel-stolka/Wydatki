@@ -63,8 +63,12 @@ export class PieComponent implements OnInit {
     console.log('pie')
     // chart plot area
     let g = svg.append('g')
-      .attr('transform',
-        `translate(${this.width/2}, ${this.height/2})`);
+      .attrs({
+        transform: `
+          translate(${this.width/2}, ${this.height/2})
+          `,
+        class: 'mainCircle'
+      });
 
     let arcGenerator = d3.arc()
       .innerRadius(75)
@@ -77,23 +81,15 @@ export class PieComponent implements OnInit {
       return factor * 2 * Math.PI
     }
 
-
-
-    // var arcData = [
-    //     {startAngle: 0, endAngle: ln(0.4), label: 'One'},
-    //     {startAngle: ln(0.4), endAngle: ln(0.7), label: 'Two'},
-    //     {startAngle: ln(0.7), endAngle: ln(), label: 'Three'}
-    //   ];
     let arcData = []
 
-    let parts = [.1, .35, .5, .85, .9, 1];
-    let names = ['a', 'b', 'c', 'finito']
+    let parts = [.1, .35, .65, 1];
     let _letters = 'abcdefghijklmnopqrstuvwxyz'
-    let letters = _letters.split('')
+    let names = _letters.split('')
 
     let colorDef = ["orange", "red"]
-    let colors //= ["red", "orange", "green"]
-    = d3.scaleLinear()
+    let colors = // ["red", "orange", "green"]
+      d3.scaleLinear()
       .domain([0, parts.length])
       .range( < any[] > colorDef) //['yellow', 'blue']);
 
@@ -114,7 +110,7 @@ export class PieComponent implements OnInit {
         data = {
           startAngle: 0,
           endAngle: ln(parts[i]),
-          label: letters[i],// names[i], // parts[i].name,// color,
+          label: names[i],// names[i], // parts[i].name,// color,
           percentage: factor
         }
       }
@@ -127,44 +123,177 @@ export class PieComponent implements OnInit {
         data = {
           startAngle: ln(parts[i]),
           endAngle: ln(parts[i - 1]),
-          label: letters[i],// names[i], // parts[i-1].name,// color,
+          label: names[i],// names[i], // parts[i-1].name,// color,
           percentage: factor // parts[i].toString().substr(2)
         }
       }
-      // data.label = colors[i]
-      // let percentage = null
-      // data.percentage = parts[i].toString().substr(2)
       arcData.push(data)
     }
-    // console.log(arcData)
-    // parts.forEach(element => {
-    //   console.log('part', element)
-    //   // let data = {startAngle: element}
-    //   // arcData.push()
-    // });
 
     let path = g.selectAll('path')
       .data(arcData)
       .enter()
       .append('g')
+      .attrs({
+        class: 'cakeBit'
+      })
+      // .append('text')
       .append('path')
       .attrs({
         d: arcGenerator,
         fill: (d, i) => colors(i)
       })
-    // d3.selectAll('g')
-    g
-      .selectAll('text')
+
+      // let g = svg.append('g')
+      // .attrs({
+      //   transform: `
+      //     translate(${this.width/2}, ${this.height/2})
+      //     `,
+      //   class: 'mainCircle'
+      // });
+
+    let legend = ['aaa','ttt']
+    let gTest = svg
+      .append('g')
+      .attrs({
+        class: 'test'
+      })
+      .selectAll('test')
+      .data(legend)
+      .enter()
+      // .append('g')
+      // .append('text')
+      // // .text(d => d)
+      // .attrs({
+      //   x: (d: any) => 20,
+      //   y: (d, i: any) => i * 20 + 20,
+      //   // dy: '.35em',
+      //   'text-anchor': 'start',
+      //   fill: 'blue'
+      // })
+      // .text((d: any) => 
+      //   `${d.label} ${d.percentage}%`
+      // )
+
+    // g
+    // path
+    g.selectAll('cakeBit')
+    // .selectAll('text')
       .data(arcData)
       .enter()
       .append('text')
       .attrs({
         x: (d: any) => arcGenerator.centroid(d)[0],
         y: (d: any) => arcGenerator.centroid(d)[1],
+        // dy: '.35em',
         'text-anchor': 'middle',
         fill: 'white'
       })
-      .text((d: any) => `${d.label} ${d.percentage}%`)
+      .text((d: any) => 
+        `${d.label} ${d.percentage}%`
+      )
+    // let centerText = g.selectAll('cakeBit')//'centerText')
+    //   .data(arcData)
+    //   .enter()
+    //   .append('text')
+    //   // .text('fdf')
+    //   .attrs({
+    //     'text-anchor': 'middle'
+    //   })
+
+    
+    path
+      .on('mouseenter', (data) => {
+        console.log('enter', data)
+        this.currData.push(data)
+        console.log('this.currData', this.currData)
+        gTest
+          // .selectAll('test')
+          // .data(legend)
+          // .enter()
+          // .data(data)
+          // .append('text')
+          .append('text')
+          .attr('class','textItem')
+          // .text(d => d)
+          .attrs({
+            x: (d: any) => 20,
+            y: (d, i: any) => i * 20 + 20,
+            // dy: '.35em',
+            'text-anchor': 'start',
+            fill: 'blue'
+          })
+          .text(d => d)
+
+        // path
+        // // g.selectAll('cakeBit')
+        //   .append('g')
+        // centerText.text(data.label)
+      })
+      .on('mouseout', (data) => {
+        console.log('out', data)
+        this.currData.pop()
+        console.log('this.currData', this.currData)
+        let data2 = data// []//= ['sth out']
+        // data 
+        // data2.pop()
+        // .push({
+        //   startAngle: 0,
+        //   endAngle: ln(parts[i]),
+        //   label: names[i],// names[i], // parts[i].name,// color,
+        //   percentage: null
+        // })
+
+        gTest
+        .selectAll('textItem')
+        .data(data)
+        .exit()
+        .remove()
+        // .enter()
+        // .append('text')
+        // .text(d => d)
+        // .remove()
+        // centerText.remove()
+        // centerText.text('')
+      })
+
+    this.test()
+  }
+  currData: any[] = []
+
+  test() {
+    let element = this.pieContainer.nativeElement;
+    let svg = d3.select(element)
+
+    this.test3 = svg
+    .append('g')
+
+    let en = svg.selectAll('#en')
+    console.log(en)
+   
+  }
+test3
+
+  enter() {
+    let myData = ['A', 'B', 'C', 'D', 'E'];
+    
+        this.test3.selectAll('div')
+          .data(myData)
+          .enter()
+          .append('div')
+          .text(d => d)
+          .attrs({
+            class: 'test2'
+          })
+  }
+
+  exit() {
+    let myData = ['A', 'B', 'C'];
+
+    this.test3.selectAll('div')
+    .data(myData)
+    .exit()
+    .remove()
   }
 
   updatePie() {
