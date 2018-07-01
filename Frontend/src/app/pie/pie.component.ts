@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-  Input
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -17,13 +11,12 @@ export class PieComponent implements OnInit {
   @Input() private data: Array < any > ;
 
   private pie: any;
-  private margin: any //= 30;
-  = {
-    top: 50,
-    right: 20,
-    bottom: 100,
-    left: 50
-  }
+  private margin: any = {
+      top: 50,
+      right: 20,
+      bottom: 100,
+      left: 50
+    }
   private width;
   private height;
   private radius;

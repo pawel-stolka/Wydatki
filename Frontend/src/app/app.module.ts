@@ -30,6 +30,8 @@ import { ChartContainer2Component } from './chart-container2/chart-container2.co
 import { Chart3Component } from './chart3/chart3.component';
 import { PieComponent } from './pie/pie.component';
 import { PieContainerComponent } from './pie-container/pie-container.component';
+import { PieContainer2Component } from './pie-container2/pie-container2.component';
+import { Pie2Component } from './pie2/pie2.component';
 
 
 const routes = [
@@ -63,7 +65,9 @@ const routes = [
     ChartContainer2Component,
     Chart3Component,
     PieComponent,
-    PieContainerComponent
+    PieContainerComponent,
+    PieContainer2Component,
+    Pie2Component
   ],
   imports: [
     BrowserModule,
