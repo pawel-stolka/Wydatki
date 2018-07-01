@@ -83,7 +83,7 @@ export class PieComponent implements OnInit {
 
     let arcData = []
 
-    let parts = [.1, .35, .65, 1];
+    let parts = [.23, .34, .65, 1];
     let _letters = 'abcdefghijklmnopqrstuvwxyz'
     let names = _letters.split('')
 
@@ -94,39 +94,29 @@ export class PieComponent implements OnInit {
       .range( < any[] > colorDef) //['yellow', 'blue']);
 
     for (var i = 0; i < parts.length; i++) {
-      let //el = parts[i],
-        // start,
-        data = {}
+      let data = {},
+          color = colors(i),
+          p0 = parts[i],
+          p1 = 0,
+          startAngle = 0,
+          endAngle = ln(p0)
 
-      if (i == 0) {
-        let factor = parseFloat((parts[i] * 100)
-            .toString())
-          .toFixed(0)
-        console.log('factor', factor)
-        // let factor = parts[i]
-        let p = parts[i]
-        let perc = p.toString().substr(2)
-        let color = colors(i)
-        data = {
-          startAngle: 0,
-          endAngle: ln(parts[i]),
-          label: names[i],// names[i], // parts[i].name,// color,
-          percentage: factor
-        }
-      }
       if (i > 0) {
-        let factor = parseFloat(((parts[i] - parts[i - 1]) * 100)
-            .toString())
-          .toFixed(0)
-        console.log('factor', factor)
-        let color = colors(i)
-        data = {
-          startAngle: ln(parts[i]),
-          endAngle: ln(parts[i - 1]),
-          label: names[i],// names[i], // parts[i-1].name,// color,
-          percentage: factor // parts[i].toString().substr(2)
-        }
+        p1 = parts[i-1],
+        startAngle = ln(p0)
+        endAngle = ln(p1)
       }
+
+      let p = ((p0 - p1) * 100).toString(),
+          factor = parseFloat(p).toFixed(0)
+
+      data = {
+        startAngle,
+        endAngle,
+        label: names[i],
+        percentage: factor
+      }
+
       arcData.push(data)
     }
 
@@ -192,27 +182,13 @@ export class PieComponent implements OnInit {
       .text((d: any) => 
         `${d.label} ${d.percentage}%`
       )
-    // let centerText = g.selectAll('cakeBit')//'centerText')
-    //   .data(arcData)
-    //   .enter()
-    //   .append('text')
-    //   // .text('fdf')
-    //   .attrs({
-    //     'text-anchor': 'middle'
-    //   })
-
     
     path
       .on('mouseenter', (data) => {
         console.log('enter', data)
-        this.currData.push(data)
-        console.log('this.currData', this.currData)
+        // this.currData.push(data)
+        // console.log('this.currData', this.currData)
         gTest
-          // .selectAll('test')
-          // .data(legend)
-          // .enter()
-          // .data(data)
-          // .append('text')
           .append('text')
           .attr('class','textItem')
           // .text(d => d)
@@ -225,36 +201,11 @@ export class PieComponent implements OnInit {
           })
           .text(d => d)
 
-        // path
-        // // g.selectAll('cakeBit')
-        //   .append('g')
-        // centerText.text(data.label)
       })
       .on('mouseout', (data) => {
         console.log('out', data)
-        this.currData.pop()
-        console.log('this.currData', this.currData)
-        let data2 = data// []//= ['sth out']
-        // data 
-        // data2.pop()
-        // .push({
-        //   startAngle: 0,
-        //   endAngle: ln(parts[i]),
-        //   label: names[i],// names[i], // parts[i].name,// color,
-        //   percentage: null
-        // })
-
-        gTest
-        .selectAll('textItem')
-        .data(data)
-        .exit()
-        .remove()
-        // .enter()
-        // .append('text')
-        // .text(d => d)
-        // .remove()
-        // centerText.remove()
-        // centerText.text('')
+        // console.log('this.currData', this.currData)
+        
       })
 
     this.test()
