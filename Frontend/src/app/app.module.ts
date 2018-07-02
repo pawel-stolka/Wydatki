@@ -32,6 +32,8 @@ import { PieComponent } from './pies/pie1/pie/pie.component';
 import { PieContainerComponent } from './pies/pie1/pie-container/pie-container.component';
 import { PieContainer2Component } from './pies/pie2/pie-container2/pie-container2.component';
 import { Pie2Component } from './pies/pie2/pie2/pie2.component';
+import { EList2Component } from './E/e-list2/e-list2.component';
+import { EItem2Component } from './E/e-item2/e-item2.component';
 
 
 const routes = [
@@ -46,6 +48,8 @@ const routes = [
   { path: 'chart-update', component: ChartContainerComponent },
   { path: 'chart-update2', component: ChartContainer2Component },
   { path: 'pie', component: PieContainerComponent },
+  { path: 'e-list2', component: EList2Component },
+  { path: 'e-item2', component: EItem2Component },
 ]
 
 
@@ -67,7 +71,9 @@ const routes = [
     PieComponent,
     PieContainerComponent,
     PieContainer2Component,
-    Pie2Component
+    Pie2Component,
+    EList2Component,
+    EItem2Component
   ],
   imports: [
     BrowserModule,
