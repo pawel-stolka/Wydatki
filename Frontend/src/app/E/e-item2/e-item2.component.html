@@ -2,8 +2,10 @@
     <div class="row">
       <!-- <div class="col">{{bill.date}}</div> -->
 
-      <div class="col">{{bill.name}}</div>
-      <div class="col">{{bill.values.length}}</div>
+      <div class="col">{{bill.name}}
+        <span *ngIf="bill.values.length>1">({{bill.values.length}})</span>
+      </div>
+      <!-- <div class="col">{{bill.values.length}}</div> -->
       <div class="col">{{bill.sum}} zł</div>
 
       <!-- <div class="col">{{bill.price}} zł</div>
