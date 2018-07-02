@@ -62,7 +62,7 @@ export class EList2Component implements OnInit {
       })
       console.log(arr)
       this.bills = arr
-      // console.log(this.bills)
+      console.log(this.bills)
     })
   }
 
