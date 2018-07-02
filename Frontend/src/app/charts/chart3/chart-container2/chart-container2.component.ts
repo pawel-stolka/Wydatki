@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ExpenseService } from '../expense.service';
+import { ExpenseService } from '../../../expense.service';
 import * as moment from 'moment';
 
 @Component({

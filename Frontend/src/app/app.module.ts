@@ -19,19 +19,19 @@ import { HttpModule } from '@angular/http';
 import { EListComponent } from './e-list/e-list.component';
 import { EItemComponent } from './e-item/e-item.component';
 import { DataService } from './data.service';
-import { SimpleChartComponent } from './simple-chart/simple-chart.component';
-import { ContainerComponent } from './container/container.component';
-import { Chart1Component } from './chart1/chart1.component';
+import { SimpleChartComponent } from './charts/simple/simple-chart/simple-chart.component';
+import { ContainerComponent } from './charts/simple/container/container.component';
+import { Chart1Component } from './charts/chart1/chart1/chart1.component';
 import { D3Service } from 'd3-ng2-service';
-import { Chart2Component } from './chart2/chart2.component';
-import { ChartUpdateComponent } from './chart-update/chart-update.component';
-import { ChartContainerComponent } from './chart-container/chart-container.component';
-import { ChartContainer2Component } from './chart-container2/chart-container2.component';
-import { Chart3Component } from './chart3/chart3.component';
-import { PieComponent } from './pie/pie.component';
-import { PieContainerComponent } from './pie-container/pie-container.component';
-import { PieContainer2Component } from './pie-container2/pie-container2.component';
-import { Pie2Component } from './pie2/pie2.component';
+import { Chart2Component } from './charts/chart2/chart2/chart2.component';
+import { ChartUpdateComponent } from './charts/chart2/chart-update/chart-update.component';
+import { ChartContainerComponent } from './charts/chart1/chart-container/chart-container.component';
+import { ChartContainer2Component } from './charts/chart3/chart-container2/chart-container2.component';
+import { Chart3Component } from './charts/chart3/chart3/chart3.component';
+import { PieComponent } from './pies/pie1/pie/pie.component';
+import { PieContainerComponent } from './pies/pie1/pie-container/pie-container.component';
+import { PieContainer2Component } from './pies/pie2/pie-container2/pie-container2.component';
+import { Pie2Component } from './pies/pie2/pie2/pie2.component';
 
 
 const routes = [

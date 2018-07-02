@@ -18,12 +18,21 @@ export class Pie2Component implements OnInit {
     }
   private width;
   private height;
-  private radius;
-  private innerRadius = 50
-  private outerRadius = 100
-  private padAngle = .03
-  private padRadius = 100
-  private cornerRadius = 5
+  private circle1 = {
+    outerRadius: 70,
+    innerRadius: 50,
+    padAngle: .03,
+    padRadius: 100,
+    cornerRadius: 5,
+  }
+  private circle2 = {
+    outerRadius: 70,
+    innerRadius: 60,
+    padAngle: 0,
+    padRadius: 100,
+    cornerRadius: 0
+  }
+  private percents2 = [.34]
 
   ngOnInit() {
     this.createPie();
@@ -43,7 +52,6 @@ export class Pie2Component implements OnInit {
     let element = this.pieContainer.nativeElement;
     this.width = element.offsetWidth// - 2 * this.margin.top;
     this.height = element.offsetHeight;
-    this.radius = this.height / 2
     let svg = d3.select(element)
       .append('svg')
       .attrs({
@@ -59,13 +67,14 @@ export class Pie2Component implements OnInit {
           `,
         class: 'mainCircle'
       });
-
+      // -----group circle -------
+/*
     let arcGenerator = d3.arc()
-      .innerRadius(this.innerRadius)
-      .outerRadius(this.outerRadius)
-      .padAngle(this.padAngle)
-      .padRadius(this.padRadius)
-      .cornerRadius(this.cornerRadius)
+      .innerRadius(this.circle1.innerRadius)
+      .outerRadius(this.circle1.outerRadius)
+      .padAngle(this.circle1.padAngle)
+      .padRadius(this.circle1.padRadius)
+      .cornerRadius(this.circle1.cornerRadius)
 
     let arcData = []
       
@@ -114,7 +123,7 @@ export class Pie2Component implements OnInit {
       .attrs({class: 'cakeBit'})
       .append('path')
       .attrs({
-        d: arcGenerator,
+        d: <any>arcGenerator,
         fill: (d, i) => colors(i)
       })
     
@@ -126,11 +135,77 @@ export class Pie2Component implements OnInit {
         x: (d: any) => arcGenerator.centroid(d)[0],
         y: (d: any) => arcGenerator.centroid(d)[1],
         'text-anchor': 'middle',
-        fill: 'white'
+        fill: 'black'
       })
       .text((d: any) => 
         `${d.label} ${d.percentage}%`
       )
+*/
+    // ----- total circle -------
+    let arcGenerator2 = d3.arc()
+      .innerRadius(this.circle2.innerRadius)
+      .outerRadius(this.circle2.outerRadius)
+      .padAngle(this.circle2.padAngle)
+      .padRadius(this.circle2.padRadius)
+      .cornerRadius(this.circle2.cornerRadius)
+
+    // let colors2 = "red"
+    let colorDef2 = ["red", "#ead0d2"]
+    let colors2 = // ["red", "orange", "green"]
+      d3.scaleLinear()
+      .domain([0, 2])
+      .range(<any[]> colorDef2)
+
+    
+    let percent = this.percents2[0]
+    let arcData2 = [
+      {
+          startAngle: 0,
+          endAngle: ln(percent),
+          label: 'test',
+          percentage: percent*100
+      },
+      {
+        startAngle: ln(percent),
+        endAngle: ln(1),
+        // label: 'test',
+        // percentage: 100
+      }
+    ]
+
+    
+    let path2 = g.selectAll('path')
+    .data(arcData2)
+    .enter()
+    .append('g')
+    .attrs({class: 'cakeBit'})
+    .append('path')
+    .attrs({
+      d: <any>arcGenerator2,
+      fill: (d, i) => colors2(i)
+    })
+
+    
+      
+    g.selectAll('cakeBit')
+      .data(arcData2)
+      .enter()
+      .append('text')
+      .attrs({
+        x:  0,
+        y:  0,
+        'text-anchor': 'middle',
+        fill: 'black'
+      })
+      .html(tip(arcData2))
+
+    function tip(data) {
+      let tip = `
+      <tspan x="0" dy="-.2em">${data[0].label}</tspan>
+      <tspan x="0" dy="1em">${data[0].percentage}</tspan>
+      `
+      return tip
+    }
 
     function ln(factor = 1) {
       return factor * 2 * Math.PI

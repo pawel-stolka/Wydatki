@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { D3Service, D3, Selection } from 'd3-ng2-service';
-import { ExpenseService } from '../expense.service';
-import { DataService } from '../data.service';
+import { ExpenseService } from '../../../expense.service';
+import { DataService } from '../../../data.service';
 import * as moment from 'moment';
 
 @Component({
