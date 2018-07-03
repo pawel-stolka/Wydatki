@@ -173,7 +173,8 @@ app.get('/name/:name', async (req, res) => {
                 entry: {
                     $push: {
                         name: "$name",
-                        price: "$price"
+                        price: "$price",
+                        extra: "$extra"
                     }
                 }
             }
@@ -210,6 +211,8 @@ app.get('/type/:type', async (req, res) => {
     // var rules = {"name": "kawa"}
     if (type == 'sniadanie')
         type = 'śniadanie'
+    if (type == 'spozywka')
+        type = 'spożywka'
     let types = await Bill.aggregate([{
             $match: {
                 "type": type
@@ -229,7 +232,8 @@ app.get('/type/:type', async (req, res) => {
                 entry: {
                     $push: {
                         name: "$name",
-                        price: "$price"
+                        price: "$price",
+                        extra: "$extra"
                     }
                 }
             }
