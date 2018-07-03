@@ -93,6 +93,7 @@ app.post('/bill', async (req, res) => {
     })
 })
 
+// to change category by postman
 app.put('/types', async (req, res) => {
     try {
         let typeData = req.body
@@ -105,21 +106,20 @@ app.put('/types', async (req, res) => {
                 .send({message: 'type not found'})
         
         console.log('bills.length', bills.length)
-        let bill = bills[0]
-        bill.type = typeData.type
 
-        bill.save((err, newType) => {
-            console.log('updated type => ', bills.type)
-        })
+        for (var i = 0; i < bills.length; i++) {
+            var element = bills[i];
+            element.type = typeData.type
+            element.save((err, newType) => {
+                console.log(i, element.type)
+            })
+        }
 
-        // bills.save((err, newLog) => {
-        //     console.log('success - voted => ')
-        // })
-        console.log('reached')
+        console.log('ok!')
         return res.status(200)
             .send({
-            //     message: 'updated.',
-            //     value: bills.type
+                message: 'updated.',
+                value: bills.type
             })
 
     } catch (error) {
@@ -135,17 +135,27 @@ app.get('/types/:name', async (req, res) => {
         //     name = 'spożywka'
         // if(parName == 'sniadanie')
         //     name = 'śniadanie'
-        // if(parName == 'ciuchy')
-        //     name = 'Ciuchy'
         var bills = await Bill.find({
             name
         }, '-__v')
-        // var users = await User.find({}, '-pass -__v')
         res.send(bills)
     } catch (error) {
         console.error(error)
         res.sendStatus(500)
     }
+})
+
+app.get('/groups', async (req, res) => {
+    var rules = [{'name': 'kawa'}]
+    let groups = await Bill.aggregate([{
+        $group: {
+            _id: '$type'
+        }
+    }])
+    return res.status(200)
+    .send(
+        groups
+    )
 })
 
 mongoose.connect(mongoString, (err) => {
