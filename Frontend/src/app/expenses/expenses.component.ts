@@ -22,6 +22,8 @@ export class ExpensesComponent implements OnInit {
   @ViewChild(FormGroupDirective) myForm;
   error
   selection: any[] = []
+  types: any[] = []
+  names: any[] = []
 
   nameFormControl = new FormControl('', [ Validators.required ])
   typeFormControl = new FormControl('', [ Validators.required ])
@@ -53,8 +55,12 @@ export class ExpensesComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.selection.push("option 1")
-    this.selection.push("option 2")
+    // this.selection.push("option 1")
+    // this.selection.push("option 2")
+    // let types = 
+    // this.getNames()
+    this.getTypes()
+    // console.log(this.types)
   }
 
   popMeUp(type = 'info', title, body) {
@@ -104,5 +110,28 @@ export class ExpensesComponent implements OnInit {
     if (this.myForm) {
       this.myForm.resetForm();
     }
+  }
+
+  getTypes() {
+    return this.expenseService.getTypes()
+    .subscribe(
+      data => {
+        let types = data.json()
+        console.log(types)
+        types.forEach(element => {
+          this.selection.push(element)
+        });
+      }
+    )
+  }
+
+  getNames() {
+    return this.expenseService.getNames()
+    .subscribe(
+      data => {
+        console.log(data.json())
+        
+      }
+    )
   }
 }

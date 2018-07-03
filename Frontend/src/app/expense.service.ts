@@ -15,38 +15,43 @@ export class ExpenseService {
 
   getBills() {
     return this.http.get(`${this.url}/bills`)
+  }
+
+  addBill(bill: Bill) {
+    return this.http.post(`${this.url}/bill`, bill)
+  }
+
+  getNames() {
+    return this.http.get(`${this.url}/name`)
+  }
+
+  getName(name) {
+    return this.http.get(`${this.url}/name/${name}`)
+  }
+
+  getTypes() {
+    return this.http.get(`${this.url}/type`)
       // .toPromise()
       // .then(this.extractData)
       // .catch(this.handleError)
   }
 
-  addBill(bill: Bill) {
-    return this.http.post(`${this.url}/bill`, bill)
-
-    // return this.http.post<any>(this.path + '/loginbyemail', email)
-    // .subscribe(
-    //   res => {
-    //     console.log('what?')
-    //     console.log(res)
-    //   },
-    //   err => {
-    //     this.error = err
-    //   }
-    // )
+  getType(type) {
+    return this.http.get(`${this.url}/type/${type}`)
   }
 
-  private extractData(res: Response) {
-    console.log(res.json())
-    let body = res.json();
+  // private extractData(res: Response) {
+  //   console.log(res.json())
+  //   let body = res.json();
     
-    return body || [];
-  }
+  //   return body || [];
+  // }
 
-  private handleError(error: any): Promise<any> {
-    // console.log('error', error)
-    // this.error = error;
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
+  // private handleError(error: any): Promise<any> {
+  //   // console.log('error', error)
+  //   // this.error = error;
+  //   console.error('An error occurred', error);
+  //   return Promise.reject(error.message || error);
+  // }
 
 }
