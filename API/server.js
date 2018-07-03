@@ -48,14 +48,14 @@ app.get('/bills', async (req, res) => {
 app.post('/bill', async (req, res) => {
     var billData = req.body;
     console.log(billData)
-    if(billData.name == '' 
-    || billData.type == '' 
-    || billData.price == '' 
-    || billData.date == ''
-    || billData.name == null 
-    || billData.type == null 
-    || billData.price == null 
-    || billData.date == null)
+    if (billData.name == '' ||
+        billData.type == '' ||
+        billData.price == '' ||
+        billData.date == '' ||
+        billData.name == null ||
+        billData.type == null ||
+        billData.price == null ||
+        billData.date == null)
         return res.status(400)
             .send({
                 message: 'not enough data...',
@@ -69,13 +69,13 @@ app.post('/bill', async (req, res) => {
     }, '-__v')
     console.log(exist)
 
-    if(exist.length > 0 ) {
+    if (exist.length > 0) {
         console.log('exists', exist)
         return res.status(400)
-        .send({
-            message: 'Already in database!',
-            exist
-        })
+            .send({
+                message: 'Already in database!',
+                exist
+            })
     }
 
     var bill = new Bill(billData)
@@ -93,18 +93,21 @@ app.post('/bill', async (req, res) => {
     })
 })
 
+
 // to change category by postman
-app.put('/types', async (req, res) => {
+app.put('/changetype', async (req, res) => {
     try {
         let typeData = req.body
         console.log(typeData)
         var bills = await Bill.find({
             name: typeData.name
         })
-        if(!bills)
+        if (!bills)
             return res.status(401)
-                .send({message: 'type not found'})
-        
+                .send({
+                    message: 'type not found'
+                })
+
         console.log('bills.length', bills.length)
 
         for (var i = 0; i < bills.length; i++) {
@@ -128,34 +131,112 @@ app.put('/types', async (req, res) => {
     }
 })
 
-app.get('/types/:name', async (req, res) => {
-    try {
-        let name = req.params.name
-        // if(parName == 'spozywka')
-        //     name = 'spożywka'
-        // if(parName == 'sniadanie')
-        //     name = 'śniadanie'
-        var bills = await Bill.find({
-            name
-        }, '-__v')
-        res.send(bills)
-    } catch (error) {
-        console.error(error)
-        res.sendStatus(500)
-    }
-})
 
-app.get('/groups', async (req, res) => {
-    var rules = [{'name': 'kawa'}]
+// ----- get by name --------------
+app.get('/name', async (req, res) => {
     let groups = await Bill.aggregate([{
         $group: {
-            _id: '$type'
+            _id: '$name',
+            count: {
+                $sum: 1
+            },
+            entry: {
+                $push: {
+                    name: "$name",
+                    price: "$price"
+                }
+            }
         }
     }])
     return res.status(200)
-    .send(
-        groups
-    )
+        .send(
+            groups
+        )
+})
+
+app.get('/name/:name', async (req, res) => {
+    let name = req.params.name
+    if (name == 'sniadanie')
+        name = 'śniadanie'
+    let names = await Bill.aggregate([
+        {
+            $match: {
+                "name": name
+            }
+        },
+        {
+            $group: {
+                _id: '$name',
+                count: {
+                    $sum: 1
+                },
+                entry: {
+                    $push: {
+                        name: "$name",
+                        price: "$price"
+                    }
+                }
+            }
+        }
+    ])
+    return res.status(200)
+        .send(names)
+})
+
+// ----- group by type --------------
+
+
+app.get('/type', async (req, res) => {
+    let types = await Bill.aggregate([{
+        $group: {
+            _id: '$type',
+            count: {
+                $sum: 1
+            },
+            entry: {
+                $push: {
+                    name: "$name",
+                    price: "$price"
+                }
+            }
+        }
+    }])
+    return res.status(200)
+        .send(types)
+})
+
+app.get('/type/:type', async (req, res) => {
+    let type = req.params.type
+    // var rules = {"name": "kawa"}
+    if (type == 'sniadanie')
+        type = 'śniadanie'
+    let types = await Bill.aggregate([{
+            $match: {
+                "type": type
+            }
+        },
+        // $project: {
+        //     _id: 0,
+        //     price: 1,
+        //     name: '$name'
+        // },
+        {
+            $group: {
+                _id: '$type',
+                count: {
+                    $sum: 1
+                },
+                entry: {
+                    $push: {
+                        name: "$name",
+                        price: "$price"
+                    }
+                }
+            }
+        }
+    ])
+    return res.status(200)
+        .send(types)
 })
 
 mongoose.connect(mongoString, (err) => {
