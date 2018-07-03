@@ -74,7 +74,7 @@ export class EItem2Component implements OnInit {
     this.sectionBills.forEach(item => {
       console.log('item',item)
       total += +item.sum
-      // this.currentDate = item.date
+      this.currentDate = item.values[0].date
       if(item.sum > this.highest.price) {
         
         this.highest = {
