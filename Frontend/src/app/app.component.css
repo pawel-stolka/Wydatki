@@ -1,3 +1,4 @@
 .rightButton {
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
+    margin-left: 50px;
 }

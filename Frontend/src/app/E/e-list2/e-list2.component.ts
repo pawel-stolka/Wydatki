@@ -34,20 +34,15 @@ export class EList2Component implements OnInit {
         extra: x.extra          
       }))
       .sort(this.compareDate)
+      // console.log(mapped)
 
-      let byWeek = this.groupBy(mapped, x => moment(x.date).week())
+      let byWeek = this.groupBy(mapped, x => 
+        moment(x.date).week())
 
-      // let date = mapped.map(x => ({
-      //   date: x.date,
-      //   week: moment(x.date).week()
-      // }))
-      // console.log(date)
-
-      // this.bills = Array.from(byWeek)
       let bills = Array.from(byWeek)
       let arr = []
       bills.map(v => {
-        // console.log(v[0], v)
+        console.log('v', v)
         let arr1groups = this.groupBy(v[1], x => x.name)
         let arr2 = Array.from(arr1groups)
         let arr3 = arr2.map(x => {
@@ -60,7 +55,7 @@ export class EList2Component implements OnInit {
         
         arr.push(arr3)//1)
       })
-      console.log(arr)
+      // console.log(arr)
       this.bills = arr
       console.log(this.bills)
     })
