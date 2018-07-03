@@ -117,6 +117,7 @@ export class EListComponent implements OnInit {
       this.groupSorted = gbsObjects
       // this.groupBills = gbsObjects
 
+      
       function toSort2(a,b) {
         const nameA = a[0],
           nameB = b[0]

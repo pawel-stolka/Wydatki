@@ -117,6 +117,9 @@ export class ExpensesComponent implements OnInit {
     .subscribe(
       data => {
         let types = data.json()
+        
+        types.sort(this.byCount)
+
         console.log(types)
         types.forEach(element => {
           this.selection.push(element)
@@ -133,5 +136,11 @@ export class ExpensesComponent implements OnInit {
         
       }
     )
+  }
+
+  byCount(a,b) {
+    const countA = a.count,
+          countB = b.count
+    return (countA > countB) ? -1 : 1
   }
 }

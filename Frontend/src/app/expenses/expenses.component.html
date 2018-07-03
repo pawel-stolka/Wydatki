@@ -3,40 +3,18 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-6">
       <form [formGroup]="complexGroup" (ngSubmit)="submitForm()">
 
         <div class="header">
           Dodaj produkt
         </div>
         <div class="form-group">
+
           <div class="form-row">
             <div class="col">
               <input type="text" class="form-control" [formControl]="nameFormControl" id="nameInput" placeholder="Product name">
             </div>
-
-            <!-- <select class="selectpicker" data-live-search="true">
-                <option data-tokens="ketchup mustard">Hot Dog</option>
-                <option data-tokens="mustard">Burger</option>
-                <option data-tokens="frosting">Sugar</option>
-              </select> -->
-            
-
-            <!-- <div class="form-group">
-                <label for="exampleFormControlSelect1">Example select</label>
-                <select class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div> -->
-
-             
-            <!-- <div class="col">
-              <input type="text" class="form-control" [formControl]="kindFormControl" id="kindInput" placeholder="type of product?">
-            </div> -->
           </div>
 
           <div class="form-row">
@@ -46,7 +24,8 @@
                     class="form-control" placeholder="kategoria...">
                   <datalist id="types">
                     <option *ngFor="let option of selection">
-                      {{option._id}} [{{option.count}}]
+                      {{option._id}}
+                      <!-- [{{option.count}}] -->
                     </option>
                   </datalist>
               </div>
@@ -58,6 +37,7 @@
                 [formControl]="dateFormControl" id="dateInput" 
                 placeholder="Date">
             </div>
+
             <div class="col">
               <input type="number" class="form-control" min="0" [formControl]="priceFormControl" id="priceInput" placeholder="Price">
             </div>
@@ -73,7 +53,7 @@
       </form>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-6">
         <pie-container2></pie-container2>
     </div>
   </div>
