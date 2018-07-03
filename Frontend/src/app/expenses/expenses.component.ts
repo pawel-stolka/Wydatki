@@ -20,17 +20,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ExpensesComponent implements OnInit {
   @ViewChild(FormGroupDirective) myForm;
-
   error
+  selection: any[] = []
 
-  dateFormControl = new FormControl('', [ Validators.required ])
   nameFormControl = new FormControl('', [ Validators.required ])
+  typeFormControl = new FormControl('', [ Validators.required ])
+  dateFormControl = new FormControl('', [ Validators.required ])
   priceFormControl = new FormControl('', [ Validators.required ])
   extraFormControl = new FormControl('', [ ])
 
   complexGroup: FormGroup = new FormGroup({
-    'dateFormControl': this.dateFormControl,
     'nameFormControl': this.nameFormControl,
+    'typeFormControl': this.typeFormControl,
+    'dateFormControl': this.dateFormControl,
     'priceFormControl': this.priceFormControl,
     'extraFormControl': this.extraFormControl
   })
@@ -51,6 +53,8 @@ export class ExpensesComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.selection.push("option 1")
+    this.selection.push("option 2")
   }
 
   popMeUp(type = 'info', title, body) {
@@ -69,29 +73,27 @@ export class ExpensesComponent implements OnInit {
 
   submitForm() {
     let ex = {
-      date: this.complexGroup.value.dateFormControl,
       name: this.complexGroup.value.nameFormControl,
+      type: this.complexGroup.value.typeFormControl,
+      date: this.complexGroup.value.dateFormControl,
       price: this.complexGroup.value.priceFormControl,
       extra: this.complexGroup.value.extraFormControl
     }
 
     try {
-      let bill = new Bill(ex.name, ex.price, ex.date, ex.extra)
+      let bill = new Bill(ex.name, ex.type, ex.price, ex.date, ex.extra)
       this.expenseService.addBill(bill)
-      .subscribe(
-        res => {
-          // this.error = { message: 'fake'}
-          // console.log('what2?')
-          // console.log(res)
-          this.error = null
-          console.log(bill)
-          let message = `${bill.name} - ${bill.price} zł`
-          this.popMeUp('success', 'Added', message)// )
-        },
-        err => {
-          this.error = err
-          console.log(err)
-        }
+        .subscribe(
+          res => {
+            this.error = null
+            console.log(bill)
+            let message = `${bill.name} [${bill.type}] - ${bill.price} zł`
+            this.popMeUp('success', 'Added', message)// )
+          },
+          err => {
+            this.error = err
+            console.log(err)
+          }
       )
       
     } catch (error) {

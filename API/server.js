@@ -49,14 +49,17 @@ app.post('/bill', async (req, res) => {
     var billData = req.body;
     console.log(billData)
     if(billData.name == '' 
+    || billData.type == '' 
     || billData.price == '' 
     || billData.date == ''
     || billData.name == null 
+    || billData.type == null 
     || billData.price == null 
     || billData.date == null)
         return res.status(400)
             .send({
-                message: 'not enough data...'
+                message: 'not enough data...',
+                details: billData
             })
 
     var exist = await Bill.find({
@@ -88,6 +91,61 @@ app.post('/bill', async (req, res) => {
         return res.status(200)
             .send(billData)
     })
+})
+
+app.put('/types', async (req, res) => {
+    try {
+        let typeData = req.body
+        console.log(typeData)
+        var bills = await Bill.find({
+            name: typeData.name
+        })
+        if(!bills)
+            return res.status(401)
+                .send({message: 'type not found'})
+        
+        console.log('bills.length', bills.length)
+        let bill = bills[0]
+        bill.type = typeData.type
+
+        bill.save((err, newType) => {
+            console.log('updated type => ', bills.type)
+        })
+
+        // bills.save((err, newLog) => {
+        //     console.log('success - voted => ')
+        // })
+        console.log('reached')
+        return res.status(200)
+            .send({
+            //     message: 'updated.',
+            //     value: bills.type
+            })
+
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
+})
+
+app.get('/types/:name', async (req, res) => {
+    try {
+        let name = req.params.name
+        // if(parName == 'spozywka')
+        //     name = 'spożywka'
+        // if(parName == 'sniadanie')
+        //     name = 'śniadanie'
+        // if(parName == 'ciuchy')
+        //     name = 'Ciuchy'
+        var bills = await Bill.find({
+            name
+        }, '-__v')
+        // var users = await User.find({}, '-pass -__v')
+        res.send(bills)
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
 })
 
 mongoose.connect(mongoString, (err) => {

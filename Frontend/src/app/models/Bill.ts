@@ -11,8 +11,9 @@ export class Bill{
     extra: String;
     createdAt: Date;
 
-    constructor(name: String, price: Number, date: Date, extra = null) {
+    constructor(name: String, type: String, price: Number, date: Date, extra = null) {
       this.name = name;
+      this.type = type;
       this.price = price;
       this.date = date// Date.now.toString()
       this.extra = extra
