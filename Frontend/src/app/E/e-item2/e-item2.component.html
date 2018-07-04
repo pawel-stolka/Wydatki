@@ -2,17 +2,18 @@
   <span class="left">date: {{currentDate}} |
     <strong>{{totalPrice}} zł</strong>
   </span>
-  | <span class="top"> {{highest.name}} {{highest.price}}</span> 
+  |
+  <span class="top"> {{highest.name}} {{highest.price}}</span>
   | items: {{sectionBills.length}}
 </button>
 
 <div class="inner">
   <div [@detailsanimation]='state' id="stateDiv" class="item">
     <div class="row header">
+      <div class="col narrow">ile</div>
       <div class="col">produkt</div>
       <div class="col">kategoria</div>
-      <div class="col">suma</div>
-      <div class="col">ile</div>
+      <div class="col">w sumie</div>
     </div>
 
 
@@ -20,17 +21,18 @@
       <div class="row">
         <!-- <div class="col">{{bill.date}}</div> -->
 
-        <div class="col">{{bill.name}}
-          <!-- <span *ngIf="bill.values.length>1">({{bill.values.length}})</span> -->
+        <div class="col narrow">
+          <span class="badge badge-success badge-pill" *ngIf="bill.values.length>1">
+            {{bill.values.length}}
+          </span>
         </div>
+
+        <div class="col">{{bill.name}}</div>
 
         <div class="col">{{bill.type}}</div>
 
         <div class="col">{{bill.sum}} zł</div>
 
-        <div class="col">
-          <span *ngIf="bill.values.length>1">({{bill.values.length}})</span>
-        </div>
 
       </div>
     </div>

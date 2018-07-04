@@ -47,3 +47,13 @@
 .top5 {
     margin-top: 5px;
 }
+
+.narrow {
+    max-width: 20px;
+    /* background-color: #753159; */
+}
+
+.row:hover {
+    background-color: #b2cdd4;
+    cursor: pointer;
+}
