@@ -42,89 +42,102 @@ export class EItem2Component implements OnInit {
   constructor() { }
   
   ngOnInit() {
-    
-    // console.log(this.sectionBills)
-    let newVal: any[] = []
-    
-    // let bills = 
-    this.sectionBills.map(i => {
-      // console.log(i)
-      let sum = 0
-      i.values.forEach(element => {
-        sum += element.price
-      });
-      let newV = {
-        name: i.name,
-        type: i.type,
-        values: i.values,
-        sum: sum.toFixed(2)
-      }
-      newVal.push(newV)
-      // console.log('newVal', newVal)
-    })
-    this.val100 = Array.from(newVal)
-    
-    this.sectionBills = newVal 
-    // this.allBills = newVal
-
     this.totalPrice = 0
     this.highest = {
       price: 0
     }
+
+    let newVal = []
+    this.sectionBills.map(i => {
+      let sum = 0
+      i.values.forEach(element => {
+        sum += element.price
+      });
+
+      newVal.push({
+        name: i.name,
+        type: i.type,
+        values: i.values,
+        sum: sum.toFixed(2)
+      })
+    })
+
+    this.sectionBills = newVal 
+
+    this.val100 = Array.from(newVal)
+    
+
     this.sumPrice()
-    // console.log(this.sectionBills)
   }
 
   sumPrice() {
-    
     let total = 0
-    // console.log(this.sectionBills)
+    
     this.sectionBills.forEach(item => {
-      // console.log('item',item)
-      total += +item.sum
       this.currentDate = item.values[0].date
+
+      total += +item.sum
+
       if(item.sum > this.highest.price) {
-        
         this.highest = {
           name: item.name,
           price: item.sum
         }
-        // console.log('highest', this.highest)
       }
     });
     this.totalPrice = Math.ceil(total * 100)/100;
   }
 
   animateMe(){
-    // console.log('val100', this.val100)
     this.currentBill = this.val100
-    
     this.state = (this.state === 'small' ? 'large' : 'small');
   }
 
   byQuantity() {
-    console.log('byQuantity')
-    console.log(this.i, this.currentBill)
+    console.log('this.sectionBills', this.sectionBills)
+    
     this.currentBill.sort(this.compareQuantity)
-    console.log(this.currentBill)
+    console.log('byQuantity', this.currentBill)
   }
 
-  byProduct() {
-    console.log('byProduct')
+  byName() {
+    this.currentBill.sort(this.compareName)
+    console.log('byName', this.currentBill)
   }
 
   byCategory() {
-    console.log('byCategory')
+    this.currentBill.sort(this.compareCategory)
+    console.log('byCategory', this.currentBill)
   }
 
   bySum() {
-    console.log('bySum')
+    this.currentBill.sort(this.compareSum)
+    console.log('bySum', this.currentBill)
   }
 
+  
+  compareName(a,b) {
+    let nameA = a.name,
+        nameB = b.name
+    return (nameA < nameB) ? -1 : 1
+  }
+  
+  compareCategory(a,b) {
+    let typeA = a.type,
+        typeB = b.type
+    return (typeA < typeB) ? -1 : 1
+  }
+  
   compareQuantity(a,b) {
-    const lengthA = a.values.length,
-    lengthB = b.values.length
+    let lengthA = a.values.length,
+        lengthB = b.values.length
     return (lengthA > lengthB) ? -1 : 1
+  }
+
+  compareSum(a,b) {
+    let sumA = parseFloat(a.sum),
+        sumB = parseFloat(b.sum)
+    return (sumA > sumB) ? -1 : 1
   }
 
 }
