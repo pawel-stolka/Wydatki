@@ -38,6 +38,7 @@ app.get('/bills', async (req, res) => {
     try {
         var bills = await Bill.find({}, '-__v')
         // var users = await User.find({}, '-pass -__v')
+        // console.log(bills)
         res.send(bills)
     } catch (error) {
         console.error(error)

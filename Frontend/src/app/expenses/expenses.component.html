@@ -21,7 +21,8 @@
               <div class="col">
                   <input type="text" list="types" 
                     [formControl]="typeFormControl" id="typeInput" 
-                    class="form-control" placeholder="kategoria...">
+                    class="form-control" 
+                    placeholder="kategoria...">
                   <datalist id="types">
                     <option *ngFor="let option of selection">
                       {{option._id}}

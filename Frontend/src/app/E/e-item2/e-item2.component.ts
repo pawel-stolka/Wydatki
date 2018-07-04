@@ -44,12 +44,14 @@ export class EItem2Component implements OnInit {
     let newVal: any[] = []
     
     let bills = this.sectionBills.map(i => {
+      // console.log(i)
       let sum = 0
       i.values.forEach(element => {
         sum += element.price
       });
       let newV = {
         name: i.name,
+        type: i.type,
         values: i.values,
         sum: sum.toFixed(2)
       }

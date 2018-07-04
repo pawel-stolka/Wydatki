@@ -10,7 +10,7 @@
   <div [@detailsanimation]='state' id="stateDiv" class="item">
     <div class="row header">
       <div class="col">produkt</div>
-      <div class="col"></div>
+      <div class="col">kategoria</div>
       <div class="col">suma</div>
       <div class="col">ile</div>
     </div>
@@ -24,7 +24,7 @@
           <!-- <span *ngIf="bill.values.length>1">({{bill.values.length}})</span> -->
         </div>
 
-        <div class="col"></div>
+        <div class="col">{{bill.type}}</div>
 
         <div class="col">{{bill.sum}} zł</div>
 
