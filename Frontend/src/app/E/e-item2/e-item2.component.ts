@@ -94,37 +94,45 @@ export class EItem2Component implements OnInit {
   }
 
   byQuantity() {
-    console.log('this.sectionBills', this.sectionBills)
-    
-    this.currentBill.sort(this.compareQuantity)
-    console.log('byQuantity', this.currentBill)
+    this.sectionBills.sort(this.compareQuantity)
+    console.log('byQuantity', this.sectionBills)
   }
 
   byName() {
-    this.currentBill.sort(this.compareName)
-    console.log('byName', this.currentBill)
+    this.sectionBills.sort(this.compareName)
+    console.log('byName', this.sectionBills)
   }
 
   byCategory() {
-    this.currentBill.sort(this.compareCategory)
-    console.log('byCategory', this.currentBill)
+    this.sectionBills.sort(this.compareCategory)
+    console.log('byCategory', this.sectionBills)
   }
 
   bySum() {
-    this.currentBill.sort(this.compareSum)
-    console.log('bySum', this.currentBill)
+    this.sectionBills.sort(this.compareSum)
+    console.log('bySum', this.sectionBills)
   }
 
-  
+  // someProp: number// = 0
   compareName(a,b) {
+    // let someProp = 0//this.someProp
     let nameA = a.name,
         nameB = b.name
-    return (nameA < nameB) ? -1 : 1
+    // console.log(this.someProp)
+    // if(someProp === 1) {
+    //   someProp = 0
+      // return (nameA < nameB) ? -1 : 1
+    // }
+    // else {
+    //   someProp = 1
+      return (nameA > nameB) ? -1 : 1
+    // }
   }
   
   compareCategory(a,b) {
     let typeA = a.type,
         typeB = b.type
+        // console.log(this.nameSort)
     return (typeA < typeB) ? -1 : 1
   }
   
