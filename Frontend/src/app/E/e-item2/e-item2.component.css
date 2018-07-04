@@ -32,6 +32,8 @@
      font-weight: 800;
      text-transform: uppercase;
      background-color: white;
+     /* margin: 0px 0; */
+     padding: 5px 2px;
  }
 
  .top {
@@ -49,7 +51,8 @@
 }
 
 .narrow {
-    max-width: 20px;
+    min-width: 30px;
+    max-width: 30px;
     /* background-color: #753159; */
 }
 
