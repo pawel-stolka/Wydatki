@@ -29,7 +29,6 @@ import { trigger,state,style,transition,animate,keyframes } from '@angular/anima
 export class EItem2Component implements OnInit {
   @Input() sectionBills: any[]
   @Input() i: number
-  allBills = []
 
   state: string = 'small';
   
@@ -37,7 +36,7 @@ export class EItem2Component implements OnInit {
   totalPrice: number
   highest: any
   week: number
-  currentBill
+  currentBill: any[]
   private val100: any[]
 
   constructor() { }
@@ -73,9 +72,7 @@ export class EItem2Component implements OnInit {
       price: 0
     }
     this.sumPrice()
-    // this.allBills.push(this.sectionBills)
     // console.log(this.sectionBills)
-    // console.log(this.allBills)
   }
 
   sumPrice() {
@@ -108,6 +105,8 @@ export class EItem2Component implements OnInit {
   byQuantity() {
     console.log('byQuantity')
     console.log(this.i, this.currentBill)
+    this.currentBill.sort(this.compareQuantity)
+    console.log(this.currentBill)
   }
 
   byProduct() {
@@ -120,6 +119,12 @@ export class EItem2Component implements OnInit {
 
   bySum() {
     console.log('bySum')
+  }
+
+  compareQuantity(a,b) {
+    const lengthA = a.values.length,
+    lengthB = b.values.length
+    return (lengthA > lengthB) ? -1 : 1
   }
 
 }
