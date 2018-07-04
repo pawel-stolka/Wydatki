@@ -93,4 +93,20 @@ export class EItem2Component implements OnInit {
     this.state = (this.state === 'small' ? 'large' : 'small');
   }
 
+  byQuantity() {
+    console.log('byQuantity')
+  }
+
+  byProduct() {
+    console.log('byProduct')
+  }
+
+  byCategory() {
+    console.log('byCategory')
+  }
+
+  bySum() {
+    console.log('bySum')
+  }
+
 }
