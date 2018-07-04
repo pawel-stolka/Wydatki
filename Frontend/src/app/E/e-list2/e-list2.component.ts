@@ -60,7 +60,7 @@ export class EList2Component implements OnInit {
           // console.log(inner)
           return inner
         }).sort(this.compareName)
-        console.log(arr3)
+        // console.log(arr3)
         
         arr.push(arr3)//1)
       })

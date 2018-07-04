@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngFor="let bill of bills">
-    <e-item2 [sectionBills]="bill"></e-item2>
+  <div *ngFor="let bill of bills; let i = index">
+    <e-item2 [sectionBills]="bill" [i]="i"></e-item2>
   </div>
 </div>

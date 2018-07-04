@@ -27,8 +27,9 @@ import { trigger,state,style,transition,animate,keyframes } from '@angular/anima
   ]
 })
 export class EItem2Component implements OnInit {
-  @Input()
-  sectionBills: any[]
+  @Input() sectionBills: any[]
+  @Input() i: number
+  allBills = []
 
   state: string = 'small';
   
@@ -36,14 +37,18 @@ export class EItem2Component implements OnInit {
   totalPrice: number
   highest: any
   week: number
+  currentBill
+  private val100: any[]
 
   constructor() { }
-
+  
   ngOnInit() {
+    
     // console.log(this.sectionBills)
     let newVal: any[] = []
     
-    let bills = this.sectionBills.map(i => {
+    // let bills = 
+    this.sectionBills.map(i => {
       // console.log(i)
       let sum = 0
       i.values.forEach(element => {
@@ -58,19 +63,23 @@ export class EItem2Component implements OnInit {
       newVal.push(newV)
       // console.log('newVal', newVal)
     })
+    this.val100 = Array.from(newVal)
+    
     this.sectionBills = newVal 
+    // this.allBills = newVal
 
     this.totalPrice = 0
     this.highest = {
       price: 0
     }
     this.sumPrice()
-
+    // this.allBills.push(this.sectionBills)
     // console.log(this.sectionBills)
-    // console.log(bills)
+    // console.log(this.allBills)
   }
 
   sumPrice() {
+    
     let total = 0
     // console.log(this.sectionBills)
     this.sectionBills.forEach(item => {
@@ -90,11 +99,15 @@ export class EItem2Component implements OnInit {
   }
 
   animateMe(){
+    // console.log('val100', this.val100)
+    this.currentBill = this.val100
+    
     this.state = (this.state === 'small' ? 'large' : 'small');
   }
 
   byQuantity() {
     console.log('byQuantity')
+    console.log(this.i, this.currentBill)
   }
 
   byProduct() {
