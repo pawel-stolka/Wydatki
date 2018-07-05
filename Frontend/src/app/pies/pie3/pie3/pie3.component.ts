@@ -155,7 +155,7 @@ export class Pie3Component implements OnInit {
     //   .data(legend)
     //   .enter()
 
-    g.selectAll('cakeBit')
+    let text = g.selectAll('cakeBit')
       // .selectAll('text')
       .data(pData)
       .enter()
@@ -168,14 +168,25 @@ export class Pie3Component implements OnInit {
         fill: 'black'
       })
       .text((d: any) => {
-        let result = `${d.label} ${d.percentage}%`
+        let result = `${d.label}`// ${d.percentage}%`
         // console.log('result, d', result, d)
         return result
-      }
-        
-      )
-// ---------------------
+      })
 
+//     text.append('text')
+//     .attrs({
+//       x: (d: any) => arcGenerator.centroid(d)[0],
+//       y: (d: any) => arcGenerator.centroid(d)[1] + 50,
+//       // dy: '.35em',
+//       'text-anchor': 'middle',
+//       fill: 'black'
+//     })
+// // ---------------------
+//       .text((d: any) => {
+//         let result = `${d.percentage}%`
+//         // console.log('result, d', result, d)
+//         return result
+//       })
 
     /*
     path
