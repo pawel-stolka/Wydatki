@@ -26,7 +26,7 @@ export class PieContainer3Component implements OnInit {
             { name: 'Bobo', percent: 1 }
         ];
 
-    this.pieData = dataset
+    this.pieData = this.incoming// dataset
     
     console.log(this.pieData)
   }

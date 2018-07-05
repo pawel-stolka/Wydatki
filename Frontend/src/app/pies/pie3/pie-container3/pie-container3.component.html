@@ -1,7 +1,7 @@
 <!-- <div class="m3"> -->
 <div>incoming
   <div *ngFor="let in of incoming">
-    {{in.one}} * {{in.two}}
+    {{in.name}} - do {{in.percent}}
   </div>
 </div>
 <pie3 *ngIf="pieData" [data]="pieData"></pie3>

@@ -74,29 +74,7 @@ export class Pie3Component implements OnInit {
 
     // incoming
     let pData = [],
-        _arr = []
-
-    let ex = [{
-      name: 'male',
-      percent: .15
-    },
-    {
-      name: 'female',
-      percent: .37
-    },
-    {
-      name: 'bobo',
-      percent: .63
-    },
-    {
-      name: 'test',
-      percent: 1
-    }]
-    ex.forEach((e,i) => {
-    // _arr.push(ex[i])
-    });
-
-    _arr = this.data
+        _arr = this.data
 
     let colorDef = ["red", 'yellow']
     let colors = //["red", "orange", "green"]

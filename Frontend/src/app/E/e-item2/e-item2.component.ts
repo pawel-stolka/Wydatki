@@ -73,14 +73,20 @@ export class EItem2Component implements OnInit {
   }
 
   testPieData() {
-    this.testData = [{
-      one: 1,
-      two: 7
-    },
-    {
-      one: 12,
-      two: 23
-    }]
+    this.testData = [
+      {
+        name: 'item1',
+        percent: .23
+      },
+      {
+        name: 'item2',
+        percent: .7
+      },
+      {
+        name: 'item3',
+        percent: 1
+      }
+    ]
   }
 
   sumPrice() {
