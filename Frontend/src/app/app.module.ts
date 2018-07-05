@@ -36,6 +36,8 @@ import { EList2Component } from './E/e-list2/e-list2.component';
 import { EItem2Component } from './E/e-item2/e-item2.component';
 import { PieContainer3Component } from './pies/pie3/pie-container3/pie-container3.component';
 import { Pie3Component } from './pies/pie3/pie3/pie3.component';
+import { PieLabeledContainerComponent } from './pies/pie3/pie-labeled-container/pie-labeled-container.component';
+import { PieLabeledComponent } from './pies/pie3/pie-labeled/pie-labeled.component';
 
 
 const routes = [
@@ -52,6 +54,7 @@ const routes = [
   { path: 'pie', component: PieContainerComponent },
   { path: 'e-list2', component: EList2Component },
   { path: 'e-item2', component: EItem2Component },
+  { path: 'pie-labeled', component: PieLabeledContainerComponent }
 ]
 
 
@@ -77,7 +80,9 @@ const routes = [
     EList2Component,
     EItem2Component,
     PieContainer3Component,
-    Pie3Component
+    Pie3Component,
+    PieLabeledContainerComponent,
+    PieLabeledComponent
   ],
   imports: [
     BrowserModule,

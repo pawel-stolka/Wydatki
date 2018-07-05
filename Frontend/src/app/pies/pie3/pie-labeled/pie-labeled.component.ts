@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'pie3',
-  templateUrl: './pie3.component.html',
-  styleUrls: ['./pie3.component.css']
+  selector: 'pie-labeled',
+  templateUrl: './pie-labeled.component.html',
+  styleUrls: ['./pie-labeled.component.css']
 })
-export class Pie3Component implements OnInit {
+export class PieLabeledComponent implements OnInit {
   @ViewChild('pie') private pieContainer: ElementRef;
   @Input() private data: Array < any > ;
 
@@ -39,9 +39,18 @@ export class Pie3Component implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
-    this.width = 300 // element.offsetWidth - 2 * this.margin.top;
-    this.height = 300 // element.offsetHeight;
-    this.radius = this.height / 2
+    this.width = 800// element.offsetWidth - 2 * this.margin.top;
+    this.height = 400// element.offsetHeight;
+
+    let arc = {
+      innerRadius: 50,
+      outerRadius: 150,
+      padAngle: .03,
+      padRadius: 100,
+      cornerRadius: 10
+    }
+
+    // this.radius = this.height / 2
     let svg = d3.select(element)
       .append('svg')
       .attrs({
@@ -54,17 +63,17 @@ export class Pie3Component implements OnInit {
     let g = svg.append('g')
       .attrs({
         transform:
-          // `translate(${this.width/2}, ${this.height/4})`,
-          `translate(150, 150)`,
+          `translate(${this.width/2}, ${this.height/2})`,
+          // `translate(150, 150)`,
         class: 'mainCircle'
       });
 
     let arcGenerator = d3.arc()
-      .innerRadius(30)
-      .outerRadius(100)
-      .padAngle(.03)
-      .padRadius(100)
-      .cornerRadius(5)
+      .innerRadius(arc.innerRadius)
+      .outerRadius(arc.outerRadius)
+      .padAngle(arc.padAngle)
+      .padRadius(arc.padRadius)
+      .cornerRadius(arc.cornerRadius)
 
     function angle(factor = 1) {
       return factor * 2 * Math.PI
@@ -82,7 +91,7 @@ export class Pie3Component implements OnInit {
       .domain([0, _arr.length])
       .range(<any[]>colorDef) //['yellow', 'blue']);
 
-    // filling parts of pie
+    // counting parts of pie
     for (var i = 0; i < _arr.length; i++) {
       let data = {}
       let color = colors(i)
@@ -116,7 +125,8 @@ export class Pie3Component implements OnInit {
       pData.push(data)
     }
     console.log('_arr', _arr)
-
+    
+    // donut slices
     let path = g.selectAll('path')
       .data(pData)
       .enter()
@@ -134,27 +144,7 @@ export class Pie3Component implements OnInit {
           return res
         }
       })
-
-    // let g = svg.append('g')
-    // .attrs({
-    //   transform: `
-    //     translate(${this.width/2}, ${this.height/2})
-    //     `,
-    //   class: 'mainCircle'
-    // });
-
-    // ---------------------
-    //center legend?
-    // let legend = ['aaa', 'ttt']
-    // let gTest = svg
-    //   .append('g')
-    //   .attrs({
-    //     class: 'test'
-    //   })
-    //   .selectAll('test')
-    //   .data(legend)
-    //   .enter()
-
+    // donut text
     let text = g.selectAll('cakeBit')
       // .selectAll('text')
       .data(pData)
@@ -172,89 +162,9 @@ export class Pie3Component implements OnInit {
         // console.log('result, d', result, d)
         return result
       })
-
-//     text.append('text')
-//     .attrs({
-//       x: (d: any) => arcGenerator.centroid(d)[0],
-//       y: (d: any) => arcGenerator.centroid(d)[1] + 50,
-//       // dy: '.35em',
-//       'text-anchor': 'middle',
-//       fill: 'black'
-//     })
-// // ---------------------
-//       .text((d: any) => {
-//         let result = `${d.percentage}%`
-//         // console.log('result, d', result, d)
-//         return result
-//       })
-
-    /*
-    path
-      .on('mouseenter', (data) => {
-        console.log('enter', data)
-        // this.currData.push(data)
-        // console.log('this.currData', this.currData)
-        gTest
-          .append('text')
-          .attr('class','textItem')
-          // .text(d => d)
-          .attrs({
-            x: (d: any) => 20,
-            y: (d, i: any) => i * 20 + 20,
-            // dy: '.35em',
-            'text-anchor': 'start',
-            fill: 'blue'
-          })
-          .text(d => d)
-
-      })
-      .on('mouseout', (data) => {
-        console.log('out', data)
-        // console.log('this.currData', this.currData)
-        
-      })
-*/
-    // this.test()
-  }
-  // currData: any[] = []
-
-  test() {
-    let element = this.pieContainer.nativeElement;
-    let svg = d3.select(element)
-
-    this.test3 = svg
-      .append('g')
-
-    let en = svg.selectAll('#en')
-    // console.log(en)
-
-  }
-  test3
-
-  enter() {
-    let myData = ['A', 'B', 'C', 'D', 'E'];
-
-    this.test3.selectAll('div')
-      .data(myData)
-      .enter()
-      .append('div')
-      .text(d => d)
-      .attrs({
-        class: 'test2'
-      })
-  }
-
-  exit() {
-    let myData = ['A', 'B', 'C'];
-
-    this.test3.selectAll('div')
-      .data(myData)
-      .exit()
-      .remove()
   }
 
   updatePie() {
-    //
-  }
 
+  }
 }
