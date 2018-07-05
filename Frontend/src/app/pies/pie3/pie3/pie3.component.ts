@@ -90,96 +90,93 @@ export class Pie3Component implements OnInit {
     let _letters = 'abcdefghijklmnopqrstuvwxyz'
     let names = _letters.split('')
 
-    let colorDef = ["red", 'yellow']
+    let colorDef = ["red", 'orange']
     let colors = //["red", "orange", "green"]
       d3.scaleLinear()
       .domain([0, parts.length])
       .range(<any[]>colorDef) //['yellow', 'blue']);
 
     // incoming
-    let pData = []
+    let pData = [],
+        draftData = []
     
     let ex1 = {
           name: 'male',
-          percent: .25
+          percent: .15
         },
         ex2 =
         {
           name: 'female',
-          percent: .45
+          percent: .37
         },
         ex3 =
         {
           name: 'test',
-          percent: .79
+          percent: .63
         }
-    pData.push(ex1)
-    pData.push(ex2)
-    pData.push(ex3)
-    //arcData
+    draftData.push(ex1)
+    draftData.push(ex2)
+    draftData.push(ex3)
+    // arcData
 
     // filling parts of pie
-    for (var i = 0; i < pData.length; i++) {
+    for (var i = 0; i < 3; i++) {//pData.length; i++) {
       let data = {}
       let   color = colors(i)
       let p0 = {
           name: 'p0',
-          percent: 0
+          percent: (draftData[i].percent)
         }
       let   p1 = {
         name: 'p1',
-        percent: angle(pData[i].percent)
+        percent: 0
       }
       console.log('p0',p0)
       console.log('p1',p1)
       let startAngle = 0
-      let endAngle = (p1.percent)
+      let endAngle = angle(p0.percent)
         
       if (i > 0) {
-        p1 = pData[i - 1]
-        startAngle = (p0.percent)
-        endAngle = (p1.percent)
+        p1 = draftData[i - 1]
+        startAngle = angle(p0.percent)
+        endAngle = angle(p1.percent)
          
       }
       console.log('iteration'+i,p0,p1)
 
-      // console.log('i<>0', {
-      //   startAngle,
-      //   endAngle,
-      //   label: pData[i].name,// names[i],
-      //   percentage: -15
-      // })
-        
       let p = ((p0.percent - p1.percent) *100).toString(),
           factor = parseFloat(p).toFixed(0)
-      console.log('iteration_p'+i, p)
+      // console.log('iteration_p'+i, p)
       console.log('factor', factor)
       data = {
         startAngle,
         endAngle,
-        label: pData[i].name,// names[i],
+        label: draftData[i].name,// names[i],
         percentage: factor
       }
 
-      // pData.push(data)
+      pData.push(data)
     }
     console.log('pData1', pData)
-    pData = [{
-        startAngle: 0,
-        endAngle: angle(.23),
-        label: 'hard1',
-        percentage: 23
-      },{
-        startAngle: angle(.23),
-        endAngle: angle(.63),
-        label: 'hard2',
-        percentage: 54
-      },{
-        startAngle: angle(.63),
-        endAngle: angle(1),
-        label: 'hard3',
-        percentage: 17
-    }]
+    // pData = [{
+    //     startAngle: 0,
+    //     endAngle: angle(.23),
+    //     label: 'hard1',
+    //     percentage: 23
+    //   },{
+    //     startAngle: angle(.23),
+    //     endAngle: angle(.63),
+    //     label: 'hard2',
+    //     percentage: 54
+    //   },{
+    //     startAngle: angle(.63),
+    //     endAngle: angle(1),
+    //     label: 'hard3',
+    //     percentage: 17
+    // }]
+    // pData.pop()
+    // pData.pop()
+    // pData.pop()
     console.log('pData2', pData)
 
     let path = g.selectAll('path')
