@@ -59,7 +59,7 @@ export class EItem2Component implements OnInit {
         name: i.name,
         type: i.type,
         values: i.values,
-        sum: sum.toFixed(2)
+        sum: +sum.toFixed(2)
       })
     })
 
@@ -67,7 +67,6 @@ export class EItem2Component implements OnInit {
 
     this.val100 = Array.from(newVal)
     
-
     this.sumPrice()
     this.testPieData()
   }
@@ -87,6 +86,54 @@ export class EItem2Component implements OnInit {
         percent: 1
       }
     ]
+    let realData = this.sectionBills.sort(this.compareCategory)
+    // ----------
+    let byType = this.groupBy(realData, x => 
+      x.type
+      // (x.date).week()
+    )
+
+    let _types = Array.from(byType)
+    let types = _types.map(t => {
+      let total = 0
+      t[1].forEach(s => {
+        total += s.sum
+      });
+      console.log('total', total)
+      let result = {
+        type: t[0],
+        total: parseFloat(total.toFixed(2))
+      }
+      console.log('t', t)
+      return result
+    })
+    console.log('types', types)
+
+    // -------------
+
+    let preparedData = realData.map(x => {
+      let result = {
+        name: x.type,
+        percent: 10
+      }
+      return result
+    })
+
+    console.log('realData', realData)
+    console.log('preparedData', preparedData)
+  }
+
+  groupBy(list, prop) {
+    const map = new Map();
+    list.forEach(item => {
+      const key = prop(item)
+      const collection = map.get(key)
+      if(!collection)
+        map.set(key, [item])
+      else
+        collection.push(item)
+    });
+    return map;
   }
 
   sumPrice() {

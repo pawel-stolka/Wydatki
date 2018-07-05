@@ -19,12 +19,12 @@ export class PieContainer3Component implements OnInit {
   generateData() {
     let p = Math.random()/2,
         percents = parseFloat(p.toString())
-    console.log('percents', percents)
-    var dataset = [
-            { name: 'Male', percent: percents },
-            { name: 'Female', percent: percents * 1.1 },
-            { name: 'Bobo', percent: 1 }
-        ];
+    // console.log('percents', percents)
+    // var dataset = [
+    //         { name: 'Male', percent: percents },
+    //         { name: 'Female', percent: percents * 1.1 },
+    //         { name: 'Bobo', percent: 1 }
+    //     ];
 
     this.pieData = this.incoming// dataset
     
