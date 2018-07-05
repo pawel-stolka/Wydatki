@@ -57,6 +57,12 @@
     /* background-color: #753159; */
 }
 
+.narrow2 {
+    min-width: 70px;
+    max-width: 90px;
+    /* background-color: #753159; */
+}
+
 /* .row:hover {
     background-color: #b2cdd4;
     cursor: pointer;
@@ -77,4 +83,12 @@
 
 .danger {
     color: #DC3545;
+}
+
+.marker {
+    /* background-color: #129835; */
+}
+
+.m4 {
+    /* background-color: #bba473; */
 }

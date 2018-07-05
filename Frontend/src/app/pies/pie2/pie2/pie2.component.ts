@@ -12,9 +12,9 @@ export class Pie2Component implements OnInit {
   private pie: any;
   private margin: any = {
       top: 0,
-      right: 20,
-      bottom: 100,
-      left: 50
+      right: 0,
+      bottom: 0,
+      left: 0
     }
   private width;
   private height;
@@ -50,14 +50,14 @@ export class Pie2Component implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
-    this.width = element.offsetWidth// - 2 * this.margin.top;
-    this.height = element.offsetHeight;
+    this.width = 100// element.offsetWidth// - 2 * this.margin.top;
+    this.height = 100// element.offsetHeight;
     let svg = d3.select(element)
       .append('svg')
       .attrs({
         class: 'pie',
-        width: element.offsetWidth,
-        height: element.offsetHeight
+        width: this.width,// element.offsetWidth,
+        height: this.height// element.offsetHeight
       })
 
     let g = svg.append('g')

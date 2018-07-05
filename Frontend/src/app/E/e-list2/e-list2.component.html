@@ -1,5 +1,12 @@
 <div class="container">
+
   <div *ngFor="let bill of bills; let i = index">
-    <e-item2 [sectionBills]="bill" [i]="i"></e-item2>
+    <div class="row">
+      <div class="col">
+        <e-item2 [sectionBills]="bill" [i]="i"></e-item2>
+      </div>
+
+      
+    </div>
   </div>
 </div>

@@ -34,6 +34,8 @@ import { PieContainer2Component } from './pies/pie2/pie-container2/pie-container
 import { Pie2Component } from './pies/pie2/pie2/pie2.component';
 import { EList2Component } from './E/e-list2/e-list2.component';
 import { EItem2Component } from './E/e-item2/e-item2.component';
+import { PieContainer3Component } from './pies/pie3/pie-container3/pie-container3.component';
+import { Pie3Component } from './pies/pie3/pie3/pie3.component';
 
 
 const routes = [
@@ -73,7 +75,9 @@ const routes = [
     PieContainer2Component,
     Pie2Component,
     EList2Component,
-    EItem2Component
+    EItem2Component,
+    PieContainer3Component,
+    Pie3Component
   ],
   imports: [
     BrowserModule,
