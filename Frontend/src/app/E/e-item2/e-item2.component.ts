@@ -30,7 +30,7 @@ export class EItem2Component implements OnInit {
   @Input() sectionBills: any[]
   @Input() i: number
 
-  state: string = 'small';
+  state: string = 'large'//'small';
   
   currentDate
   totalPrice: number
@@ -38,6 +38,7 @@ export class EItem2Component implements OnInit {
   week: number
   currentBill: any[]
   private val100: any[]
+  testData: any[]
 
   constructor() { }
   
@@ -68,6 +69,18 @@ export class EItem2Component implements OnInit {
     
 
     this.sumPrice()
+    this.testPieData()
+  }
+
+  testPieData() {
+    this.testData = [{
+      one: 1,
+      two: 7
+    },
+    {
+      one: 12,
+      two: 23
+    }]
   }
 
   sumPrice() {

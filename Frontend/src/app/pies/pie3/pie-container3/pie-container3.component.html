@@ -1,6 +1,8 @@
-<!-- <p>
-  pie-container3 works!
-</p> -->
-<div class="m3">
-<pie3 *ngIf="pieData" [data]="pieData"></pie3>
+<!-- <div class="m3"> -->
+<div>incoming
+  <div *ngFor="let in of incoming">
+    {{in.one}} * {{in.two}}
+  </div>
 </div>
+<pie3 *ngIf="pieData" [data]="pieData"></pie3>
+<!-- </div> -->

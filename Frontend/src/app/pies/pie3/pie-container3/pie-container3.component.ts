@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'pie-container3',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pie-container3.component.css']
 })
 export class PieContainer3Component implements OnInit {
-  private pieData: Array<any>;
+  @Input() incoming: any[]
+  private pieData: Array<any>
 
   constructor() { }
 
