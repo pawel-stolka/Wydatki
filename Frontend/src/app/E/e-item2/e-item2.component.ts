@@ -96,30 +96,77 @@ export class EItem2Component implements OnInit {
     let _types = Array.from(byType)
     let types = _types.map(t => {
       let total = 0
+      
       t[1].forEach(s => {
         total += s.sum
       });
-      console.log('total', total)
+      // console.log('total', total)
       let result = {
         type: t[0],
-        total: parseFloat(total.toFixed(2))
+        total: parseFloat(total.toFixed(2))        
       }
-      console.log('t', t)
+      // console.log('t', t)
       return result
     })
     console.log('types', types)
 
+    // counting percentages
+    let allTotal = 0
+    types.forEach(t => {
+      allTotal += t.total
+    });
+    types.forEach(element => {
+      
+    });
     // -------------
 
-    let preparedData = realData.map(x => {
+    let _preparedData = types.map(x => {
+      
       let result = {
         name: x.type,
-        percent: 10
+        percent: x.total,
+        fraction: allTotal
       }
       return result
     })
 
+    let preparedData2 = _preparedData.map( o => {
+      let fraction = o.percent / o.fraction * 100
+      let result = {
+        name: o.name,
+        percent: o.percent,
+        fraction: parseFloat(fraction.toString())
+      }
+      return result
+    })
+
+    // let preparedData
+    let fractions = [],
+        currFraction = 0
+    preparedData2.forEach((e,i) => {
+      if(i===0) {
+        currFraction = e.fraction
+      } else {
+        currFraction += e.fraction
+      }
+      fractions.push(currFraction)
+    });
+    let preparedData = _preparedData.map((p,i) => {
+      let fraction = parseFloat(fractions[i])/100
+      let result = {
+        name: p.name,
+        percent: p.percent,
+        fraction: fraction
+      }
+      return result
+    })
+
+    // preparedData.map(p => {
+    //   let fraction = (p.percent )
+    // })
+
     console.log('realData', realData)
+    console.log('_preparedData', _preparedData)
     console.log('preparedData', preparedData)
   }
 
@@ -157,6 +204,10 @@ export class EItem2Component implements OnInit {
   animateMe(){
     this.currentBill = this.val100
     this.state = (this.state === 'small' ? 'large' : 'small');
+  }
+
+  byTotal() {
+
   }
 
   byQuantity() {
