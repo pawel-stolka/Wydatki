@@ -39,11 +39,9 @@ export class Pie3Component implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
-    // element.offsetHeight = 500
     this.width = 300 // element.offsetWidth - 2 * this.margin.top;
     this.height = 300 // element.offsetHeight;
     this.radius = this.height / 2
-    console.log(element)
     let svg = d3.select(element)
       .append('svg')
       .attrs({
@@ -74,110 +72,72 @@ export class Pie3Component implements OnInit {
 
     // let arcData = []
 
+    // incoming
+    let pData = [],
+        _arr = []
 
-    let parts = //[.23, .34, .65, 1];
-    [{
+    let ex = [{
       name: 'male',
-      percent: .23
-    },{
-      name: 'male',
-      percent: .55
+      percent: .15
+    },
+    {
+      name: 'female',
+      percent: .37
+    },
+    {
+      name: 'bobo',
+      percent: .63
     },
     {
       name: 'test',
-      percent: .88
+      percent: 1
     }]
-    let _letters = 'abcdefghijklmnopqrstuvwxyz'
-    let names = _letters.split('')
+    ex.forEach((e,i) => {
+    // _arr.push(ex[i])
+    });
 
-    let colorDef = ["red", 'orange']
+    _arr = this.data
+
+    let colorDef = ["red", 'yellow']
     let colors = //["red", "orange", "green"]
       d3.scaleLinear()
-      .domain([0, parts.length])
+      .domain([0, _arr.length])
       .range(<any[]>colorDef) //['yellow', 'blue']);
 
-    // incoming
-    let pData = [],
-        draftData = []
-    
-    let ex1 = {
-          name: 'male',
-          percent: .15
-        },
-        ex2 =
-        {
-          name: 'female',
-          percent: .37
-        },
-        ex3 =
-        {
-          name: 'test',
-          percent: .63
-        }
-    draftData.push(ex1)
-    draftData.push(ex2)
-    draftData.push(ex3)
-    // arcData
-
     // filling parts of pie
-    for (var i = 0; i < 3; i++) {//pData.length; i++) {
+    for (var i = 0; i < _arr.length; i++) {
       let data = {}
-      let   color = colors(i)
+      let color = colors(i)
       let p0 = {
-          name: 'p0',
-          percent: (draftData[i].percent)
+          name: _arr[i].name,
+          percent: (_arr[i].percent)
         }
       let   p1 = {
-        name: 'p1',
+        // name: '',//_arr[0].name,
         percent: 0
       }
-      console.log('p0',p0)
-      console.log('p1',p1)
       let startAngle = 0
       let endAngle = angle(p0.percent)
         
       if (i > 0) {
-        p1 = draftData[i - 1]
+        p1 = _arr[i - 1]
         startAngle = angle(p0.percent)
         endAngle = angle(p1.percent)
-         
       }
-      console.log('iteration'+i,p0,p1)
 
-      let p = ((p0.percent - p1.percent) *100).toString(),
+      let p = ((p0.percent - p1.percent)*100 ).toString(),
           factor = parseFloat(p).toFixed(0)
-      // console.log('iteration_p'+i, p)
-      console.log('factor', factor)
+
       data = {
         startAngle,
         endAngle,
-        label: draftData[i].name,// names[i],
+        label: p0.name,//_arr[i].name,
         percentage: factor
       }
 
       pData.push(data)
     }
-    console.log('pData1', pData)
-    // pData = [{
-    //     startAngle: 0,
-    //     endAngle: angle(.23),
-    //     label: 'hard1',
-    //     percentage: 23
-    //   },{
-    //     startAngle: angle(.23),
-    //     endAngle: angle(.63),
-    //     label: 'hard2',
-    //     percentage: 54
-    //   },{
-    //     startAngle: angle(.63),
-    //     endAngle: angle(1),
-    //     label: 'hard3',
-    //     percentage: 17
-    // }]
-    // pData.pop()
-    // pData.pop()
-    // pData.pop()
-    console.log('pData2', pData)
+    console.log('_arr', _arr)
 
     let path = g.selectAll('path')
       .data(pData)
