@@ -13,7 +13,8 @@ export class PieContainer3Component implements OnInit {
 
   ngOnInit() {
     console.log('incoming',this.incoming)
-    this.generateData()
+    this.pieData = this.incoming
+    // this.generateData()
   }
 
   generateData() {

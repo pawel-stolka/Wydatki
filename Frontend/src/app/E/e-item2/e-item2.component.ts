@@ -30,7 +30,7 @@ export class EItem2Component implements OnInit {
   @Input() sectionBills: any[]
   @Input() i: number
 
-  state: string = 'large'//'small';
+  state: string = 'small';
   
   currentDate
   totalPrice: number

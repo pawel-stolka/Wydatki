@@ -55,7 +55,7 @@ export class Pie3Component implements OnInit {
       .attrs({
         transform:
           // `translate(${this.width/2}, ${this.height/4})`,
-          `translate(130, 130)`,
+          `translate(150, 150)`,
         class: 'mainCircle'
       });
 
