@@ -155,8 +155,7 @@ export class EItem2Component implements OnInit {
       let fraction = parseFloat(fractions[i])/100
       let result = {
         name: p.name,
-        percent: p.percent,
-        fraction: fraction
+        percent: fraction.toFixed(2)
       }
       return result
     })
@@ -168,6 +167,7 @@ export class EItem2Component implements OnInit {
     console.log('realData', realData)
     console.log('_preparedData', _preparedData)
     console.log('preparedData', preparedData)
+    this.testData = preparedData
   }
 
   groupBy(list, prop) {
