@@ -8,15 +8,15 @@ import * as d3 from 'd3';
 })
 export class Pie3Component implements OnInit {
   @ViewChild('pie') private pieContainer: ElementRef;
-  @Input() private data: Array<any>;
+  @Input() private data: Array < any > ;
 
   private pie: any;
   private margin: any = {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  }
   private width;
   private height;
   private radius;
@@ -25,7 +25,7 @@ export class Pie3Component implements OnInit {
 
   ngOnInit() {
     this.createPie();
-    console.log(this.data)
+    console.log('data', this.data)
     if (this.data) {
       this.updatePie();
     }
@@ -40,26 +40,24 @@ export class Pie3Component implements OnInit {
   createPie() {
     let element = this.pieContainer.nativeElement;
     // element.offsetHeight = 500
-    this.width = 300// element.offsetWidth - 2 * this.margin.top;
-    this.height = 300// element.offsetHeight;
+    this.width = 300 // element.offsetWidth - 2 * this.margin.top;
+    this.height = 300 // element.offsetHeight;
     this.radius = this.height / 2
     console.log(element)
     let svg = d3.select(element)
       .append('svg')
       .attrs({
         class: 'pie',
-        width: this.width,// element.offsetWidth,
-        height: this.height// element.offsetHeight
+        width: this.width, // element.offsetWidth,
+        height: this.height // element.offsetHeight
       })
 
-
-    console.log('pie')
     // chart plot area
     let g = svg.append('g')
       .attrs({
-        transform: 
-        // `translate(${this.width/2}, ${this.height/4})`,
-        `translate(130, 130)`,
+        transform:
+          // `translate(${this.width/2}, ${this.height/4})`,
+          `translate(130, 130)`,
         class: 'mainCircle'
       });
 
@@ -70,51 +68,122 @@ export class Pie3Component implements OnInit {
       .padRadius(100)
       .cornerRadius(5)
 
-    function ln(factor = 1) {
+    function angle(factor = 1) {
       return factor * 2 * Math.PI
     }
 
-    let arcData = []
+    // let arcData = []
 
-    let parts = [.23, .34, .65, 1];
+
+    let parts = //[.23, .34, .65, 1];
+    [{
+      name: 'male',
+      percent: .23
+    },{
+      name: 'male',
+      percent: .55
+    },
+    {
+      name: 'test',
+      percent: .88
+    }]
     let _letters = 'abcdefghijklmnopqrstuvwxyz'
     let names = _letters.split('')
 
-    let colorDef = ["orange", "red"]
-    let colors = // ["red", "orange", "green"]
+    let colorDef = ["red", 'yellow']
+    let colors = //["red", "orange", "green"]
       d3.scaleLinear()
       .domain([0, parts.length])
-      .range( < any[] > colorDef) //['yellow', 'blue']);
+      .range(<any[]>colorDef) //['yellow', 'blue']);
 
-    for (var i = 0; i < parts.length; i++) {
-      let data = {},
-          color = colors(i),
-          p0 = parts[i],
-          p1 = 0,
-          startAngle = 0,
-          endAngle = ln(p0)
+    // incoming
+    let pData = []
+    
+    let ex1 = {
+          name: 'male',
+          percent: .25
+        },
+        ex2 =
+        {
+          name: 'female',
+          percent: .45
+        },
+        ex3 =
+        {
+          name: 'test',
+          percent: .79
+        }
+    pData.push(ex1)
+    pData.push(ex2)
+    pData.push(ex3)
+    //arcData
 
-      if (i > 0) {
-        p1 = parts[i-1],
-        startAngle = ln(p0)
-        endAngle = ln(p1)
+    // filling parts of pie
+    for (var i = 0; i < pData.length; i++) {
+      let data = {}
+      let   color = colors(i)
+      let p0 = {
+          name: 'p0',
+          percent: 0
+        }
+      let   p1 = {
+        name: 'p1',
+        percent: angle(pData[i].percent)
       }
+      console.log('p0',p0)
+      console.log('p1',p1)
+      let startAngle = 0
+      let endAngle = (p1.percent)
+        
+      if (i > 0) {
+        p1 = pData[i - 1]
+        startAngle = (p0.percent)
+        endAngle = (p1.percent)
+         
+      }
+      console.log('iteration'+i,p0,p1)
 
-      let p = ((p0 - p1) * 100).toString(),
+      // console.log('i<>0', {
+      //   startAngle,
+      //   endAngle,
+      //   label: pData[i].name,// names[i],
+      //   percentage: -15
+      // })
+        
+      let p = ((p0.percent - p1.percent) *100).toString(),
           factor = parseFloat(p).toFixed(0)
-
+      console.log('iteration_p'+i, p)
+      console.log('factor', factor)
       data = {
         startAngle,
         endAngle,
-        label: names[i],
+        label: pData[i].name,// names[i],
         percentage: factor
       }
 
-      arcData.push(data)
+      // pData.push(data)
     }
+    console.log('pData1', pData)
+    pData = [{
+        startAngle: 0,
+        endAngle: angle(.23),
+        label: 'hard1',
+        percentage: 23
+      },{
+        startAngle: angle(.23),
+        endAngle: angle(.63),
+        label: 'hard2',
+        percentage: 54
+      },{
+        startAngle: angle(.63),
+        endAngle: angle(1),
+        label: 'hard3',
+        percentage: 17
+    }]
+    console.log('pData2', pData)
 
     let path = g.selectAll('path')
-      .data(arcData)
+      .data(pData)
       .enter()
       .append('g')
       .attrs({
@@ -124,30 +193,36 @@ export class Pie3Component implements OnInit {
       .append('path')
       .attrs({
         d: arcGenerator,
-        fill: (d, i) => colors(i)
+        fill: (d, i) => {
+          let res = colors(i)
+          // console.log('d,i, res', d,i, res)
+          return res
+        }
       })
 
-      // let g = svg.append('g')
-      // .attrs({
-      //   transform: `
-      //     translate(${this.width/2}, ${this.height/2})
-      //     `,
-      //   class: 'mainCircle'
-      // });
+    // let g = svg.append('g')
+    // .attrs({
+    //   transform: `
+    //     translate(${this.width/2}, ${this.height/2})
+    //     `,
+    //   class: 'mainCircle'
+    // });
 
-    let legend = ['aaa','ttt']
-    let gTest = svg
-      .append('g')
-      .attrs({
-        class: 'test'
-      })
-      .selectAll('test')
-      .data(legend)
-      .enter()
-    
+    // ---------------------
+    //center legend?
+    // let legend = ['aaa', 'ttt']
+    // let gTest = svg
+    //   .append('g')
+    //   .attrs({
+    //     class: 'test'
+    //   })
+    //   .selectAll('test')
+    //   .data(legend)
+    //   .enter()
+
     g.selectAll('cakeBit')
-    // .selectAll('text')
-      .data(arcData)
+      // .selectAll('text')
+      .data(pData)
       .enter()
       .append('text')
       .attrs({
@@ -155,11 +230,18 @@ export class Pie3Component implements OnInit {
         y: (d: any) => arcGenerator.centroid(d)[1],
         // dy: '.35em',
         'text-anchor': 'middle',
-        fill: 'white'
+        fill: 'black'
       })
-      .text((d: any) => 
-        `${d.label} ${d.percentage}%`
+      .text((d: any) => {
+        let result = `${d.label} ${d.percentage}%`
+        // console.log('result, d', result, d)
+        return result
+      }
+        
       )
+// ---------------------
+
+
     /*
     path
       .on('mouseenter', (data) => {
@@ -186,43 +268,43 @@ export class Pie3Component implements OnInit {
         
       })
 */
-    this.test()
+    // this.test()
   }
-  currData: any[] = []
+  // currData: any[] = []
 
   test() {
     let element = this.pieContainer.nativeElement;
     let svg = d3.select(element)
 
     this.test3 = svg
-    .append('g')
+      .append('g')
 
     let en = svg.selectAll('#en')
-    console.log(en)
-   
+    // console.log(en)
+
   }
-test3
+  test3
 
   enter() {
     let myData = ['A', 'B', 'C', 'D', 'E'];
-    
-        this.test3.selectAll('div')
-          .data(myData)
-          .enter()
-          .append('div')
-          .text(d => d)
-          .attrs({
-            class: 'test2'
-          })
+
+    this.test3.selectAll('div')
+      .data(myData)
+      .enter()
+      .append('div')
+      .text(d => d)
+      .attrs({
+        class: 'test2'
+      })
   }
 
   exit() {
     let myData = ['A', 'B', 'C'];
 
     this.test3.selectAll('div')
-    .data(myData)
-    .exit()
-    .remove()
+      .data(myData)
+      .exit()
+      .remove()
   }
 
   updatePie() {
