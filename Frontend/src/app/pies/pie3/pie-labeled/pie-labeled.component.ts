@@ -145,23 +145,110 @@ export class PieLabeledComponent implements OnInit {
         }
       })
     // donut text
-    let text = g.selectAll('cakeBit')
-      // .selectAll('text')
+    // let text = g.selectAll('cakeBit')
+    //   // .selectAll('text')
+    //   .data(pData)
+    //   .enter()
+    //   .append('text')
+    //   .attrs({
+    //     x: (d: any) => arcGenerator.centroid(d)[0],
+    //     y: (d: any) => arcGenerator.centroid(d)[1],
+    //     // dy: '.35em',
+    //     'text-anchor': 'middle',
+    //     fill: 'black'
+    //   })
+    //   .text((d: any) => {
+    //     let result = `${d.label} ${d.percentage}%`
+    //     // console.log('result, d', result, d)
+    //     return result
+    //   })
+
+    let label = g.selectAll('cakeBit')
       .data(pData)
       .enter()
       .append('text')
+      .html((d:any) => {
+        return d.label + ' <tspan>' + d.percentage + '</tspan>' + '%'
+      })
       .attrs({
-        x: (d: any) => arcGenerator.centroid(d)[0],
-        y: (d: any) => arcGenerator.centroid(d)[1],
-        // dy: '.35em',
-        'text-anchor': 'middle',
-        fill: 'black'
+        dy:'.35em',
+        transform: (d) => {
+          let pos = arcGenerator.centroid(d)
+          let len = 400,
+              a1 = pos[0] + len,
+              a2 = pos[1] + len/2
+          let ref1 = 145 * (this.midAngle(d) < Math.PI ? 1 : -1),
+              p1 = pos[0],
+              p2 = pos[1]
+          console.log('pos', pos)
+          console.log(pos[0], pos[1])
+          // let pos2 = 
+          return `translate(${pos[0] + ref1}, ${pos[1]})`
+        },
+        'text-anchor': 'middle'
       })
-      .text((d: any) => {
-        let result = `${d.label} ${d.percentage}%`
-        // console.log('result, d', result, d)
-        return result
+/*
+    // add lines connecting labels to slice. A polyline creates straight lines connecting several points
+    var polyline = g//.select('.lines')
+      .selectAll('polyline')
+      .data(pData)
+      .enter().append('polyline')
+      .attr('points', (d) => {
+
+        // see label transform function for explanations of these three lines.
+        var pos = arcGenerator.centroid(d);
+        pos[0] = arc.outerRadius * 0.95 * (this.midAngle(d) < Math.PI ? 1 : -1);
+        console.log('pos', pos)
+        return [10, 10, pos]
+        // return [arc.centroid(d), outerArc.centroid(d), pos]
       })
+      .style("stroke", "black")
+      .attr('fill', 'black')
+*/
+/**/ 
+    var poly = svg.selectAll('polyline')
+    .data(pData)
+    .enter()
+    .append('polyline')
+    .attrs({
+      points: (d) => {
+        // console.log(d)
+        let pos = arcGenerator.centroid(d)
+        let p1 = pos[0],
+            p2 = pos[1]
+        console.log(p1, p2)
+        let len = 400,
+            a1 = p1 + len,
+            a2 = p2 + len/2
+
+        let ref1 = a1 + 100 * (this.midAngle(d) < Math.PI ? 1 : -1)
+        let res = [a1, a2, ref1, a2]
+        
+        return res 
+      },
+      // transform: (d) => {
+      // // points:(d) => {
+      //   var pos = arcGenerator.centroid(d)
+      //   pos[0] =  arc.outerRadius * 0.95 * (this.midAngle(d) < Math.PI ? 1 : -1);
+      //   console.log('arc.outerRadius', arc.outerRadius)
+      //   console.log('pos', pos)
+      //   let result = [0,0, pos]
+      //   return `translate(${pos})`// result
+      // },
+      
+    })
+    .style("stroke", "black")
+  }
+
+  minusOrPlus(d) {
+    let r = this.midAngle(d) < Math.PI ? 1 : -1
+    console.log('result: ', r)
+    return r
+  }
+  midAngle(d) {
+    let result =  d.startAngle + (d.endAngle - d.startAngle) / 2;
+    console.log('result', result)
+    return result
   }
 
   updatePie() {
