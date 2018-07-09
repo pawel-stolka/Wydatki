@@ -210,22 +210,29 @@ export class PieLabeledComponent implements OnInit {
     .data(pData)
     .enter()
     .append('polyline')
-    .attrs({
-      points: (d) => {
+    .attr(
+      'points', (d:any) => {
+        
         // console.log(d)
         let pos = arcGenerator.centroid(d)
         let p1 = pos[0],
             p2 = pos[1]
-        console.log(p1, p2)
-        let len = 400,
-            a1 = p1 + len,
+        // console.log(p1, p2)
+        let len = 400
+        let a1 = p1 + len,
             a2 = p2 + len/2
 
-        let ref1 = a1 + 100 * (this.midAngle(d) < Math.PI ? 1 : -1)
-        let res = [a1, a2, ref1, a2]
+        let ref = a1 + 100 * this.minusOrPlus(d) // (this.midAngle(d) < Math.PI ? 1 : -1)
+        // let x = { a1, a2}
+        let z1 = [ a1, a2 ],
+            z2 = [ ref, a2 + 10* this.minusOrPlus(d)],
+            z3 = [ ref + 50 * this.minusOrPlus(d), a2 + 10 * this.minusOrPlus(d) ]
+        let res = [z1, z2, z3]// [a1, a2, ref, a2]
         
         return res 
-      },
+      })
+      .style("stroke", "black")
+      
       // transform: (d) => {
       // // points:(d) => {
       //   var pos = arcGenerator.centroid(d)
@@ -235,9 +242,7 @@ export class PieLabeledComponent implements OnInit {
       //   let result = [0,0, pos]
       //   return `translate(${pos})`// result
       // },
-      
-    })
-    .style("stroke", "black")
+
   }
 
   minusOrPlus(d) {

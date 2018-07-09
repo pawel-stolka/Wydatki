@@ -28,3 +28,10 @@
 	height: 30px; */
 	text-align: center;
 }
+
+polyline {
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
