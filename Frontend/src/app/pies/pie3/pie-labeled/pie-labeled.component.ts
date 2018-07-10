@@ -22,6 +22,7 @@ export class PieLabeledComponent implements OnInit {
   private radius;
   private underline = 100
   private dotRadius = 2
+  private outerFactor = 1.1
 
   constructor() {}
 
@@ -45,7 +46,7 @@ export class PieLabeledComponent implements OnInit {
     this.height = 400// element.offsetHeight;
 
     let arc = {
-      innerRadius: 50,
+      innerRadius: 100,
       outerRadius: 150,
       padAngle: .03,
       padRadius: 100,
@@ -78,8 +79,8 @@ export class PieLabeledComponent implements OnInit {
       .cornerRadius(arc.cornerRadius)
 
     let outerArc = d3.arc()
-      .outerRadius(arc.outerRadius * 1.2)
-      .innerRadius(arc.outerRadius * 1.2)
+      .outerRadius(arc.outerRadius * this.outerFactor)
+      .innerRadius(arc.outerRadius * this.outerFactor)
 
     function angle(factor = 1) {
       return factor * 2 * Math.PI
@@ -144,23 +145,7 @@ export class PieLabeledComponent implements OnInit {
         fill: (d, i) => colors(i)
       })
 
-    let text = g.selectAll('cakeBit')
-      // .selectAll('text')
-      .data(pData)
-      .enter()
-      .append('text')
-      .attrs({
-        x: (d: any) => outerArc.centroid(d)[0] + (this.underline/2) * this.minusOrPlus(d),
-        y: (d: any) => outerArc.centroid(d)[1] - 3,
-        // dy: '.35em',
-        'text-anchor': 'middle',
-        fill: 'black'
-      })
-      .text((d: any) => {
-        let result = `${d.label} ${d.percentage}%`
-        // console.log('result, d', result, d)
-        return result
-      })
+    
 
     //region donut text
     // let text = g.selectAll('cakeBit')
@@ -244,7 +229,26 @@ export class PieLabeledComponent implements OnInit {
           return [xy1, xy2, xy3].toString()
         }
       })
-      .style("stroke", "black")
+
+      let text = g.selectAll('cakeBit')
+      // .selectAll('text')
+      .data(pData)
+      .enter()
+      .append('text')
+      .attrs({
+        x: (d: any) => outerArc.centroid(d)[0] + (this.underline/2) * this.minusOrPlus(d),
+        y: (d: any) => outerArc.centroid(d)[1] - 3,
+        // dy: '.35em',
+        'text-anchor': 'middle',
+        fill: 'black'
+      })
+      .text((d: any) => {
+        let result = `${d.label} ${d.percentage}%`
+        // console.log('result, d', result, d)
+        return result
+      })
+
+
       //region transform...
 
       // .attr('transform', () => {
@@ -265,19 +269,19 @@ export class PieLabeledComponent implements OnInit {
       //endregion
   
     
-    let dots = g.selectAll('.dots')
-      .data(pData)
-      .enter()
-    // .attrs({class: 'dot'})
-    dots
-      .append('circle')
-      .attrs({
-        cx: (d) => arcGenerator.centroid(d)[0],
-        cy: (d) => arcGenerator.centroid(d)[1],
-        r: this.dotRadius 
-      })
-      // .style('fill', 'none')
-      .style("stroke", "black")
+    // let dots = g.selectAll('.dots')
+    //   .data(pData)
+    //   .enter()
+    // // .attrs({class: 'dot'})
+    // dots
+    //   .append('circle')
+    //   .attrs({
+    //     cx: (d) => arcGenerator.centroid(d)[0],
+    //     cy: (d) => arcGenerator.centroid(d)[1],
+    //     r: this.dotRadius 
+    //   })
+    //   // .style('fill', 'none')
+    //   .style("stroke", "black")
     
   }
 

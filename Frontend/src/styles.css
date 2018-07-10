@@ -30,9 +30,9 @@
 }
 
 polyline {
-	opacity: .3;
+	opacity: .65;
 	stroke: black;
-	stroke-width: 2px;
+	stroke-width: 1px;
 	fill: none;
 }
 
