@@ -35,3 +35,9 @@ polyline {
 	stroke-width: 2px;
 	fill: none;
 }
+
+.dot {
+	stroke: greenyellow;
+	stroke: black;
+	stroke-width: 1px;
+}

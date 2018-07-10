@@ -20,6 +20,8 @@ export class PieLabeledComponent implements OnInit {
   private width;
   private height;
   private radius;
+  private underline = 100
+  private dotRadius = 3
 
   constructor() {}
 
@@ -75,6 +77,10 @@ export class PieLabeledComponent implements OnInit {
       .padRadius(arc.padRadius)
       .cornerRadius(arc.cornerRadius)
 
+    let outerArc = d3.arc()
+      .outerRadius(arc.outerRadius * 1.2)
+      .innerRadius(arc.outerRadius * 1.2)
+
     function angle(factor = 1) {
       return factor * 2 * Math.PI
     }
@@ -124,27 +130,39 @@ export class PieLabeledComponent implements OnInit {
 
       pData.push(data)
     }
-    console.log('_arr', _arr)
+    // console.log('_arr', _arr)
     
     // donut slices
     let path = g.selectAll('path')
       .data(pData)
       .enter()
       .append('g')
-      .attrs({
-        class: 'cakeBit'
-      })
-      // .append('text')
+      .attrs({class: 'cakeBit'})
       .append('path')
       .attrs({
         d: arcGenerator,
-        fill: (d, i) => {
-          let res = colors(i)
-          // console.log('d,i, res', d,i, res)
-          return res
-        }
+        fill: (d, i) => colors(i)
       })
-    // donut text
+
+    let text = g.selectAll('cakeBit')
+      // .selectAll('text')
+      .data(pData)
+      .enter()
+      .append('text')
+      .attrs({
+        x: (d: any) => outerArc.centroid(d)[0] + (this.underline/2) * this.minusOrPlus(d),
+        y: (d: any) => outerArc.centroid(d)[1] - 3,
+        // dy: '.35em',
+        'text-anchor': 'middle',
+        fill: 'black'
+      })
+      .text((d: any) => {
+        let result = `${d.label} ${d.percentage}%`
+        // console.log('result, d', result, d)
+        return result
+      })
+
+    //region donut text
     // let text = g.selectAll('cakeBit')
     //   // .selectAll('text')
     //   .data(pData)
@@ -163,6 +181,12 @@ export class PieLabeledComponent implements OnInit {
     //     return result
     //   })
 
+
+
+    // *****************************************************
+    // for clarity just for now
+    // *****************************************************
+    /*
     let label = g.selectAll('cakeBit')
       .data(pData)
       .enter()
@@ -186,7 +210,7 @@ export class PieLabeledComponent implements OnInit {
           return `translate(${pos[0] + ref1}, ${pos[1]})`
         },
         'text-anchor': 'middle'
-      })
+      })*/
 /*
     // add lines connecting labels to slice. A polyline creates straight lines connecting several points
     var polyline = g//.select('.lines')
@@ -205,33 +229,27 @@ export class PieLabeledComponent implements OnInit {
       .style("stroke", "black")
       .attr('fill', 'black')
 */
-/**/ 
-    var poly = svg.selectAll('polyline')
-    .data(pData)
-    .enter()
-    .append('polyline')
-    .attr(
-      'points', (d:any) => {
-        
-        // console.log(d)
-        let pos = arcGenerator.centroid(d)
-        let p1 = pos[0],
-            p2 = pos[1]
-        // console.log(p1, p2)
-        let len = 400
-        let a1 = p1 + len,
-            a2 = p2 + len/2
-
-        let ref = a1 + 100 * this.minusOrPlus(d) // (this.midAngle(d) < Math.PI ? 1 : -1)
-        // let x = { a1, a2}
-        let z1 = [ a1, a2 ],
-            z2 = [ ref, a2 + 10* this.minusOrPlus(d)],
-            z3 = [ ref + 50 * this.minusOrPlus(d), a2 + 10 * this.minusOrPlus(d) ]
-        let res = [z1, z2, z3]// [a1, a2, ref, a2]
-        
-        return res 
-      })
+    //endregion
+    var poly = g.selectAll('polyline')
+      .data(pData)
+      .enter()
+      .append('polyline')
+      .attr(
+        'points', (d:any) => {
+          let m1 = arcGenerator.centroid(d)
+          let m2 = outerArc.centroid(d)
+          let m3 = [ m2[0] + this.underline * this.minusOrPlus(d), 
+                    outerArc.centroid(d)[1]]
+          console.log('m1, m2, m3', m1, m2, m3)
+          return [m1, m2, m3] 
+        })
       .style("stroke", "black")
+      //region transform...
+
+      // .attr('transform', () => {
+      //   let p = [100,100]
+      //   return `translate(${p})`
+      // })
       
       // transform: (d) => {
       // // points:(d) => {
@@ -243,6 +261,40 @@ export class PieLabeledComponent implements OnInit {
       //   return `translate(${pos})`// result
       // },
 
+      //endregion
+  
+    
+    let dots = g.selectAll('.dots')
+      .data(pData)
+      .enter()
+    // .attrs({class: 'dot'})
+    dots
+      .append('circle')
+      .attrs({
+        cx: (d) => arcGenerator.centroid(d)[0],
+        cy: (d) => arcGenerator.centroid(d)[1],
+        r: this.dotRadius - 1
+      })
+      // .style('fill', 'none')
+      .style("stroke", "black")
+    //region dots - helpers
+    dots
+      .append('circle')
+      .attrs({
+        cx: (d) => outerArc.centroid(d)[0],
+        cy: (d) => outerArc.centroid(d)[1],
+        r: this.dotRadius
+      })
+    dots
+      .append('circle')
+      .attrs({
+        cx: (d) => outerArc.centroid(d)[0] + this.underline * this.minusOrPlus(d),
+        cy: (d) => outerArc.centroid(d)[1],
+        r: this.dotRadius
+      })
+      .style('fill', 'white')
+      .style("stroke", "red")
+    //endregion
   }
 
   minusOrPlus(d) {
