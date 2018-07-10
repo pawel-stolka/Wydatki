@@ -20,6 +20,7 @@ export class PieLabeledComponent implements OnInit {
   private width;
   private height;
   private radius;
+  private arc;
   private underline = 100
   private dotRadius = 2
   private outerFactor = 1.1
@@ -45,7 +46,7 @@ export class PieLabeledComponent implements OnInit {
     this.width = 800// element.offsetWidth - 2 * this.margin.top;
     this.height = 400// element.offsetHeight;
 
-    let arc = {
+    this.arc = {
       innerRadius: 100,
       outerRadius: 150,
       padAngle: .03,
@@ -72,15 +73,15 @@ export class PieLabeledComponent implements OnInit {
       });
 
     let arcGenerator = d3.arc()
-      .innerRadius(arc.innerRadius)
-      .outerRadius(arc.outerRadius)
-      .padAngle(arc.padAngle)
-      .padRadius(arc.padRadius)
-      .cornerRadius(arc.cornerRadius)
+      .innerRadius(this.arc.innerRadius)
+      .outerRadius(this.arc.outerRadius)
+      .padAngle(this.arc.padAngle)
+      .padRadius(this.arc.padRadius)
+      .cornerRadius(this.arc.cornerRadius)
 
     let outerArc = d3.arc()
-      .outerRadius(arc.outerRadius * this.outerFactor)
-      .innerRadius(arc.outerRadius * this.outerFactor)
+      .outerRadius(this.arc.outerRadius * this.outerFactor)
+      .innerRadius(this.arc.outerRadius * this.outerFactor)
 
     function angle(factor = 1) {
       return factor * 2 * Math.PI
