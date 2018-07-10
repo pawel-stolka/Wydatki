@@ -21,7 +21,7 @@ export class PieLabeledComponent implements OnInit {
   private height;
   private radius;
   private underline = 100
-  private dotRadius = 3
+  private dotRadius = 2
 
   constructor() {}
 
@@ -234,15 +234,16 @@ export class PieLabeledComponent implements OnInit {
       .data(pData)
       .enter()
       .append('polyline')
-      .attr(
-        'points', (d:any) => {
-          let m1 = arcGenerator.centroid(d)
-          let m2 = outerArc.centroid(d)
-          let m3 = [ m2[0] + this.underline * this.minusOrPlus(d), 
+      .attrs({
+        points: (d:any) => {
+          let xy1 = arcGenerator.centroid(d)
+          let xy2 = outerArc.centroid(d)
+          let xy3 = [ xy2[0] + this.underline * this.minusOrPlus(d), 
                     outerArc.centroid(d)[1]]
-          console.log('m1, m2, m3', m1, m2, m3)
-          return [m1, m2, m3] 
-        })
+          // console.log('xy1, xy2, xy3', xy1, xy2, xy3)
+          return [xy1, xy2, xy3].toString()
+        }
+      })
       .style("stroke", "black")
       //region transform...
 
@@ -273,28 +274,11 @@ export class PieLabeledComponent implements OnInit {
       .attrs({
         cx: (d) => arcGenerator.centroid(d)[0],
         cy: (d) => arcGenerator.centroid(d)[1],
-        r: this.dotRadius - 1
+        r: this.dotRadius 
       })
       // .style('fill', 'none')
       .style("stroke", "black")
-    //region dots - helpers
-    dots
-      .append('circle')
-      .attrs({
-        cx: (d) => outerArc.centroid(d)[0],
-        cy: (d) => outerArc.centroid(d)[1],
-        r: this.dotRadius
-      })
-    dots
-      .append('circle')
-      .attrs({
-        cx: (d) => outerArc.centroid(d)[0] + this.underline * this.minusOrPlus(d),
-        cy: (d) => outerArc.centroid(d)[1],
-        r: this.dotRadius
-      })
-      .style('fill', 'white')
-      .style("stroke", "red")
-    //endregion
+    
   }
 
   minusOrPlus(d) {
