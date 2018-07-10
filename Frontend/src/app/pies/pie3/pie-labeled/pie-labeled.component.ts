@@ -47,7 +47,7 @@ export class PieLabeledComponent implements OnInit {
     this.height = 300// element.offsetHeight;
 
     this.arc = {
-      innerRadius: 50,
+      innerRadius: 40,
       outerRadius: 80,
       padAngle: .03,
       padRadius: 100,

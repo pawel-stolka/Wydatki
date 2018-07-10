@@ -18,11 +18,10 @@ export class EList2Component implements OnInit {
 
   ngOnInit() {
     this.bills = this.dataService.getBills2()
-    this.getByWeek()
-    
+    this.getBy('byWeek')
   }
 
-  getByWeek() {
+  getBy(by: string = 'byDay') {
     this.expenseService.getBills()
     .subscribe((data: any) => {
       let _data = data.json()
@@ -37,13 +36,32 @@ export class EList2Component implements OnInit {
       .sort(this.compareDate)
       // console.log(mapped)
 
-      let byWeek = this.groupBy(mapped, x => 
-        moment(x.date).week())
+      let byDay = this.groupBy(mapped, item => item.date),
+          byMonth = this.groupBy(mapped, item => item.date.substr(5,2)), 
+          byWeek = this.groupBy(mapped, x => moment(x.date).week())
 
-      let bills = Array.from(byWeek)
+      let bills
+
+      if(by === 'byDay') {
+        bills = Array.from(byDay)//groupDates)
+      }
+      if(by === 'byMonth') {
+        bills = Array.from(byMonth)
+      }
+      if(by === 'byWeek') {
+        // this.groupBills = Array.from(byWeek)
+        let date = mapped.map(x => ({
+          date: x.date,
+          week: moment(x.date).week()
+        }))
+        console.log(date)
+        bills = Array.from(byWeek)
+        // this.weeks = true
+        // this.getWeek()
+      }
+
       let arr = []
       bills.map(v => {
-        // console.log('v', v)
         let arr1groups = this.groupBy(v[1], x => x.name)
         let arr2 = Array.from(arr1groups)
         let arr3 = arr2.map(x => {
@@ -51,24 +69,21 @@ export class EList2Component implements OnInit {
           x[1].forEach(e => {
             type = e.type
           });
-          // console.log('type', type)
           let inner = {
             name: x[0],
             values: x[1],
             type: type
           }
-          // console.log(inner)
           return inner
         }).sort(this.compareName)
-        // console.log(arr3)
-        
+
         arr.push(arr3)//1)
       })
-      // console.log(arr)
       this.bills = arr
-      // console.log(this.bills)
     })
   }
+
+
 
   compareDate(a,b) {
     const dateA = a.fulldate,
