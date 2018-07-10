@@ -8,7 +8,7 @@ import * as d3 from 'd3';
 })
 export class PieLabeledComponent implements OnInit {
   @ViewChild('pie') private pieContainer: ElementRef;
-  @Input() private data: Array < any > ;
+  @Input() private data: Array<any>;
 
   private pie: any;
   private margin: any = {
@@ -21,9 +21,9 @@ export class PieLabeledComponent implements OnInit {
   private height;
   private radius;
   private arc;
-  private underline = 100
+  private underline = 75
   private dotRadius = 2
-  private outerFactor = 1.1
+  private outerFactor = 1.2
 
   constructor() {}
 
@@ -43,12 +43,12 @@ export class PieLabeledComponent implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
-    this.width = 800// element.offsetWidth - 2 * this.margin.top;
-    this.height = 400// element.offsetHeight;
+    this.width = 350// element.offsetWidth - 2 * this.margin.top;
+    this.height = 300// element.offsetHeight;
 
     this.arc = {
-      innerRadius: 100,
-      outerRadius: 150,
+      innerRadius: 50,
+      outerRadius: 80,
       padAngle: .03,
       padRadius: 100,
       cornerRadius: 10
@@ -232,22 +232,35 @@ export class PieLabeledComponent implements OnInit {
       })
 
       let text = g.selectAll('cakeBit')
-      // .selectAll('text')
-      .data(pData)
-      .enter()
-      .append('text')
-      .attrs({
-        x: (d: any) => outerArc.centroid(d)[0] + (this.underline/2) * this.minusOrPlus(d),
-        y: (d: any) => outerArc.centroid(d)[1] - 3,
-        // dy: '.35em',
-        'text-anchor': 'middle',
-        fill: 'black'
-      })
-      .text((d: any) => {
-        let result = `${d.label} ${d.percentage}%`
-        // console.log('result, d', result, d)
-        return result
-      })
+        // .selectAll('text')
+        .data(pData)
+        .enter()
+
+      text
+        .append('text')
+        .attrs({
+          x: (d: any) => outerArc.centroid(d)[0] + (this.underline/2) * this.minusOrPlus(d),
+          y: (d: any) => outerArc.centroid(d)[1] - 3,
+          // dy: '.35em',
+          'text-anchor': 'middle',
+          fill: 'black'
+        })
+        .text((d: any) => `${d.label}`)
+
+      text
+        .append('text')
+        .attrs({
+          x: (d: any) => outerArc.centroid(d)[0] + (this.underline/2) * this.minusOrPlus(d),
+          y: (d: any) => outerArc.centroid(d)[1] + 14,
+          // dy: '.35em',
+          'text-anchor': 'middle',
+          fill: 'black'
+        })
+        .text((d: any) => {
+          let result = `${d.percentage}%`
+          // console.log('result, d', result, d)
+          return result
+        })
 
 
       //region transform...

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'pie-labeled-container',
@@ -6,14 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pie-labeled-container.component.css']
 })
 export class PieLabeledContainerComponent implements OnInit {
+  @Input() incoming: any[]
   private pieData: Array<any>
   
     constructor() { }
   
     ngOnInit() {
       // console.log('incoming',this.incoming)
-      // this.pieData = this.incoming
-      this.generateData()
+      this.pieData = this.incoming
+      // this.generateData()
     }
   
     generateData() {
