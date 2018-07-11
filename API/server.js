@@ -95,7 +95,8 @@ app.post('/bill', async (req, res) => {
 })
 
 
-// to change category by postman
+
+// to change category of product by postman
 app.put('/changetype', async (req, res) => {
     try {
         let typeData = req.body
@@ -132,6 +133,42 @@ app.put('/changetype', async (req, res) => {
     }
 })
 
+// to change category name by postman
+app.put('/changetypename', async (req, res) => {
+    try {
+        let typeData = req.body
+        console.log(typeData)
+        var bills = await Bill.find({
+            type: typeData.type
+        })
+        if (!bills)
+            return res.status(401)
+                .send({
+                    message: 'type not found'
+                })
+
+        console.log('bills.length', bills.length)
+
+        for (var i = 0; i < bills.length; i++) {
+            var element = bills[i];
+            element.type = typeData.newtype
+            element.save((err) => {
+                console.log(i, element.type)
+            })
+        }
+
+        console.log('ok!')
+        return res.status(200)
+            .send({
+                message: 'updated.',
+                value: bills.type
+            })
+
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
+})
 
 // ----- get by name --------------
 app.get('/name', async (req, res) => {
@@ -186,8 +223,6 @@ app.get('/name/:name', async (req, res) => {
 })
 
 // ----- group by type --------------
-
-
 app.get('/type', async (req, res) => {
     let types = await Bill.aggregate([{
         $group: {
@@ -243,6 +278,9 @@ app.get('/type/:type', async (req, res) => {
     return res.status(200)
         .send(types)
 })
+
+
+
 
 mongoose.connect(mongoString, (err) => {
     let _name = mongoString.split('/'),
