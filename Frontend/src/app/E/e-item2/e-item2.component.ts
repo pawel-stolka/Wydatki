@@ -39,10 +39,12 @@ export class EItem2Component implements OnInit {
   currentBill: any[]
   private val100: any[]
   testData: any[]
+  // private flag// = false
 
   constructor() { }
   
   ngOnInit() {
+    // this.flag = false
     this.totalPrice = 0
     this.highest = {
       price: 0
@@ -98,31 +100,24 @@ export class EItem2Component implements OnInit {
     types.forEach(t => {
       allTotal += t.total
     });
-    types.forEach(element => {
-      
-    });
-    // -------------
 
     let _preparedData = types.map(x => {
-      
-      let result = {
+      return {
         name: x.type,
         percent: x.total,
         fraction: allTotal,
         total: x.total
       }
-      return result
     })
 
     let preparedData2 = _preparedData.map( o => {
       let fraction = o.percent / o.fraction * 100
-      let result = {
+      return {
         name: o.name,
         percent: o.percent,
         fraction: parseFloat(fraction.toString()),
         total: o.total
       }
-      return result
     })
 
     // let preparedData
@@ -207,13 +202,15 @@ export class EItem2Component implements OnInit {
   }
 
   byCategory() {
-    this.sectionBills.sort(this.compareCategory)
-    console.log('byCategory', this.sectionBills)
+    this.testData.sort(this.compareCategory)
+    // this.sectionBills.sort(this.compareCategory)
+    console.log('byCategory', this.testData)
   }
 
   bySum() {
-    this.sectionBills.sort(this.compareSum)
-    console.log('bySum', this.sectionBills)
+    this.testData.sort(this.compareSum)
+    // this.sectionBills.sort(this.compareSum)
+    console.log('bySum', this.testData)
   }
 
   // someProp: number// = 0
@@ -232,11 +229,15 @@ export class EItem2Component implements OnInit {
     // }
   }
   
+  
   compareCategory(a,b) {
-    let typeA = a.type,
-        typeB = b.type
+    let typeA = a.name,
+        typeB = b.name
         // console.log(this.nameSort)
-    return (typeA < typeB) ? -1 : 1
+    // console.log('this.flag', this.flag)
+    let result = (typeA < typeB) ? -1 : 1
+    // console.log('compareCategory',result, a.name, b.name)
+    return result
   }
   
   compareQuantity(a,b) {
