@@ -39,7 +39,7 @@ export class Pie3Component implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
-    this.width = 300 // element.offsetWidth - 2 * this.margin.top;
+    this.width = 500 // element.offsetWidth - 2 * this.margin.top;
     this.height = 300 // element.offsetHeight;
     this.radius = this.height / 2
     let svg = d3.select(element)
@@ -55,7 +55,7 @@ export class Pie3Component implements OnInit {
       .attrs({
         transform:
           // `translate(${this.width/2}, ${this.height/4})`,
-          `translate(150, 150)`,
+          `translate(100, 100)`,
         class: 'mainCircle'
       });
 

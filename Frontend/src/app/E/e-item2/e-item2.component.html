@@ -15,59 +15,41 @@
   <div [@detailsanimation]='state' id="stateDiv" class="item">
 
     <div class="row header">
-      <div class="col narrow">
-        <button (click)='byQuantity()' class="btn btn-outline-success btn-sm">
-          ile
-        </button>
-      </div>
-      <div class="col">
-        <button (click)='byName()' class="btn btn-outline-secondary btn-sm">
-          produkt
-        </button>
-      </div>
-      <div class="col">
+
+      <div class="col col-sm-3 mk1">
         <button (click)='byCategory()' class="btn btn-outline-danger btn-sm">
           kategoria
         </button>
       </div>
-      <div class="col narrow2">
+
+      <div class="col col-sm-3 mk2">
         <button (click)='bySum()' class="btn btn-outline-primary btn-sm">
           w sumie
         </button>
       </div>
-      <div class="col col-md-4"></div>
+
+      <div class="col col-sm-6 mk3">wykres</div>
+      
     </div>
 
     <div class="row">
-      <div class="col col-md-8">
+      <div class="col">
 
         <div *ngFor="let bill of sectionBills">
           <div class="row m4">
-            <!-- <div class="col">{{bill.date}}</div> -->
 
-            <div class="col narrow">
-              <span class="badge badge-success badge-pill" *ngIf="bill.values.length>1">
-                {{bill.values.length}}
-              </span>
-            </div>
-
-            <div class="col">
-              <span class="secondary">{{bill.name}}</span>
-            </div>
-
-            <div class="col">
+            <div class="col mk1">
               <span class="danger">{{bill.type}}</span>
             </div>
 
-            <div class="col narrow2">
+            <div class="col mk2">
               <span class="primary">{{bill.sum}} zł</span>
             </div>
-
 
           </div>
         </div>
       </div>
-      <div class="col col-md-4 marker">
+      <div class="col mk3">
         <!-- <pie-container3 [incoming]="testData"></pie-container3> -->
         <pie-labeled-container [incoming]="testData"></pie-labeled-container>
       </div>

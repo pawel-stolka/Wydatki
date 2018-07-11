@@ -43,8 +43,10 @@ export class PieLabeledComponent implements OnInit {
 
   createPie() {
     let element = this.pieContainer.nativeElement;
-    this.width = 350// element.offsetWidth - 2 * this.margin.top;
-    this.height = 300// element.offsetHeight;
+    this.width = 400// element.offsetWidth - 2 * this.margin.top;
+    this.height = 230// element.offsetHeight;
+    let moveX = this.width/2
+    let moveY = this.height/2
 
     this.arc = {
       innerRadius: 40,
@@ -67,7 +69,7 @@ export class PieLabeledComponent implements OnInit {
     let g = svg.append('g')
       .attrs({
         transform:
-          `translate(${this.width/2}, ${this.height/2})`,
+          `translate(${moveX}, ${moveY})`,
           // `translate(150, 150)`,
         class: 'mainCircle'
       });

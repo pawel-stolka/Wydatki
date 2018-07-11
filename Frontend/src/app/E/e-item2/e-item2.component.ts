@@ -30,7 +30,7 @@ export class EItem2Component implements OnInit {
   @Input() sectionBills: any[]
   @Input() i: number
 
-  state: string = 'small';
+  state: string = 'large'// 'small';
   
   currentDate
   totalPrice: number
@@ -72,26 +72,9 @@ export class EItem2Component implements OnInit {
   }
 
   testPieData() {
-    this.testData = [
-      {
-        name: 'item1',
-        percent: .23
-      },
-      {
-        name: 'item2',
-        percent: .7
-      },
-      {
-        name: 'item3',
-        percent: 1
-      }
-    ]
     let realData = this.sectionBills.sort(this.compareCategory)
-    // ----------
-    let byType = this.groupBy(realData, x => 
-      x.type
-      // (x.date).week()
-    )
+
+    let byType = this.groupBy(realData, x => x.type)
 
     let _types = Array.from(byType)
     let types = _types.map(t => {
@@ -165,7 +148,7 @@ export class EItem2Component implements OnInit {
     // })
 
     console.log('realData', realData)
-    console.log('_preparedData', _preparedData)
+    // console.log('_preparedData', _preparedData)
     console.log('preparedData', preparedData)
     this.testData = preparedData
   }
