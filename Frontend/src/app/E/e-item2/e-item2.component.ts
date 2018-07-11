@@ -30,7 +30,7 @@ export class EItem2Component implements OnInit {
   @Input() sectionBills: any[]
   @Input() i: number
 
-  state: string = 'large'// 'small';
+  state: string = 'small'//'large'// 'small';
   
   currentDate
   totalPrice: number
@@ -108,7 +108,8 @@ export class EItem2Component implements OnInit {
       let result = {
         name: x.type,
         percent: x.total,
-        fraction: allTotal
+        fraction: allTotal,
+        total: x.total
       }
       return result
     })
@@ -118,7 +119,8 @@ export class EItem2Component implements OnInit {
       let result = {
         name: o.name,
         percent: o.percent,
-        fraction: parseFloat(fraction.toString())
+        fraction: parseFloat(fraction.toString()),
+        total: o.total
       }
       return result
     })
@@ -138,7 +140,8 @@ export class EItem2Component implements OnInit {
       let fraction = parseFloat(fractions[i])/100
       let result = {
         name: p.name,
-        percent: fraction.toFixed(2)
+        percent: fraction.toFixed(2),
+        sum: p.total
       }
       return result
     })

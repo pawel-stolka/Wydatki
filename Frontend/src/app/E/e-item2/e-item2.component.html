@@ -2,8 +2,6 @@
   <span class="left">data: {{currentDate}} |
     <strong>{{totalPrice}} zł</strong>
   </span>
-
-
   <!-- <span class="top"> {{highest.name}} {{highest.price}}</span> -->
   <!-- <span class="badge badge-secondary badge-pill">
     {{sectionBills.length}}
@@ -29,17 +27,17 @@
       </div>
 
       <div class="col col-sm-6 mk3">wykres</div>
-      
+
     </div>
 
     <div class="row">
       <div class="col">
 
-        <div *ngFor="let bill of sectionBills">
+        <div *ngFor="let bill of testData">
           <div class="row m4">
 
             <div class="col mk1">
-              <span class="danger">{{bill.type}}</span>
+              <span class="danger">{{bill.name}}</span>
             </div>
 
             <div class="col mk2">

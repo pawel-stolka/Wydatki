@@ -303,12 +303,12 @@ export class PieLabeledComponent implements OnInit {
 
   minusOrPlus(d) {
     let r = this.midAngle(d) < Math.PI ? 1 : -1
-    console.log('result: ', r)
+    // console.log('result: ', r)
     return r
   }
   midAngle(d) {
     let result =  d.startAngle + (d.endAngle - d.startAngle) / 2;
-    console.log('result', result)
+    // console.log('result', result)
     return result
   }
 
