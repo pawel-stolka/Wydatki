@@ -135,17 +135,21 @@ export class Chart3Component implements OnInit {
       })//this.yScale(d[1]))
      .attr('height', d => this.height - this.yScale(d[1]));
 
+    let updateText = this.chart.selectAll('.barText')
+     .data(this.data);
     // update
-    // .enter()
-    // .append('text')
-    // .attrs({
-    //   x: d => this.xScale(d[0]) + 5,
-    //   y: d => this.yScale(d[1]) + 15
-    // })
-    // .text((d) => d[1] + ' zł')
-    // // .attr('class', 'chartText')
+    updateText
+    .enter()
+    .append('text')
+    // .attr('class', 'barText')
+    .attrs({
+      x: d => this.xScale(d[0]) + 5,
+      y: d => this.yScale(d[1]) -10 //+ 15
+    })
+    .text((d) => d[1] + ' zł')
+    // .attr('class', 'chartText')
     // .style('fill', 'white')
 
-     
+    updateText.exit().remove();
   }
 }

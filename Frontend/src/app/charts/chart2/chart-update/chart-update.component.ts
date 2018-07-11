@@ -115,6 +115,10 @@ export class ChartUpdateComponent implements OnInit {
       .delay((d, i) => i * 10)
       .attr('y', d => this.yScale(d[1]))
       .attr('height', d => this.height - this.yScale(d[1]));
+
+    // update
+    // .append('text')
+    // .text('dfdf')
   }
 
 }
