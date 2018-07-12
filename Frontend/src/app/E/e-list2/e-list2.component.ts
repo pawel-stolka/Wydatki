@@ -11,6 +11,8 @@ import { DataService } from '../../data.service';
 })
 export class EList2Component implements OnInit {
   bills: any[]
+  previousPeriod
+  nextPeriod
 
   constructor(
     public expenseService: ExpenseService,
@@ -39,6 +41,7 @@ export class EList2Component implements OnInit {
       let byDay = this.groupBy(mapped, item => item.date),
           byMonth = this.groupBy(mapped, item => item.date.substr(5,2)), 
           byWeek = this.groupBy(mapped, x => moment(x.date).week())
+            
 
       let bills
 
@@ -54,8 +57,18 @@ export class EList2Component implements OnInit {
           date: x.date,
           week: moment(x.date).week()
         }))
+        // bills.filter(x => x.week > 27)// .date.substr(5,2)=='05')
         console.log(date)
+        console.log(byWeek)
         bills = Array.from(byWeek)
+        bills = bills.filter(x => {
+          let sub1 = x[1].filter(s => s.date.substr(5,2)=='07')
+          // let res = x[1].date.substr(5,2)=='05'
+          let res = x[0] > 25 // x[1].length 
+          console.log('filter sub1', sub1)
+          return sub1// res 
+        })
+        console.log(bills)
         // this.weeks = true
         // this.getWeek()
       }
@@ -79,8 +92,10 @@ export class EList2Component implements OnInit {
 
         arr.push(arr3)//1)
       })
-      this.bills = arr
+      this.bills = arr//.filter(x => x[1].values.length > 1)
+      console.log('this.bills ====>', this.bills)
     })
+    
   }
 
 

@@ -12,6 +12,13 @@
   class="btn btn-outline-info">
   Miesiące</button>
 
+  <div class="row" *ngIf="previousPeriod">
+    <div class="col">
+      <button (click)='animateMe()' 
+      class="btn btn-outline-primary block top5">
+      {{previousPeriod}}</button>
+    </div>
+  </div>
   <div *ngFor="let bill of bills; let i = index">
     <div class="row">
       <div class="col">
@@ -20,7 +27,13 @@
     </div>
   </div>
 
-
+  <div class="row" *ngIf="nextPeriod">
+      <div class="col">
+        <button (click)='animateMe()' 
+        class="btn btn-outline-primary block top5">
+        {{nextPeriod}}</button>
+      </div>
+    </div>
   <!-- <div *ngFor="let bill of groupBills">
     <e-item [dailyBills]="bill[1]"></e-item>
   </div> -->

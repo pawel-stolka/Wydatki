@@ -62,8 +62,9 @@ export class ChartContainer2Component implements OnInit {
     let byDay = this.groupBy(mapped, item => item.date),
         byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
         byWeek = this.groupBy(mapped, x => {
+          console.log('x',x)
           let res = moment(x.date).week()
-          // console.log(res, x.date)
+          console.log(res, x.date)
           return res
         })
         
@@ -71,7 +72,9 @@ export class ChartContainer2Component implements OnInit {
     switch (by) {
       case 'byWeek':
         bills = Array.from(byWeek)
-        console.log(byWeek)
+        console.log('bills', bills)
+        console.log('---------------------')
+        console.log('byWeek', byWeek)
         break;
       case 'byMonth':
         bills = Array.from(byMonth)
@@ -80,21 +83,27 @@ export class ChartContainer2Component implements OnInit {
         bills = Array.from(byDay)
         break;
     }
-
+    // bills.forEach(element => {
+    //   console.log('foreach', element)
+    // })
       
     let sum = [];
     bills.forEach(element => {
-      let _sum = 0,
-          _date
+      let _sum = 0
+      let _innerGroup = this.groupBy(element[1], g => {
+        // let 
+      })
       element[1].forEach(el => {
         _sum += el.price
+        
         // console.log('el', el.date)
       });
       _sum = parseFloat(_sum.toFixed(2))
       sum.push(_sum)
       element[1] = _sum
-
-      element[2] ="dwa"
+      // console.log('foreach', element)
+      element[2] = parseFloat((_sum * 0.33).toFixed(2))
+      element[3] = parseFloat((_sum * 0.66).toFixed(2))
     });
 
     this.apiData = bills
@@ -103,15 +112,15 @@ export class ChartContainer2Component implements OnInit {
     for (var i = 0; i < this.apiData.length; i++) {
       let x = `${this.apiData[i][0]}`,
           y = this.apiData[i][1]
-          // console.log(x, 'TERAZ'.substr(2,2))
+          console.log(x, 'TERAZ'.substr(2,2), y)
       let x1 = x.substr(5,2),
           x2 = x.substr(8)
       if(x.startsWith('2018'))
         x = x2+'-'+x1
       this.chartData.push([x,y])
     }
-    // console.log(this.chartData)
-    console.log(this.apiData)
+    console.log('chartData', this.chartData)
+    console.log('apiData', this.apiData)
     })
   }
 
