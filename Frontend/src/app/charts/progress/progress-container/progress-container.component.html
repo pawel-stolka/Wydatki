@@ -1,3 +1,18 @@
-<p>
-  progress-container works!
-</p>
+<hr>
+<h4>Postępy</h4>
+
+<button (click)='by("byDay")' 
+class="btn btn-outline-danger">
+by day</button>
+
+<button (click)='by("byWeek")' 
+class="btn btn-outline-warning">
+by week</button>
+
+<button (click)='by("byMonth")' 
+class="btn btn-outline-success">
+by month</button>
+
+
+<!-- <progress *ngIf="data"></progress> -->
+<progress-chart *ngIf="chartData" [data]="chartData"></progress-chart>
