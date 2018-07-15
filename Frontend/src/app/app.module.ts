@@ -16,8 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { ExpenseService } from './expense.service';
 import { HttpModule } from '@angular/http';
-import { EListComponent } from './e-list/e-list.component';
-import { EItemComponent } from './e-item/e-item.component';
 import { DataService } from './data.service';
 import { SimpleChartComponent } from './charts/simple/simple-chart/simple-chart.component';
 import { ContainerComponent } from './charts/simple/container/container.component';
@@ -45,7 +43,6 @@ import { ProgressContainerComponent } from './charts/progress/progress-container
 const routes = [
   { path: '', component: HomeComponent },
   { path: 'expenses', component: ExpensesComponent },
-  { path: 'e-list', component: EListComponent },
   { path: 's-chart', component: SimpleChartComponent },
   { path: 'container', component: ContainerComponent },
   // testing chart
@@ -66,8 +63,6 @@ const routes = [
     AppComponent,
     HomeComponent,
     ExpensesComponent,
-    EListComponent,
-    EItemComponent,
     SimpleChartComponent,
     ContainerComponent,
     Chart1Component,
