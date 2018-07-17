@@ -9,11 +9,10 @@ import * as moment from 'moment';
 })
 export class ProgressContainerComponent implements OnInit {
   private chartData: Array<any>;
-  private apiData: any[]
   selection = []
   selected
 
-  private dataByWeeks = []
+  private dataByPeriod = []
 
   constructor(
     private expenseService: ExpenseService) { }
@@ -21,14 +20,12 @@ export class ProgressContainerComponent implements OnInit {
 
   ngOnInit() {
     this.getTypes()
-    this.generateData()
-
-    // this.loadData()
+    // this.generateData()
   }
 
   generateData(type = '') {
     this.chartData = []
-    // random interval
+    //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
     // let rowNumber = 2 + Math.floor(Math.random() * 10);
     // for (var i = 1; i <= rowNumber; i++) {
     //   this.chartData.push([
@@ -36,8 +33,9 @@ export class ProgressContainerComponent implements OnInit {
     //     Math.floor(Math.random() * 10)
     //   ])
     // }
+    //#endregion
 
-    this.dataByWeeks.forEach(e => {
+    this.dataByPeriod.forEach(e => {
       console.log(' -- e', e)
       let types = e.groups.filter(x => x.type == type)
       console.log('types', types)
@@ -47,16 +45,11 @@ export class ProgressContainerComponent implements OnInit {
         selection
       ])
     });
-    // for (var i = 1; i <= this.dataByWeeks.length; i++) {
-    //   this.chartData.push([
-    //     `week ${this.dataByWeeks[0]}`,
-    //     this.dataByWeeks[1]
-    //   ])
-    // }
+ 
     console.log(this.chartData)
   }
 
-  getBills() {
+  getBills(by) {
     this.expenseService.getBills()
       .subscribe(data => {
         let apiBills = data.json()
@@ -75,87 +68,66 @@ export class ProgressContainerComponent implements OnInit {
           
 
         let bills
-        let by = 'byWeek'
+        // let by = 'byWeek'
 
         if(by === 'byDay') 
-          bills = Array.from(byDay)//groupDates)
+          bills = Array.from(byDay)
         if(by === 'byMonth') 
           bills = Array.from(byMonth)
-        if(by === 'byWeek') {
-          // this.groupBills = Array.from(byWeek)
-          // let date = mapped.map(x => ({
-          //   date: x.date,
-          //   week: moment(x.date).week()
-          // }))
-          // bills.filter(x => x.week > 27)// .date.substr(5,2)=='05')
-          // console.log(date)
-          // console.log(byWeek)
+        if(by === 'byWeek') 
           bills = Array.from(byWeek)
-          // console.log('bills', bills)
-          let groups
-          let namesByWeek = bills.map(x => {
-            let gr = this.groupBy(x[1], i => i.type)
-            groups = Array.from(gr)
-           
-            let groupsJson = groups.map(g => {
-              return {
-                type: g[0],
-                data: g[1]
-              }
-            })
-            groupsJson.forEach(gg => {
-              let sum = 0
-              gg.data.forEach(d => {
-                sum += +d.price
-              });
-              gg.sum = sum
-            });
-            return {
-              week: x[0],
-              // names: _names,
-              groups: groupsJson
-            }
-          })
-          this.dataByWeeks = namesByWeek
-          // console.log('this.dataByWeeks', this.dataByWeeks)
-          let byName = this.groupBy(bills, x => x.name)
-          let names = Array.from(byName)
-          // console.log('names', names)
+          
+        this.dataByPeriod = this.namesByPeriod(bills)
+        // console.log('this.dataByWeeks', this.dataByWeeks)
+        let byName = this.groupBy(bills, x => x.name)
+        let names = Array.from(byName)
+        // console.log('names', names)
 
-          console.log('this.dataByWeeks', this.dataByWeeks)
-          for (var i = 1; i <= this.dataByWeeks.length; i++) {
-            console.log(`done ${i}`)
-            this.chartData.push([
-              `week ${i}`,
-              i
-            ])
-          }
-          console.log(this.chartData)
-
-          // bills = bills.filter(x => {
-          //   let sub1 = x[1].filter(s => s.date.substr(5,2)=='07')
-          //   // let res = x[1].date.substr(5,2)=='05'
-          //   let res = x[0] > 25 // x[1].length 
-          //   console.log('filter sub1', sub1)
-          //   return sub1// res 
-          // })
-          // console.log('bills', bills)
-          // this.weeks = true
-          // this.getWeek()
+        console.log('this.dataByWeeks', this.dataByPeriod)
+        for (var i = 1; i <= this.dataByPeriod.length; i++) {
+          // console.log(`done ${i}`)
+          this.chartData.push([
+            `week ${i}`,
+            i
+          ])
         }
-
-        console.log('bills', bills)
-        // console.log('mapped', mapped)
+        
       })
+  }
+
+  namesByPeriod(bills) {
+    let groups
+    let namesByWeek = bills.map(x => {
+      let _groups = this.groupBy(x[1], i => i.type)
+      groups = Array.from(_groups)
+     
+      let groupsJson = groups.map(g => {
+        return {
+          type: g[0],
+          data: g[1]
+        }
+      })
+      groupsJson.forEach(p => {
+        let sum = 0
+        p.data.forEach(d => {
+          sum += +d.price
+        });
+        p.sum = sum
+      });
+      return {
+        week: x[0],
+        groups: groupsJson
+      }
+    })
+    return namesByWeek
   }
 
   clickAction(text) {
     console.log(`clicked ${text}`)
     this.selected = text
-    this.getBills()
+    let by = 'byDay'//'byMonth'// 'byWeek'// 'byDay'
+    this.getBills(by)
     this.generateData(text)
-    
-    // this.getBills()
   }
 
   getTypes() {
@@ -166,7 +138,7 @@ export class ProgressContainerComponent implements OnInit {
         
         // types.sort(this.byCount)
 
-        console.log(types)
+        console.log('types', types)
         types.forEach(element => {
           this.selection.push(element)
         });
@@ -182,7 +154,7 @@ export class ProgressContainerComponent implements OnInit {
   }
 
   compareName(a,b) {
-    const nameA = a.name,
+    let nameA = a.name,
         nameB = b.name
     return nameA < nameB ? -1 : 1
     // let comparison = 1

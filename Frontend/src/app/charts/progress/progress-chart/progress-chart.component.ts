@@ -12,7 +12,7 @@ export class ProgressChartComponent implements OnInit {
   
   private chart: any;
   private margin: any //= 30;
-    = { top: 50, right: 20, bottom: 100, left: 50 }
+    = { top: 50, right: 20, bottom: 130, left: 50 }
   private width;
   private height;
 
@@ -39,8 +39,8 @@ export class ProgressChartComponent implements OnInit {
 
   createChart() {
     let element = this.chartContainer.nativeElement;
-    this.width = element.offsetWidth - 2 * this.margin.top;
-    this.height = element.offsetHeight - 2 * this.margin.top;
+    this.width = element.offsetWidth - this.margin.left - this.margin.right;
+    this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
       .attr('height', element.offsetHeight);
