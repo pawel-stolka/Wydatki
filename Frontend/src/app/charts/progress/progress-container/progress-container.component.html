@@ -1,18 +1,72 @@
 <hr>
-<h4>Postępy</h4>
+<div class="row">
+    <div class="col col-sm-2">
+        <h4>Postępy</h4>        
+    </div>
+    
+    <div class="col col-sm-3">
+        <div class="btn-group">
+            <button type="button" 
+                class="btn btn-outline-warning dropdown-toggle" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false">
+                    Select category...
+            </button>
+            <div class="dropdown-menu">
+                <a *ngFor="let item of selection" 
+                    (click)='clickAction(item._id)'
+                    class="dropdown-item">{{item._id}}</a>
+                      <!-- <a class="dropdown-item" (click)='clickAction("Action")'>Action</a> -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div *ngIf="selected">kategoria <strong>{{selected}}</strong></div>
+    </div>
+</div>
 
-<button (click)='by("byDay")' 
-class="btn btn-outline-danger">
-by day</button>
 
-<button (click)='by("byWeek")' 
-class="btn btn-outline-warning">
-by week</button>
+<!-- <button (click)='by("byDay")' class="btn btn-outline-danger">
+  by day</button>
 
-<button (click)='by("byMonth")' 
-class="btn btn-outline-success">
-by month</button>
+<button (click)='by("byWeek")' class="btn btn-outline-warning">
+  by week</button>
 
+<button (click)='by("byMonth")' class="btn btn-outline-success">
+  by month</button> -->
+
+  <!-- <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div> -->
+
+
+<!-- <div class="col-md-6">
+  <form [formGroup]="complexGroup" (ngSubmit)="submitForm()">
+    <div class="form-row">
+      <div class="col col-sm-6">
+        <input type="text" list="types" [formControl]="typeFormControl" id="typeInput" class="form-control" placeholder="kategoria...">
+        <datalist id="types">
+          <option *ngFor="let option of selection">
+            {{option._id}}
+          </option>
+        </datalist>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-success block">
+      Bierz!
+    </button>
+  </form>
+</div> -->
 
 <!-- <progress *ngIf="data"></progress> -->
 <progress-chart *ngIf="chartData" [data]="chartData"></progress-chart>
