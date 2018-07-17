@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatInputModule } from '@angular/material/input'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -94,6 +95,7 @@ const routes = [
     MatToolbarModule,
     MatInputModule,
     MatListModule,
+    MatRadioModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ToasterModule,

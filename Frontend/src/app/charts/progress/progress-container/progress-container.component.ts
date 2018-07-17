@@ -13,6 +13,8 @@ export class ProgressContainerComponent implements OnInit {
   selected
 
   private dataByPeriod = []
+  private periods = ['byDay', 'byWeek', 'byMonth']
+  private currentPeriod
 
   constructor(
     private expenseService: ExpenseService) { }
@@ -126,7 +128,7 @@ export class ProgressContainerComponent implements OnInit {
     console.log(`clicked ${text}`)
     this.selected = text
     let by = 'byDay'//'byMonth'// 'byWeek'// 'byDay'
-    this.getBills(by)
+    this.getBills(this.currentPeriod)
     this.generateData(text)
   }
 
