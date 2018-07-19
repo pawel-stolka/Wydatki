@@ -58,6 +58,16 @@ export class Path2Component implements OnInit {
 
     // define the line
     let valueline = d3.line()
+      .curve(d3
+        // .curveBasis
+        // .curveStep
+        // .curveBasisOpen
+        // .curveBundle
+        // .curveCardinal
+        // .curveMonotoneX
+        .curveCatmullRom
+
+      )
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.close));
 
