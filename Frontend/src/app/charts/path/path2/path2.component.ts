@@ -56,7 +56,7 @@ export class Path2Component implements OnInit {
     // parse the date / time
     let parseTime = d3.timeParse("%d-%b-%y");
 
-    // define the line
+    // define the lines
     let valueline = d3.line()
       .curve(d3
         // .curveBasis
@@ -66,15 +66,20 @@ export class Path2Component implements OnInit {
         // .curveCardinal
         // .curveMonotoneX
         .curveCatmullRom
-
       )
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.close));
+
+    let valueline2 = d3.line()
+      .curve(d3.curveCatmullRom)
+      .x((d:any) => x(d.date))
+      .y((d:any) => y(d.open));
 
     // format the data
     this.data.forEach(d => {
       d.date = parseTime(d.date)
       d.close = +d.close
+      d.open = +d.open;
     });
 
     // set the ranges
@@ -84,13 +89,19 @@ export class Path2Component implements OnInit {
       .domain(d3.extent(this.data, (d) => d.date ));
     let y = d3.scaleLinear()
       .range([this.height-50, 0])
-      .domain([0, d3.max(this.data, (d) => d.close )]);
+      .domain([0, d3.max(this.data, 
+          (d) => Math.max(d.close, d.open) )]);
     
-    // Add the valueline path.
+    // Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
       .attr("class", "line")
       .attr("d", valueline);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "line")
+      .style("stroke", "red")
+      .attr("d", valueline2);
 
     // Add the X Axis
     this.chart.append("g")
