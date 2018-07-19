@@ -41,3 +41,10 @@ polyline {
 	stroke: black;
 	stroke-width: 1px;
 }
+
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}

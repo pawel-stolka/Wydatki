@@ -20,13 +20,30 @@ export class PathContainerComponent implements OnInit {
   generateData(type = '') {
     this.pathData = []
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
-    let rowNumber = 2 + Math.floor(Math.random() * 10);
-    for (var i = 1; i <= rowNumber; i++) {
-      this.pathData.push([
-        `x=${i}`,
-        Math.floor(Math.random() * 10)
-      ])
-    }
+
+    let data = [
+        {date:"10-May-12",close:"51.13"},
+        {date:"7-May-12",close:"68.13"},
+        {date:"5-May-12",close:"78.13"},
+        {date:"4-May-12",close:"35.13"},
+        {date:"2-May-12",close:"18.13"},
+        {date:"1-May-12",close:"58.13"},
+        {date:"30-Apr-12",close:"53.98"},
+        {date:"27-Apr-12",close:"67.00"},
+        {date:"26-Apr-12",close:"89.70"},
+        {date:"25-Apr-12",close:"99.00"}
+    ];
+
+    data.forEach(e => {
+      this.pathData.push(e)
+    });
+    // let rowNumber = 2 + Math.floor(Math.random() * 10);
+    // for (var i = 1; i <= rowNumber; i++) {
+    //   this.pathData.push([
+    //     `x=${i}`,
+    //     Math.floor(Math.random() * 10)
+    //   ])
+    // }
     //#endregion
     
     //#region ---- NORMAL DATA -----
