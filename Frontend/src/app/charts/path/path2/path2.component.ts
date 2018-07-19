@@ -74,12 +74,17 @@ export class Path2Component implements OnInit {
       .curve(d3.curveCatmullRom)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.open));
+    let valueline3 = d3.line()
+      .curve(d3.curveCatmullRom)
+      .x((d:any) => x(d.date))
+      .y((d:any) => y(d.other));
 
     // format the data
     this.data.forEach(d => {
       d.date = parseTime(d.date)
       d.close = +d.close
-      d.open = +d.open;
+      d.open = +d.open
+      d.other = +d.other
     });
 
     // set the ranges
@@ -90,7 +95,7 @@ export class Path2Component implements OnInit {
     let y = d3.scaleLinear()
       .range([this.height-50, 0])
       .domain([0, d3.max(this.data, 
-          (d) => Math.max(d.close, d.open) )]);
+          (d) => Math.max(d.close, d.open, d.other) )]);
     
     // Add the valueline paths.
     this.chart.append("path")
@@ -102,6 +107,11 @@ export class Path2Component implements OnInit {
       .attr("class", "line")
       .style("stroke", "red")
       .attr("d", valueline2);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "line")
+      .style("stroke", "green")
+      .attr("d", valueline3);
 
     // Add the X Axis
     this.chart.append("g")
