@@ -42,6 +42,9 @@ polyline {
 	stroke-width: 1px;
 }
 
+.path {
+  background-color: rgb(70, 155, 155);
+}
 
 .line {
   fill: none;

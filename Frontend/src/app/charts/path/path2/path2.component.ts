@@ -10,10 +10,10 @@ export class Path2Component implements OnInit {
   @ViewChild('chart') private chartContainer: ElementRef;
   @Input() private data: Array<any>;
   private chart: any;
-  private margin: any //= 30;
-    = { top: 100, right: 20, bottom: 100, left: 100 }
-  private width = 600 - this.margin.left - this.margin.right
-  private height = 400 - this.margin.top - this.margin.bottom;
+  private margin: any = 100;
+    // = { top: 50, right: 20, bottom: 50, left: 100 }
+  private width = 600 //- (2*this.margin)
+  private height = 400 //- (2*this.margin)
 
   private xScale
   private yScale
@@ -40,26 +40,26 @@ export class Path2Component implements OnInit {
 
   createChart() {
     let element = this.chartContainer.nativeElement;
-    let svg = d3.select(element).append('svg')
-      .attr('width', this.width)
-      .attr('height', this.height)
+    this.width = element.offsetWidth - (2*this.margin);
+    this.height = element.offsetHeight - (2*this.margin)
+    let svg = d3.select(element)
+      .append('svg')
+      .attr('width', element.offsetWidth)//this.width)// + (2*this.margin))
+      .attr('height', element.offsetHeight)//this.height)// + (2*this.margin))
 
     // chart plot area
     this.chart = svg.append('g')
       .attr('class', 'path')
-      .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+      .attr('transform', 
+            `translate(${this.margin}, ${this.margin})`);
     
     // parse the date / time
     let parseTime = d3.timeParse("%d-%b-%y");
 
-    // set the ranges
-    let x = d3.scaleTime().range([0, this.width]);
-    let y = d3.scaleLinear().range([this.height, 0]);
-
     // define the line
     let valueline = d3.line()
-      .x(function(d:any) { return x(d.date); })
-      .y(function(d:any) { return y(d.close); });
+      .x((d:any) => x(d.date))
+      .y((d:any) => y(d.close));
 
     // format the data
     this.data.forEach(d => {
@@ -67,26 +67,30 @@ export class Path2Component implements OnInit {
       d.close = +d.close
     });
 
-    // Scale the range of the data
-    x.domain(d3.extent(this.data, (d) => d.date ));
-    y.domain([0, d3.max(this.data, (d) => d.close )]);
-
+    // set the ranges
+    // & Scale the range of the data
+    let x = d3.scaleTime()
+      .range([0, this.width])
+      .domain(d3.extent(this.data, (d) => d.date ));
+    let y = d3.scaleLinear()
+      .range([this.height-50, 0])
+      .domain([0, d3.max(this.data, (d) => d.close )]);
+    
     // Add the valueline path.
-    svg.append("path")
+    this.chart.append("path")
       .data([this.data])
       .attr("class", "line")
       .attr("d", valueline);
 
       // Add the X Axis
-    svg.append("g")
-      .attr("transform", "translate(0," + this.height + ")")
+    this.chart.append("g")
+      .attr("transform", 
+        `translate(0, ${this.height - this.margin/2})`)
       .call(d3.axisBottom(x));
 
     // Add the Y Axis
-    svg.append("g")
+    this.chart.append("g")
       .call(d3.axisLeft(y));
-
-
   }
 
   updateChart() {
