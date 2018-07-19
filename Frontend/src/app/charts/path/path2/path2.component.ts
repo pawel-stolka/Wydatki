@@ -82,7 +82,7 @@ export class Path2Component implements OnInit {
       .attr("class", "line")
       .attr("d", valueline);
 
-      // Add the X Axis
+    // Add the X Axis
     this.chart.append("g")
       .attr("transform", 
         `translate(0, ${this.height - this.margin/2})`)
@@ -91,6 +91,30 @@ export class Path2Component implements OnInit {
     // Add the Y Axis
     this.chart.append("g")
       .call(d3.axisLeft(y));
+
+    // axis labels
+    this.chart.append("text")   
+      .attrs({
+        transform: `translate(
+          ${this.width / 2},
+          ${this.height + this.margin - 100}
+        )`
+      })          
+      // .attrs({
+      //   x: this.width / 2,//480,
+      //   y: this.height + this.margin + 20//475 
+      // })
+      .style("text-anchor", "middle")
+      .text("Date");
+
+    this.chart.append('text')
+      .attrs({
+        transform: 'rotate(-90)',
+        x: 0 - this.margin/2,
+        y: 0 - (this.height/4),
+        dy: '1em'
+      })
+      .text('Value')
   }
 
   updateChart() {
