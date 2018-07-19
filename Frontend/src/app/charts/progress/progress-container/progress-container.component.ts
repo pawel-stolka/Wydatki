@@ -14,7 +14,7 @@ export class ProgressContainerComponent implements OnInit {
 
   private dataByPeriod = []
   private periods = ['byDay', 'byWeek', 'byMonth']
-  private currentPeriod
+  private currentPeriod = this.periods[1]
 
   constructor(
     private expenseService: ExpenseService) { }
