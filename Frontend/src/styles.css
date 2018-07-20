@@ -18,18 +18,9 @@
   height: 300px;
 } */
 
-.test2 {
-  display: inline-block;
-	/* margin: 5px; */
-	background-color: orange;
-	color: white;
-	/* padding: 10px; */
-	/* width: 30px;
-	height: 30px; */
-	text-align: center;
-}
 
-polyline {
+
+/* polyline {
 	opacity: .55;
 	stroke: black;
 	stroke-width: 1px;
@@ -45,10 +36,10 @@ polyline {
 .path {
 	background-color: rgb(70, 155, 155);
 	
-}
+} */
 
 .svg {
-	border: 2px solid salmon;
+	border: 1px solid salmon;
 	/* width: 600px; */
 }
 

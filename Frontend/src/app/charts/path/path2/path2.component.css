@@ -5,9 +5,9 @@
 .d3-chart {
     width: 100%;
     height: 500px;
-    /* width: 800px; */
-    background-color: #d6f2f3;
-    border: 4px solid;
+    /* margin: 5px; */
+	  background-color: #d6f2f3;
+    /* border: 4px solid; */
   }
   
 /* .d3-chart .axis path,
