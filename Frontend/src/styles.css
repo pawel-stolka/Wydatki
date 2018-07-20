@@ -51,3 +51,20 @@ polyline {
   stroke: steelblue;
   stroke-width: 2px;
 }
+
+.axis { font: 14px sans-serif; }
+
+.area1 {
+	fill: steelblue;
+	opacity: .35;
+}
+
+.area2 {
+	fill: rgb(253, 75, 75);
+	opacity: .35;
+}
+
+.area3 {
+	fill: rgb(52, 167, 52);
+	opacity: .35;
+}

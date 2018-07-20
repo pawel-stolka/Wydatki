@@ -22,19 +22,19 @@ export class PathContainerComponent implements OnInit {
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
 
     let data = [
-      {date:"1-May-12",close:"68.13", open:"34.12", other:"400.12"},
-      {date:"27-Apr-12",close:"67.00", open:"67.89", other:"506.12"},
-      {date:"25-Apr-12",close:"99.00", open:"89.23", other:"410.12"},
-      {date:"23-Apr-12",close:"53.98", open:"101.34", other:"276.12"},
-      {date:"19-Apr-12",close:"345.44", open:"134.56", other:"267.12"},
-      {date:"17-Apr-12",close:"543.70", open:"180.34", other:"248.12"},
-      {date:"13-Apr-12",close:"605.23", open:"223.45", other:"307.12"},
-      {date:"11-Apr-12",close:"626.20", open:"212.67", other:"194.12"},
-      {date:"9-Apr-12",close:"636.23", open:"350.45", other:"160.12"},
-      {date:"4-Apr-12",close:"624.31", open:"430.56", other:"194.12"},
-      {date:"2-Apr-12",close:"618.63", open:"510.34", other:"121.12"},
-      {date:"29-Mar-12",close:"609.86", open:"578.23", other:"25.12"},
-      {date:"27-Mar-12",close:"614.48", open:"560.34", other:"45.12"}
+      {date:"1-May-18",close:"68.13", open:"34.18", other:"400.18"},
+      {date:"27-Apr-18",close:"67.00", open:"167.89", other:"506.18"},
+      {date:"25-Apr-18",close:"199.00", open:"89.23", other:"410.18"},
+      {date:"23-Apr-18",close:"200.98", open:"101.34", other:"276.18"},
+      {date:"19-Apr-18",close:"345.44", open:"134.56", other:"267.18"},
+      {date:"17-Apr-18",close:"543.70", open:"180.34", other:"248.18"},
+      {date:"13-Apr-18",close:"605.23", open:"223.45", other:"307.18"},
+      {date:"11-Apr-18",close:"626.20", open:"218.67", other:"194.18"},
+      {date:"9-Apr-18",close:"636.23", open:"350.45", other:"160.18"},
+      {date:"4-Apr-18",close:"624.31", open:"430.56", other:"194.18"},
+      {date:"2-Apr-18",close:"618.63", open:"510.34", other:"181.18"},
+      {date:"29-Mar-18",close:"609.86", open:"578.23", other:"25.18"},
+      {date:"27-Mar-18",close:"614.48", open:"560.34", other:"45.18"}
     ];
 
     data.forEach(e => {

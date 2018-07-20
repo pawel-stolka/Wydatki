@@ -56,20 +56,29 @@ export class Path2Component implements OnInit {
     // parse the date / time
     let parseTime = d3.timeParse("%d-%b-%y");
 
+    // define the areas
+    let area1 = d3.area()
+        .curve(d3.curveCardinal)
+        .x((d:any) => x(d.date))
+        .y0(this.height-50)
+        .y1((d:any) => y(d.close))
+    let area2 = d3.area()
+        .curve(d3.curveBasis)
+        .x((d:any) => x(d.date))
+        .y0(this.height-50)
+        .y1((d:any) => y(d.open))
+    let area3 = d3.area()
+        .curve(d3.curveCatmullRom)
+        .x((d:any) => x(d.date))
+        .y0(this.height-50)
+        .y1((d:any) => y(d.other))
+
+        
     // define the lines
     let valueline = d3.line()
-      .curve(d3
-        // .curveBasis
-        // .curveStep
-        // .curveBasisOpen
-        // .curveBundle
-        .curveCardinal
-        // .curveMonotoneX
-        // .curveCatmullRom
-      )
+      .curve(d3.curveCardinal)
       .x((d:any) => x(d.date))
-      .y((d:any) => y(d.close));
-
+      .y((d:any) => y(d.close))
     let valueline2 = d3.line()
       .curve(d3.curveBasis)
       .x((d:any) => x(d.date))
@@ -97,6 +106,20 @@ export class Path2Component implements OnInit {
       .domain([0, d3.max(this.data, 
           (d) => Math.max(d.close, d.open, d.other) )]);
     
+    // add the areas
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area1")
+      .attr("d", area1);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area2")
+      .attr("d", area2);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area3")
+      .attr("d", area3);
+
     // Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
@@ -115,12 +138,22 @@ export class Path2Component implements OnInit {
 
     // Add the X Axis
     this.chart.append("g")
+      .attr('class','axis')
       .attr("transform", 
         `translate(0, ${this.height - this.margin/2})`)
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x)
+              .tickFormat(d3.timeFormat("%m-%d")))
+      .selectAll("text")	
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)")
+              // .ticks(d3.timeDay.every(7)))
+              // .ticks(5));
 
     // Add the Y Axis
     this.chart.append("g")
+      .attr('class', 'axis axis-x')
       .call(d3.axisLeft(y));
 
     // axis labels
