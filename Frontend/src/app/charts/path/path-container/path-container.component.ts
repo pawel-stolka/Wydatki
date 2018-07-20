@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PathContainerComponent implements OnInit {
   private pathData: Array<any>;
-  private dataByPeriod = []
-  private periods = ['byDay', 'byWeek', 'byMonth']
-  private currentPeriod = this.periods[1]
+  // private dataByPeriod = []
+  // private periods = ['byDay', 'byWeek', 'byMonth']
+  // private currentPeriod = this.periods[1]
 
   constructor() { }
 

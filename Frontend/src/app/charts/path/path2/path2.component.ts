@@ -20,11 +20,14 @@ export class Path2Component implements OnInit {
   private colors
   private xAxis
   private yAxis
+
+  curve
   
   constructor() { }
 
   ngOnInit() {
     console.log('data exist!', this.data)
+    this.initCurve()
     this.createChart();
     if (this.data) {
       this.updateChart();
@@ -36,6 +39,19 @@ export class Path2Component implements OnInit {
       console.log('this.updateChart')
       this.updateChart();
     }
+  }
+
+  initCurve() {
+    let curves = [
+      d3.curveBasis,
+      d3.curveStep,
+      d3.curveBasisOpen,
+      d3.curveBundle,
+      d3.curveCardinal,
+      d3.curveMonotoneX,
+      d3.curveCatmullRom,
+    ]
+    this.curve = curves[0]
   }
 
   createChart() {
@@ -58,17 +74,17 @@ export class Path2Component implements OnInit {
 
     // define the areas
     let area1 = d3.area()
-        .curve(d3.curveCardinal)
+        .curve(this.curve)
         .x((d:any) => x(d.date))
         .y0(this.height-50)
         .y1((d:any) => y(d.close))
     let area2 = d3.area()
-        .curve(d3.curveBasis)
+        .curve(this.curve)
         .x((d:any) => x(d.date))
         .y0(this.height-50)
         .y1((d:any) => y(d.open))
     let area3 = d3.area()
-        .curve(d3.curveCatmullRom)
+        .curve(this.curve)
         .x((d:any) => x(d.date))
         .y0(this.height-50)
         .y1((d:any) => y(d.other))
@@ -76,15 +92,15 @@ export class Path2Component implements OnInit {
         
     // define the lines
     let valueline = d3.line()
-      .curve(d3.curveCardinal)
+      .curve(this.curve)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.close))
     let valueline2 = d3.line()
-      .curve(d3.curveBasis)
+      .curve(this.curve)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.open));
     let valueline3 = d3.line()
-      .curve(d3.curveCatmullRom)
+      .curve(this.curve)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.other));
 
