@@ -2,7 +2,8 @@
 .d3-chart {
     /* width: 100%; */
     height: 500px;
-    background-color: #f3d6e6;
+    /* background-color: #f3d6e6; */
+    
   }
   
   .d3-chart .axis path,

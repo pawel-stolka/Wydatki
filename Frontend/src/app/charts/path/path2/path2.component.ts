@@ -88,6 +88,11 @@ export class Path2Component implements OnInit {
         .x((d:any) => x(d.date))
         .y0(this.height-50)
         .y1((d:any) => y(d.other))
+    let area4 = d3.area()
+        .curve(this.curve)
+        .x((d:any) => x(d.date))
+        .y0(this.height-50)
+        .y1((d:any) => y(d.sum))
 
         
     // define the lines
@@ -103,6 +108,10 @@ export class Path2Component implements OnInit {
       .curve(this.curve)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.other));
+    let valueline4 = d3.line()
+      .curve(this.curve)
+      .x((d:any) => x(d.date))
+      .y((d:any) => y(d.sum));
 
     // format the data
     this.data.forEach(d => {
@@ -110,6 +119,7 @@ export class Path2Component implements OnInit {
       d.close = +d.close
       d.open = +d.open
       d.other = +d.other
+      d.sum = d.open + d.other
     });
 
     // set the ranges
@@ -120,7 +130,7 @@ export class Path2Component implements OnInit {
     let y = d3.scaleLinear()
       .range([this.height-50, 0])
       .domain([0, d3.max(this.data, 
-          (d) => Math.max(d.close, d.open, d.other) )]);
+          (d) => Math.max(d.close, d.open, d.other, d.sum) )]);
     
     // add the areas
     this.chart.append("path")
@@ -135,7 +145,11 @@ export class Path2Component implements OnInit {
       .data([this.data])
       .attr("class", "area3")
       .attr("d", area3);
-
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area4")
+      .attr("d", area4);
+    
     // Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
@@ -151,6 +165,11 @@ export class Path2Component implements OnInit {
       .attr("class", "line")
       .style("stroke", "green")
       .attr("d", valueline3);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "line")
+      .style("stroke", "yellow")
+      .attr("d", valueline4);
 
     // Add the X Axis
     this.chart.append("g")

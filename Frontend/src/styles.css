@@ -43,7 +43,8 @@ polyline {
 }
 
 .path {
-  background-color: rgb(70, 155, 155);
+	background-color: rgb(70, 155, 155);
+	
 }
 
 .line {
@@ -56,15 +57,20 @@ polyline {
 
 .area1 {
 	fill: steelblue;
-	opacity: .35;
+	opacity: .25;
 }
 
 .area2 {
 	fill: rgb(253, 75, 75);
-	opacity: .35;
+	opacity: .25;
 }
 
 .area3 {
 	fill: rgb(52, 167, 52);
-	opacity: .35;
+	opacity: .25;
+}
+
+.area4 {
+	fill: rgb(194, 201, 94);
+	opacity: .25;
 }

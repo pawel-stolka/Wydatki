@@ -62,7 +62,7 @@ export class PathContainerComponent implements OnInit {
     // });
   //#endregion
 
-    console.log('pathData', this.pathData)
+    // console.log('pathData', this.pathData)
   }
 
 }
