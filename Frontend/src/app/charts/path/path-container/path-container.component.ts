@@ -22,6 +22,7 @@ export class PathContainerComponent implements OnInit {
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
 
     let data = [
+      {date:"3-May-18",close:"68.13", open:"34.18", other:"350.18"},
       {date:"1-May-18",close:"68.13", open:"34.18", other:"400.18"},
       {date:"27-Apr-18",close:"67.00", open:"167.89", other:"506.18"},
       {date:"25-Apr-18",close:"199.00", open:"89.23", other:"410.18"},

@@ -79,3 +79,13 @@ polyline {
 	fill: rgb(194, 201, 94);
 	opacity: .25;
 }
+
+.grid line {
+  stroke: grey;
+  stroke-opacity: 0.5;
+  shape-rendering: crispEdges; /* narrow lines */
+}
+
+.grid path {
+  stroke-width: 0;
+}

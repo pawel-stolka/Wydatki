@@ -73,10 +73,11 @@ export class Path2Component implements OnInit {
       .attr('transform', 
             `translate(${this.margin.left}, ${this.margin.top})`);
     
+             
     // parse the date / time
     let parseTime = d3.timeParse("%d-%b-%y");
 
-    // define the areas
+    //#region define the areas
     let area1 = d3.area()
         .curve(this.curve)
         .x((d:any) => x(d.date))
@@ -92,8 +93,9 @@ export class Path2Component implements OnInit {
         .x((d:any) => x(d.date))
         .y0(this.height)
         .y1((d:any) => y(d.other))
-        
-    // define the lines
+    //#endregion
+
+    //#region define the lines
     let valueline = d3.line()
       .curve(this.curve)
       .x((d:any) => x(d.date))
@@ -106,6 +108,7 @@ export class Path2Component implements OnInit {
       .curve(this.curve)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.other));
+    //#endregion
 
     // format the data
     this.data.forEach(d => {
@@ -114,7 +117,7 @@ export class Path2Component implements OnInit {
       d.open = +d.open
       d.other = +d.other
     });
-
+      
     // set the ranges
     // & Scale the range of the data
     let x = d3.scaleTime()
@@ -125,7 +128,26 @@ export class Path2Component implements OnInit {
       .domain([0, d3.max(this.data, 
           (d) => Math.max(d.close, d.open, d.other) )]);
     
-    // add the areas
+    //#region commented GRIDLINES
+    // add the X gridlines
+    // this.chart.append("g")			
+    // .attr("class", "grid")
+    // .attr("transform", "translate(0," + this.height + ")")
+    // .call(make_x_gridlines()
+    //     .tickSize(-this.height)
+    //     .tickFormat(null)
+    // )
+
+    // // add the Y gridlines
+    // this.chart.append("g")			
+    //   .attr("class", "grid")
+    //   .call(make_y_gridlines()
+    //       .tickSize(-this.width)
+    //       .tickFormat(null)
+    //   )
+    //#endregion
+
+    //#region add the areas
     this.chart.append("path")
       .data([this.data])
       .attr("class", "area1")
@@ -138,8 +160,9 @@ export class Path2Component implements OnInit {
       .data([this.data])
       .attr("class", "area3")
       .attr("d", area3);
-    
-    // Add the valueline paths.
+    //#endregion
+
+    //#region Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
       .attr("class", "line")
@@ -154,8 +177,9 @@ export class Path2Component implements OnInit {
       .attr("class", "line")
       .style("stroke", "green")
       .attr("d", valueline3);
+    //#endregion
 
-    // Add the X Axis
+    //#region Add the X Axis
     this.chart.append("g")
       .attr('class','axis')
       .attr('transform', `translate(0,  ${this.height})`)
@@ -168,13 +192,15 @@ export class Path2Component implements OnInit {
         .attr("transform", "rotate(-65)")
               // .ticks(d3.timeDay.every(7)))
               // .ticks(5));
+    //#endregion
 
-    // Add the Y Axis
+    //#region Add the Y Axis
     this.chart.append("g")
       .attr('class', 'axis axis-x')
       .call(d3.axisLeft(y));
+    //#endregion
 
-    // axis labels
+    //#region axis labels
     this.chart.append("text")   
       .attrs({
         transform: `translate(
@@ -193,6 +219,20 @@ export class Path2Component implements OnInit {
         dy: '1em',
       })
       .text('Value')
+    //#endregion
+
+    // gridlines in x axis function
+    function make_x_gridlines() {		
+      return d3.axisBottom(x)
+        .ticks(5)
+    }
+
+    // gridlines in y axis function
+    function make_y_gridlines() {		
+      return d3.axisLeft(y)
+        .ticks(5)
+    }
+
   }
 
   updateChart() {
