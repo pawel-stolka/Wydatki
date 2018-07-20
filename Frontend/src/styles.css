@@ -8,25 +8,25 @@
 }
 
 
-/* .chartText {
+.chartText {
   color: white;
   font-size: 16px;
-} */
+} 
 
-/* .pie {
+.pie {
   margin: 20px;
   height: 300px;
-} */
+}
 
 
 
-/* polyline {
+polyline {
 	opacity: .55;
 	stroke: black;
 	stroke-width: 1px;
 	fill: none;
 }
-
+/* 
 .dot {
 	stroke: greenyellow;
 	stroke: black;
