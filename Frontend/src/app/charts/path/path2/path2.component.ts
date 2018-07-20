@@ -44,8 +44,8 @@ export class Path2Component implements OnInit {
     this.height = element.offsetHeight - (2*this.margin)
     let svg = d3.select(element)
       .append('svg')
-      .attr('width', element.offsetWidth)//this.width)// + (2*this.margin))
-      .attr('height', element.offsetHeight)//this.height)// + (2*this.margin))
+      .attr('width', element.offsetWidth)
+      .attr('height', element.offsetHeight)
 
     // chart plot area
     this.chart = svg.append('g')
@@ -63,15 +63,15 @@ export class Path2Component implements OnInit {
         // .curveStep
         // .curveBasisOpen
         // .curveBundle
-        // .curveCardinal
+        .curveCardinal
         // .curveMonotoneX
-        .curveCatmullRom
+        // .curveCatmullRom
       )
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.close));
 
     let valueline2 = d3.line()
-      .curve(d3.curveCatmullRom)
+      .curve(d3.curveBasis)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.open));
     let valueline3 = d3.line()
@@ -132,8 +132,8 @@ export class Path2Component implements OnInit {
         )`
       })          
       // .attrs({
-      //   x: this.width / 2,//480,
-      //   y: this.height + this.margin + 20//475 
+      //   x: this.width / 2,
+      //   y: this.height + this.margin + 20
       // })
       .style("text-anchor", "middle")
       .text("Date");
