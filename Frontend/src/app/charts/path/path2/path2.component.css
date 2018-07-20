@@ -1,25 +1,29 @@
+/* .svg {
+  border: 2px solid salmon;
+} */
 
 .d3-chart {
-    /* width: 100%; */
+    width: 100%;
     height: 500px;
-    /* background-color: #f3d6e6; */
-    
+    /* width: 800px; */
+    background-color: #d6f2f3;
+    border: 4px solid;
   }
   
-  .d3-chart .axis path,
-  .d3-chart .axis line {
-    stroke: #999;
-  }
+/* .d3-chart .axis path,
+.d3-chart .axis line {
+  stroke: #999;
+}
   
-  .d3-chart .axis text {
-    fill: #999;
-  }
+.d3-chart .axis text {
+  fill: #999;
+}
 
 .axis-x {
   font-size: 26px;
   color:  green;
-}
-
+} 
+*/
 
 /* .line {
   fill: none;

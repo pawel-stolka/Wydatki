@@ -20,10 +20,10 @@
 
 .test2 {
   display: inline-block;
-	margin: 25px;
+	/* margin: 5px; */
 	background-color: orange;
 	color: white;
-	padding: 10px;
+	/* padding: 10px; */
 	/* width: 30px;
 	height: 30px; */
 	text-align: center;
@@ -45,6 +45,11 @@ polyline {
 .path {
 	background-color: rgb(70, 155, 155);
 	
+}
+
+.svg {
+	border: 2px solid salmon;
+	/* width: 600px; */
 }
 
 .line {

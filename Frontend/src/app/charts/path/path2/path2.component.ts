@@ -10,18 +10,18 @@ export class Path2Component implements OnInit {
   @ViewChild('chart') private chartContainer: ElementRef;
   @Input() private data: Array<any>;
   private chart: any;
-  private margin: any = 100;
-    // = { top: 50, right: 20, bottom: 50, left: 100 }
-  private width = 600 //- (2*this.margin)
-  private height = 400 //- (2*this.margin)
-
+  private margin: any //= 100;
+    = { top: 50, right: 50, bottom: 100, left: 80 }
+  private width 
+  private height 
+  
+  private curve
   private xScale
   private yScale
   private colors
   private xAxis
   private yAxis
 
-  curve
   
   constructor() { }
 
@@ -56,18 +56,22 @@ export class Path2Component implements OnInit {
 
   createChart() {
     let element = this.chartContainer.nativeElement;
-    this.width = element.offsetWidth - (2*this.margin);
-    this.height = element.offsetHeight - (2*this.margin)
+    this.width = element.offsetWidth - this.margin.left - this.margin.right;
+    this.height = element.offsetHeight - this.margin.top - this.margin.bottom
     let svg = d3.select(element)
       .append('svg')
+      .attr('class', 'svg')
       .attr('width', element.offsetWidth)
       .attr('height', element.offsetHeight)
+
+    console.log('this.width, this.height', this.width, this.height)
+    console.log('element.offsetWidth, element.offsetHeight', element.offsetWidth, element.offsetHeight)
 
     // chart plot area
     this.chart = svg.append('g')
       .attr('class', 'path')
       .attr('transform', 
-            `translate(${this.margin}, ${this.margin})`);
+            `translate(${this.margin.left}, ${this.margin.top})`);
     
     // parse the date / time
     let parseTime = d3.timeParse("%d-%b-%y");
@@ -76,24 +80,18 @@ export class Path2Component implements OnInit {
     let area1 = d3.area()
         .curve(this.curve)
         .x((d:any) => x(d.date))
-        .y0(this.height-50)
+        .y0(this.height)
         .y1((d:any) => y(d.close))
     let area2 = d3.area()
         .curve(this.curve)
         .x((d:any) => x(d.date))
-        .y0(this.height-50)
+        .y0(this.height)
         .y1((d:any) => y(d.open))
     let area3 = d3.area()
         .curve(this.curve)
         .x((d:any) => x(d.date))
-        .y0(this.height-50)
+        .y0(this.height)
         .y1((d:any) => y(d.other))
-    let area4 = d3.area()
-        .curve(this.curve)
-        .x((d:any) => x(d.date))
-        .y0(this.height-50)
-        .y1((d:any) => y(d.sum))
-
         
     // define the lines
     let valueline = d3.line()
@@ -108,10 +106,6 @@ export class Path2Component implements OnInit {
       .curve(this.curve)
       .x((d:any) => x(d.date))
       .y((d:any) => y(d.other));
-    let valueline4 = d3.line()
-      .curve(this.curve)
-      .x((d:any) => x(d.date))
-      .y((d:any) => y(d.sum));
 
     // format the data
     this.data.forEach(d => {
@@ -119,7 +113,6 @@ export class Path2Component implements OnInit {
       d.close = +d.close
       d.open = +d.open
       d.other = +d.other
-      d.sum = d.open + d.other
     });
 
     // set the ranges
@@ -128,9 +121,9 @@ export class Path2Component implements OnInit {
       .range([0, this.width])
       .domain(d3.extent(this.data, (d) => d.date ));
     let y = d3.scaleLinear()
-      .range([this.height-50, 0])
+      .range([this.height, 0])
       .domain([0, d3.max(this.data, 
-          (d) => Math.max(d.close, d.open, d.other, d.sum) )]);
+          (d) => Math.max(d.close, d.open, d.other) )]);
     
     // add the areas
     this.chart.append("path")
@@ -145,10 +138,6 @@ export class Path2Component implements OnInit {
       .data([this.data])
       .attr("class", "area3")
       .attr("d", area3);
-    this.chart.append("path")
-      .data([this.data])
-      .attr("class", "area4")
-      .attr("d", area4);
     
     // Add the valueline paths.
     this.chart.append("path")
@@ -165,17 +154,11 @@ export class Path2Component implements OnInit {
       .attr("class", "line")
       .style("stroke", "green")
       .attr("d", valueline3);
-    this.chart.append("path")
-      .data([this.data])
-      .attr("class", "line")
-      .style("stroke", "yellow")
-      .attr("d", valueline4);
 
     // Add the X Axis
     this.chart.append("g")
       .attr('class','axis')
-      .attr("transform", 
-        `translate(0, ${this.height - this.margin/2})`)
+      .attr('transform', `translate(0,  ${this.height})`)
       .call(d3.axisBottom(x)
               .tickFormat(d3.timeFormat("%m-%d")))
       .selectAll("text")	
@@ -196,22 +179,18 @@ export class Path2Component implements OnInit {
       .attrs({
         transform: `translate(
           ${this.width / 2},
-          ${this.height + this.margin - 100}
+          ${this.height + 70}
         )`
       })          
-      // .attrs({
-      //   x: this.width / 2,
-      //   y: this.height + this.margin + 20
-      // })
       .style("text-anchor", "middle")
       .text("Date");
-
+      
     this.chart.append('text')
       .attrs({
         transform: 'rotate(-90)',
-        x: 0 - this.margin/2,
-        y: 0 - (this.height/4),
-        dy: '1em'
+        x: - (this.height/2),
+        y: - this.margin.left*3/4,
+        dy: '1em',
       })
       .text('Value')
   }
