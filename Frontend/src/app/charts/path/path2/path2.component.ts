@@ -11,7 +11,7 @@ export class Path2Component implements OnInit {
   @Input() private data: Array<any>;
   private chart: any;
   private margin: any //= 100;
-    = { top: 50, right: 50, bottom: 100, left: 80 }
+    = { top: 50, right: 80, bottom: 100, left: 80 }
   private width 
   private height 
   
@@ -165,17 +165,15 @@ export class Path2Component implements OnInit {
     //#region Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
-      .attr("class", "line")
+      .attr("class", "line1")
       .attr("d", valueline);
     this.chart.append("path")
       .data([this.data])
-      .attr("class", "line")
-      .style("stroke", "red")
+      .attr("class", "line2")
       .attr("d", valueline2);
     this.chart.append("path")
       .data([this.data])
-      .attr("class", "line")
-      .style("stroke", "green")
+      .attr("class", "line3")
       .attr("d", valueline3);
     //#endregion
 
@@ -221,11 +219,44 @@ export class Path2Component implements OnInit {
       .text('Value')
     //#endregion
 
+    //#region lines labels
+    let lineSpan = this.width + 3
+
+    this.chart.append("text")
+      .attrs({
+        transform: `translate(${lineSpan},${y(this.data[0].close)})`,    
+        dy: '.35em',
+        'text-anchor': 'start'
+      })
+      .style("fill", "steelblue")
+      .text("Close");
+
+    this.chart.append("text")
+      .attrs({
+        transform: `translate(${lineSpan},${y(this.data[0].open)})`,
+        dy: '.35em',
+        'text-anchor': 'start'
+      })
+      .style("fill", "red")
+      .text("Open");
+
+    this.chart.append("text")
+    .attrs({
+        transform: `translate(${lineSpan},${y(this.data[0].other)})`,
+        dy: '.35em',
+        'text-anchor': 'start'
+      })
+      .style("fill", "green")
+      .text("Other");
+    //#endregion 
+
+
     // gridlines in x axis function
     function make_x_gridlines() {		
       return d3.axisBottom(x)
         .ticks(5)
     }
+    
 
     // gridlines in y axis function
     function make_y_gridlines() {		

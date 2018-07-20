@@ -43,9 +43,21 @@ polyline {
 	/* width: 600px; */
 }
 
-.line {
+.line1 {
   fill: none;
   stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.line2 {
+  fill: none;
+  stroke: red;
+  stroke-width: 2px;
+}
+
+.line3 {
+  fill: none;
+  stroke: green;
   stroke-width: 2px;
 }
 
