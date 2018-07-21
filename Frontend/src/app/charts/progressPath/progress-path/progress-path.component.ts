@@ -24,7 +24,8 @@ export class ProgressPathComponent implements OnInit {
   typeNames = [
     'na mieście',
     'spożywka',
-    'opłaty'
+    'opłaty',
+    'pierdoły'
   ]
   // typeName = this.typeNames
 
@@ -126,7 +127,6 @@ export class ProgressPathComponent implements OnInit {
 
     //#region another valuelines
 
-    let _val2
     let valueline2 = d3.line()
       .curve(this.curve)
       .x((d:any) => x(d.week))
@@ -165,6 +165,22 @@ export class ProgressPathComponent implements OnInit {
         // console.log('result', property)
         return result
       })
+
+      let valueline4 = d3.line()
+      .curve(this.curve)
+      .x((d:any) => x(d.week))
+      .y((d:any) => {
+        let property = d.groups
+          .filter(
+            g => g.type == this.typeNames[3])
+        let result = y(property[0].sum)
+        // yVal.push(property)
+        // yVal = property[0].sum
+        _vals[3] = property[0].sum
+        // yVal.push(property[0].sum)
+        // console.log('result', property)
+        return result
+      })
     //   .curve(this.curve)
     //   .x((d:any) => x(d[0]))
     //   .y((d:any) => y(d[1]))
@@ -188,6 +204,10 @@ export class ProgressPathComponent implements OnInit {
       .data([this.data])
       .attr("class", "line3")
       .attr("d", valueline3);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "line4")
+      .attr("d", valueline4);
     //#endregion
 
     console.log('yVal', yVal)

@@ -56,11 +56,20 @@ export class ProgressPathContainerComponent implements OnInit {
         groups: [
           {type: 'opłaty', sum: 312.24},
           {type: 'na mieście', sum: 388.789999},
-          {type: 'pierdoły', sum: 145.5},
+          {type: 'pierdoły', sum: 45.5},
           {type: 'spożywka', sum: 152.522221},
           {type: 'leki', sum: 26.5}
         ],
         week: 22
+      }, { 
+        groups: [
+          {type: 'opłaty', sum: 52.24},
+          {type: 'na mieście', sum: 588.789999},
+          {type: 'pierdoły', sum: 145.5},
+          {type: 'spożywka', sum: 102.522221},
+          {type: 'leki', sum: 6.5}
+        ],
+        week: 23
       }
     ]
 

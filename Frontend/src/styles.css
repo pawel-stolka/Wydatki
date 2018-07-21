@@ -61,6 +61,12 @@ polyline {
   stroke-width: 2px;
 }
 
+.line4 {
+  fill: none;
+  stroke: rgb(177, 20, 164);
+  stroke-width: 2px;
+}
+
 .axis { font: 14px sans-serif; }
 
 .area1 {
