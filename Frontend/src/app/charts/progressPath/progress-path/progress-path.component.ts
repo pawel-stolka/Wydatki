@@ -57,13 +57,8 @@ export class ProgressPathComponent implements OnInit {
             `translate(${this.margin.left}, ${this.margin.top})`);
     
     // format the data
-    this.data.forEach(d => {
-      // d[0] = +d[0].substr(2)
-      console.log('d', d)
-      // d.date = parseTime(d.date)
-      // d.close = +d.close
-      // d.open = +d.open
-      // d.other = +d.other
+    this.data.forEach((d,i) => {
+      console.log(`d${i}`, d)
     });
 
     // define X & Y domains
@@ -158,11 +153,18 @@ export class ProgressPathComponent implements OnInit {
     this.xAxis = svg.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.height})`)
-      .call(d3.axisBottom(this.xScale));
+      
+      // --> decide which scale function depending on type of chart <--
+      // .call(d3.axisBottom(x))
+      .call(d3.axisBottom(this.xScale))
+
     this.yAxis = svg.append('g')
       .attr('class', 'axis axis-y')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
-      .call(d3.axisLeft(this.yScale));
+
+      // --> decide which scale function depending on type of chart <--
+      // .call(d3.axisLeft(y))
+      .call(d3.axisLeft(this.yScale))
   }
 
   initCurve() {
