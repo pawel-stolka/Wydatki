@@ -198,16 +198,16 @@ export class ProgressPathComponent implements OnInit {
         yValue = yVal[0],//.sum,//[0].sum,
         _x = +this.data[this.data.length - 1].week 
 
-    let move = {
-      x: _x,
-      // y: yVal[0]
-    }
+    // let move = {
+    //   x: _x,
+    //   // y: yVal[0]
+    // }
     this.chart
       .append("text")
       .data([this.data])
       .attrs({
         transform: `translate(
-          ${x(move.x) + lineSpan},
+          ${x(_x) + lineSpan},
           ${y(yVal[1])}
         )`,    
         dy: '.35em',
@@ -215,12 +215,47 @@ export class ProgressPathComponent implements OnInit {
       })
       .style("fill", "steelblue")
       .text(d => {
-        let result = d[0].groups.filter(g => g.type == this.typeNames[0])
+        let result = d[0].groups.filter(
+          g => g.type == this.typeNames[0])
         return result[0].type
       })
 
       // console.log((this.data, d => d.type)
       // .text("Close");
+
+    this.chart
+      .append("text")
+      .data([this.data])
+      .attrs({
+        transform: `translate(
+          ${x(_x) + lineSpan},
+          ${y(yVal[2])}
+        )`,    
+        dy: '.35em',
+        'text-anchor': 'start'
+      })
+      .style("fill", "red")
+      .text(d => {
+        let result = d[0].groups.filter(g => g.type == this.typeNames[1])
+        return result[0].type
+      })
+
+    this.chart
+      .append("text")
+      .data([this.data])
+      .attrs({
+        transform: `translate(
+          ${x(_x) + lineSpan},
+          ${y(yVal[3])}
+        )`,    
+        dy: '.35em',
+        'text-anchor': 'start'
+      })
+      .style("fill", "green")
+      .text(d => {
+        let result = d[0].groups.filter(g => g.type == this.typeNames[2])
+        return result[0].type
+      })
 
     // this.chart.append("text")
     //   .attrs({
