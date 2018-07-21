@@ -17,7 +17,7 @@ export class ProgressPathContainerComponent implements OnInit {
   generateData(type = '') {
     this.chartData = []
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
-    let rowNumber = 2 + Math.floor(Math.random() * 10);
+    let rowNumber = 5 + Math.floor(Math.random() * 10);
     for (var i = 1; i <= rowNumber; i++) {
       this.chartData.push([
         `x=${i}`,

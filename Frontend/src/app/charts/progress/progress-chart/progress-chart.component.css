@@ -1,8 +1,10 @@
 
 .d3-chart {
     width: 100%;
-    height: 340px;
+    height: 300px;
     background-color: #c1ecf3;
+    border: 1px solid blueviolet;
+    margin: 5px 0;
   }
   
   .d3-chart .axis path,

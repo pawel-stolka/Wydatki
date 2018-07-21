@@ -12,7 +12,7 @@ export class ProgressChartComponent implements OnInit {
   
   private chart: any;
   private margin: any //= 30;
-    = { top: 50, right: 20, bottom: 130, left: 50 }
+    = { top: 50, right: 50, bottom: 50, left: 50 }
   private width;
   private height;
 

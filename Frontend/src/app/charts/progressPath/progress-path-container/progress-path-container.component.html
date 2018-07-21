@@ -1,3 +1,4 @@
-<p>
-  progress-path-container works!
-</p>
+
+<progress-path *ngIf="chartData" [data]="chartData"></progress-path>
+
+<progress-chart *ngIf="chartData" [data]="chartData"></progress-chart>
