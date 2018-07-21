@@ -67,16 +67,10 @@ export class ProgressPathComponent implements OnInit {
       0, 
       d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
     ];
-    // let yDomain = [0, d3.max(this.data, d => {
-    //   let g = d.groups
-    //   let max = +d3.max(g, (n:any) => n.sum)
-    //   console.log('....max', max)
-    //   return max
-    //   })
-    // ];
-
     console.log('xDomain, yDomain', xDomain, yDomain)
-    // create scales
+
+
+    //#region create scales -------- which one to choose? ------
     this.xScale = d3.scaleBand().padding(0.1)
       .domain(xDomain)
       .rangeRound([0, this.width]);
@@ -99,15 +93,10 @@ export class ProgressPathComponent implements OnInit {
       .domain([
         0, 
         d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
-        // d3.max(this.data, (d) => d.groups.sum//Math.max(d[1])
       ])
+    //#endregion
 
-    // // define X & Y domains
-    // let xDomain = this.data.map(d => d.week);
-    // let yDomain = [
-    //   0, 
-    //   d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
-    // ];
+    // define X & Y domains
     //#region define the lines
     let valueline = d3.line()
       .curve(this.curve)
@@ -117,13 +106,13 @@ export class ProgressPathComponent implements OnInit {
         return r
       })
       .y((d:any) => {
-        let g = +d3.max(d.groups, (g:any) => g.sum)
-        let yy = y(g)
-        console.log('valueline yy', yy, g)
-        return yy
+        let prop = 'na mieście'
+        let propertyOfArray = d.groups.filter(g => g.type == prop)
+        return y(propertyOfArray[0].sum)
       })
 
-    // let valueline2 = d3.line()
+    //#region another valuelines
+    //  let valueline2 = d3.line()
     //   .curve(this.curve)
     //   .x((d:any) => x(d.week))
     //   .y((d:any) => y(d.groups.sum))
