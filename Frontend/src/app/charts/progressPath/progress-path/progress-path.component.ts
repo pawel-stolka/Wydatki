@@ -11,7 +11,7 @@ export class ProgressPathComponent implements OnInit {
   @Input() private data: Array<any>;
   
   private chart: any;
-  private margin = { top: 50, right: 50, bottom: 50, left: 50 }
+  private margin = { top: 50, right: 100, bottom: 50, left: 50 }
   private width
   private height
   private curve
@@ -19,6 +19,8 @@ export class ProgressPathComponent implements OnInit {
   private yScale
   private xAxis
   private yAxis
+
+  typeName = 'na mieście'
 
   constructor() { }
 
@@ -102,20 +104,26 @@ export class ProgressPathComponent implements OnInit {
       .curve(this.curve)
       .x((d:any) => { 
         let r = x(d.week)
-        console.log('valueline', r, d.week)
+        // console.log('valueline', r, d.week)
         return r
       })
       .y((d:any) => {
         let prop = 'na mieście'
-        let propertyOfArray = d.groups.filter(g => g.type == prop)
-        return y(propertyOfArray[0].sum)
+        let propertyOfArray = d.groups.filter(g => g.type == this.typeName)
+        let result = y(propertyOfArray[0].sum)
+        console.log('result', result, propertyOfArray[0].sum)
+        return result
       })
 
     //#region another valuelines
     //  let valueline2 = d3.line()
     //   .curve(this.curve)
     //   .x((d:any) => x(d.week))
-    //   .y((d:any) => y(d.groups.sum))
+    //   .y((d:any) => {
+    //     let prop = 'spożywka'
+    //     let propertyOfArray = d.groups.filter(g => g.type == prop)
+    //     return y(propertyOfArray[0].sum)
+    //   })
 
     // let valueline3 = d3.line()
     //   .curve(this.curve)
@@ -137,6 +145,59 @@ export class ProgressPathComponent implements OnInit {
     //   .attr("class", "line3")
     //   .attr("d", valueline3);
     //#endregion
+
+    //#region lines labels
+    let lineSpan = 3
+    let yValue = 450
+    
+    let move = {
+      n: d => d.week,
+      x: this.data[this.data.length - 1].week,
+      y: yValue// result
+    }
+    this.chart
+      .append("text")
+      .data([this.data])
+      .attrs({
+        transform: `translate(
+          ${x(move.x)},
+          ${y(move.y)}
+        )`,    
+        dy: (d) => {
+          let res =  '.35em'
+          let m = d.week
+          console.log(d)
+          return res
+        },
+        'text-anchor': 'start'
+      })
+      .style("fill", "steelblue")
+      .text(d => {
+        let first = d[0].groups.filter(g => g.type == this.typeName)
+        return first[0].type
+      })
+
+      // console.log((this.data, d => d.type)
+      // .text("Close");
+
+    // this.chart.append("text")
+    //   .attrs({
+    //     transform: `translate(${lineSpan},${y(this.data[0].open)})`,
+    //     dy: '.35em',
+    //     'text-anchor': 'start'
+    //   })
+    //   .style("fill", "red")
+    //   .text("Open");
+
+    // this.chart.append("text")
+    // .attrs({
+    //     transform: `translate(${lineSpan},${y(this.data[0].other)})`,
+    //     dy: '.35em',
+    //     'text-anchor': 'start'
+    //   })
+    //   .style("fill", "green")
+    //   .text("Other");
+    //#endregion 
 
     // x & y axis
     this.xAxis = svg.append('g')
