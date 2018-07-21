@@ -20,7 +20,13 @@ export class ProgressPathComponent implements OnInit {
   private xAxis
   private yAxis
 
-  typeName = 'na mieście'
+  // hard-coded so far => ultimately from data
+  typeNames = [
+    'na mieście',
+    'spożywka',
+    'opłaty'
+  ]
+  // typeName = this.typeNames
 
   constructor() { }
 
@@ -100,21 +106,42 @@ export class ProgressPathComponent implements OnInit {
     // define X & Y domains
     //#region define the lines
     let yVal = []
+    let _vals = []
+    // let _val1
     let valueline = d3.line()
       .curve(this.curve)
       .x((d:any) => x(d.week))
       .y((d:any) => {
         let property = d.groups
           .filter(
-            g => g.type == this.typeName)
+            g => g.type == this.typeNames[0])
         let result = y(property[0].sum)
-        yVal.push(property)
-        console.log('result', property)
+        _vals[0] = property[0].sum
+        // yVal = property[0].sum
+        // yVal.push(property[0].sum)
+        // console.log('result', property)
         return result
       })
+      
 
     //#region another valuelines
-    //  let valueline2 = d3.line()
+
+    let _val2
+    let valueline2 = d3.line()
+      .curve(this.curve)
+      .x((d:any) => x(d.week))
+      .y((d:any) => {
+        let property = d.groups
+          .filter(
+            g => g.type == this.typeNames[1])
+        let result = y(property[0].sum)
+        _vals[1] = property[0].sum
+        // yVal.push(property)
+        // yVal = property[0].sum
+        yVal.push(property[0].sum)
+        // console.log('result', property)
+        return result
+      })
     //   .curve(this.curve)
     //   .x((d:any) => x(d.week))
     //   .y((d:any) => {
@@ -123,40 +150,57 @@ export class ProgressPathComponent implements OnInit {
     //     return y(propertyOfArray[0].sum)
     //   })
 
-    // let valueline3 = d3.line()
+    let valueline3 = d3.line()
+      .curve(this.curve)
+      .x((d:any) => x(d.week))
+      .y((d:any) => {
+        let property = d.groups
+          .filter(
+            g => g.type == this.typeNames[2])
+        let result = y(property[0].sum)
+        // yVal.push(property)
+        // yVal = property[0].sum
+        _vals[2] = property[0].sum
+        // yVal.push(property[0].sum)
+        // console.log('result', property)
+        return result
+      })
     //   .curve(this.curve)
     //   .x((d:any) => x(d[0]))
     //   .y((d:any) => y(d[1]))
     //#endregion
 
+    _vals.forEach(v => {
+      yVal.push(v)
+    });
+    // console.log('yVal', yVal)
 
-    
     //#region Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
       .attr("class", "line1")
       .attr("d", valueline);
-    // this.chart.append("path")
-    //   .data([this.data])
-    //   .attr("class", "line2")
-    //   .attr("d", valueline2);
-    // this.chart.append("path")
-    //   .data([this.data])
-    //   .attr("class", "line3")
-    //   .attr("d", valueline3);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "line2")
+      .attr("d", valueline2);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "line3")
+      .attr("d", valueline3);
     //#endregion
 
     console.log('yVal', yVal)
 
     //#region lines labels
     let lineSpan = 3,
-        _val = yVal[yVal.length - 1],
-        yValue = _val[0].sum,
+        // _val = yVal[0],//[yVal.length - 1],
+        yValue = yVal[0],//.sum,//[0].sum,
         _x = +this.data[this.data.length - 1].week 
 
     let move = {
       x: _x,
-      y: yValue
+      // y: yVal[0]
     }
     this.chart
       .append("text")
@@ -164,14 +208,14 @@ export class ProgressPathComponent implements OnInit {
       .attrs({
         transform: `translate(
           ${x(move.x) + lineSpan},
-          ${y(move.y)}
+          ${y(yVal[1])}
         )`,    
         dy: '.35em',
         'text-anchor': 'start'
       })
       .style("fill", "steelblue")
       .text(d => {
-        let result = d[0].groups.filter(g => g.type == this.typeName)
+        let result = d[0].groups.filter(g => g.type == this.typeNames[0])
         return result[0].type
       })
 
