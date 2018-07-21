@@ -58,8 +58,8 @@ export class ProgressPathComponent implements OnInit {
     
     // format the data
     this.data.forEach(d => {
-      d[0] = +d[0].substr(2)
-      console.log('d', d[0], d[1])
+      // d[0] = +d[0].substr(2)
+      console.log('d', d)
       // d.date = parseTime(d.date)
       // d.close = +d.close
       // d.open = +d.open
@@ -67,9 +67,20 @@ export class ProgressPathComponent implements OnInit {
     });
 
     // define X & Y domains
-    let xDomain = this.data.map(d => d[0]);
-    let yDomain = [0, d3.max(this.data, d => d[1])];
+    let xDomain = this.data.map(d => d.week);
+    let yDomain = [
+      0, 
+      d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
+    ];
+    // let yDomain = [0, d3.max(this.data, d => {
+    //   let g = d.groups
+    //   let max = +d3.max(g, (n:any) => n.sum)
+    //   console.log('....max', max)
+    //   return max
+    //   })
+    // ];
 
+    console.log('xDomain, yDomain', xDomain, yDomain)
     // create scales
     this.xScale = d3.scaleBand().padding(0.1)
       .domain(xDomain)
@@ -87,26 +98,41 @@ export class ProgressPathComponent implements OnInit {
       // .scaleSequential()
       .nice()
       .range([0, this.width])
-      .domain(d3.extent(this.data, (d) => d[0] ));
+      .domain(d3.extent(this.data, (d) => d.week ));
     let y = d3.scaleLinear()
       .range([this.height, 0])
-      .domain([0, d3.max(this.data, 
-        (d) => Math.max(d[1])
-      )])
+      .domain([
+        0, 
+        d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
+        // d3.max(this.data, (d) => d.groups.sum//Math.max(d[1])
+      ])
 
+    // // define X & Y domains
+    // let xDomain = this.data.map(d => d.week);
+    // let yDomain = [
+    //   0, 
+    //   d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
+    // ];
     //#region define the lines
     let valueline = d3.line()
-      // .curve(this.curve)
+      .curve(this.curve)
       .x((d:any) => { 
-        let r = x(d[0])
-        console.log('valueline', r, d[0])
+        let r = x(d.week)
+        console.log('valueline', r, d.week)
         return r
       })
-      .y((d:any) => y(d[1]))
-    let valueline2 = d3.line()
-      .curve(this.curve)
-      .x((d:any) => x(d[0]))
-      .y((d:any) => y(d[1]))
+      .y((d:any) => {
+        let g = +d3.max(d.groups, (g:any) => g.sum)
+        let yy = y(g)
+        console.log('valueline yy', yy, g)
+        return yy
+      })
+
+    // let valueline2 = d3.line()
+    //   .curve(this.curve)
+    //   .x((d:any) => x(d.week))
+    //   .y((d:any) => y(d.groups.sum))
+
     // let valueline3 = d3.line()
     //   .curve(this.curve)
     //   .x((d:any) => x(d[0]))
@@ -118,10 +144,10 @@ export class ProgressPathComponent implements OnInit {
       .data([this.data])
       .attr("class", "line1")
       .attr("d", valueline);
-    this.chart.append("path")
-      .data([this.data])
-      .attr("class", "line2")
-      .attr("d", valueline2);
+    // this.chart.append("path")
+    //   .data([this.data])
+    //   .attr("class", "line2")
+    //   .attr("d", valueline2);
     // this.chart.append("path")
     //   .data([this.data])
     //   .attr("class", "line3")
