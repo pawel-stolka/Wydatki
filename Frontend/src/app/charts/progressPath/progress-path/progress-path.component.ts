@@ -97,21 +97,19 @@ export class ProgressPathComponent implements OnInit {
         d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
       ])
     //#endregion
-
     // define X & Y domains
     //#region define the lines
+    let yVal = []
     let valueline = d3.line()
       .curve(this.curve)
-      .x((d:any) => { 
-        let r = x(d.week)
-        // console.log('valueline', r, d.week)
-        return r
-      })
+      .x((d:any) => x(d.week))
       .y((d:any) => {
-        let prop = 'na mieście'
-        let propertyOfArray = d.groups.filter(g => g.type == this.typeName)
-        let result = y(propertyOfArray[0].sum)
-        console.log('result', result, propertyOfArray[0].sum)
+        let property = d.groups
+          .filter(
+            g => g.type == this.typeName)
+        let result = y(property[0].sum)
+        yVal.push(property)
+        console.log('result', property)
         return result
       })
 
@@ -131,6 +129,8 @@ export class ProgressPathComponent implements OnInit {
     //   .y((d:any) => y(d[1]))
     //#endregion
 
+
+    
     //#region Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
@@ -146,35 +146,33 @@ export class ProgressPathComponent implements OnInit {
     //   .attr("d", valueline3);
     //#endregion
 
+    console.log('yVal', yVal)
+
     //#region lines labels
-    let lineSpan = 3
-    let yValue = 450
-    
+    let lineSpan = 3,
+        _val = yVal[yVal.length - 1],
+        yValue = _val[0].sum,
+        _x = +this.data[this.data.length - 1].week 
+
     let move = {
-      n: d => d.week,
-      x: this.data[this.data.length - 1].week,
-      y: yValue// result
+      x: _x,
+      y: yValue
     }
     this.chart
       .append("text")
       .data([this.data])
       .attrs({
         transform: `translate(
-          ${x(move.x)},
+          ${x(move.x) + lineSpan},
           ${y(move.y)}
         )`,    
-        dy: (d) => {
-          let res =  '.35em'
-          let m = d.week
-          console.log(d)
-          return res
-        },
+        dy: '.35em',
         'text-anchor': 'start'
       })
       .style("fill", "steelblue")
       .text(d => {
-        let first = d[0].groups.filter(g => g.type == this.typeName)
-        return first[0].type
+        let result = d[0].groups.filter(g => g.type == this.typeName)
+        return result[0].type
       })
 
       // console.log((this.data, d => d.type)
