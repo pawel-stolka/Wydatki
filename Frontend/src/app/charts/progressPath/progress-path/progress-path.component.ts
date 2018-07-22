@@ -80,16 +80,9 @@ export class ProgressPathComponent implements OnInit {
 
 
     //#region create scales -------- which one to choose? ------
-    this.xScale = d3.scaleBand().padding(0.1)
-      .domain(xDomain)
-      .rangeRound([0, this.width]);
-    this.yScale = d3.scaleLinear()
-      .domain(yDomain)
-      .range([this.height, 0]);
-
-    // set the ranges
+    
     // & Scale the range of the data
-    let x = d3
+    this.xScale = d3
       .scaleLinear()
       // .scaleTime()
       // .scaleIdentity()
@@ -97,36 +90,46 @@ export class ProgressPathComponent implements OnInit {
       .nice()
       .range([0, this.width])
       .domain(d3.extent(this.data, (d) => d.week ));
-    let y = d3.scaleLinear()
+
+    this.yScale = d3.scaleLinear()
       .range([this.height, 0])
       .domain([
         0, 
         d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
       ])
+    // this.xScale = d3.scaleBand().padding(0.1)
+    //   .domain(xDomain)
+    //   .rangeRound([0, this.width]);
+    // this.yScale = d3.scaleLinear()
+    //   .domain(yDomain)
+    //   .range([this.height, 0]);
     //#endregion
-    // define X & Y domains
+
     //#region define the lines
-    let yVal = []
+    let yLabelValue = []
     let _vals = []
-    // let _val1
     let valueline = d3.line()
       .curve(this.curve)
-      .x((d:any) => x(d.week))
+      .x((d:any) => this.xScale(d.week))
       .y((d:any) => {
         let property = d.groups
-          .filter(
-            g => g.type == this.typeNames[0])
-        let result = y(property[0].sum)
-        _vals[0] = property[0].sum
+          .filter(g => g.type == this.typeNames[0])
+        // return y(property[0].sum)
+        let result = this.yScale(property[0].sum)
+        // _vals[0] = property[0].sum
         // yVal = property[0].sum
-        // yVal.push(property[0].sum)
-        // console.log('result', property)
+        // yLabelValue.push({ 
+          yLabelValue = [{ 
+            type: this.typeNames[0],
+            v: property[0].sum
+          }]
+        
         return result
       })
-      
-
+    //#endregion
+    
     //#region another valuelines
-
+    /*
     let valueline2 = d3.line()
       .curve(this.curve)
       .x((d:any) => x(d.week))
@@ -136,19 +139,9 @@ export class ProgressPathComponent implements OnInit {
             g => g.type == this.typeNames[1])
         let result = y(property[0].sum)
         _vals[1] = property[0].sum
-        // yVal.push(property)
-        // yVal = property[0].sum
         yVal.push(property[0].sum)
-        // console.log('result', property)
         return result
       })
-    //   .curve(this.curve)
-    //   .x((d:any) => x(d.week))
-    //   .y((d:any) => {
-    //     let prop = 'spożywka'
-    //     let propertyOfArray = d.groups.filter(g => g.type == prop)
-    //     return y(propertyOfArray[0].sum)
-    //   })
 
     let valueline3 = d3.line()
       .curve(this.curve)
@@ -177,52 +170,42 @@ export class ProgressPathComponent implements OnInit {
         _vals[3] = property[0].sum
         return result
       })
+      */
     //#endregion
-
-    _vals.forEach(v => {
-      yVal.push(v)
-    });
-    // console.log('yVal', yVal)
 
     //#region Add the valueline paths.
     this.chart.append("path")
       .data([this.data])
       .attr("class", "line1")
       .attr("d", valueline);
-    this.chart.append("path")
-      .data([this.data])
-      .attr("class", "line2")
-      .attr("d", valueline2);
-    this.chart.append("path")
-      .data([this.data])
-      .attr("class", "line3")
-      .attr("d", valueline3);
-    this.chart.append("path")
-      .data([this.data])
-      .attr("class", "line4")
-      .attr("d", valueline4);
-    //#endregion
 
-    console.log('yVal', yVal)
+      console.log('yLabelValue', yLabelValue[0].v)
+    // this.chart.append("path")
+    //   .data([this.data])
+    //   .attr("class", "line2")
+    //   .attr("d", valueline2);
+    // this.chart.append("path")
+    //   .data([this.data])
+    //   .attr("class", "line3")
+    //   .attr("d", valueline3);
+    // this.chart.append("path")
+    //   .data([this.data])
+    //   .attr("class", "line4")
+    //   .attr("d", valueline4);
+    //#endregion
 
     //#region lines labels
     let lineSpan = 3,
-        // _val = yVal[0],//[yVal.length - 1],
-        yValue = yVal[0],//.sum,//[0].sum,
-        _x = +this.data[this.data.length - 1].week 
+        _d = this.data,
+        _x = +_d[_d.length - 1].week,
+        xValue = this.xScale(_x) + lineSpan,
+        yValue = this.yScale(yLabelValue[0].v)
 
-    // let move = {
-    //   x: _x,
-    //   // y: yVal[0]
-    // }
     this.chart
       .append("text")
       .data([this.data])
       .attrs({
-        transform: `translate(
-          ${x(_x) + lineSpan},
-          ${y(yVal[1])}
-        )`,    
+        transform: `translate(${xValue},${yValue})`,    
         dy: '.35em',
         'text-anchor': 'start'
       })
@@ -236,39 +219,39 @@ export class ProgressPathComponent implements OnInit {
       // console.log((this.data, d => d.type)
       // .text("Close");
 
-    this.chart
-      .append("text")
-      .data([this.data])
-      .attrs({
-        transform: `translate(
-          ${x(_x) + lineSpan},
-          ${y(yVal[2])}
-        )`,    
-        dy: '.35em',
-        'text-anchor': 'start'
-      })
-      .style("fill", "red")
-      .text(d => {
-        let result = d[0].groups.filter(g => g.type == this.typeNames[1])
-        return result[0].type
-      })
+    // this.chart
+    //   .append("text")
+    //   .data([this.data])
+    //   .attrs({
+    //     transform: `translate(
+    //       ${x(_x) + lineSpan},
+    //       ${y(yLabelValue[2])}
+    //     )`,    
+    //     dy: '.35em',
+    //     'text-anchor': 'start'
+    //   })
+    //   .style("fill", "red")
+    //   .text(d => {
+    //     let result = d[0].groups.filter(g => g.type == this.typeNames[1])
+    //     return result[0].type
+    //   })
 
-    this.chart
-      .append("text")
-      .data([this.data])
-      .attrs({
-        transform: `translate(
-          ${x(_x) + lineSpan},
-          ${y(yVal[3])}
-        )`,    
-        dy: '.35em',
-        'text-anchor': 'start'
-      })
-      .style("fill", "green")
-      .text(d => {
-        let result = d[0].groups.filter(g => g.type == this.typeNames[2])
-        return result[0].type
-      })
+    // this.chart
+    //   .append("text")
+    //   .data([this.data])
+    //   .attrs({
+    //     transform: `translate(
+    //       ${x(_x) + lineSpan},
+    //       ${y(yLabelValue[3])}
+    //     )`,    
+    //     dy: '.35em',
+    //     'text-anchor': 'start'
+    //   })
+    //   .style("fill", "green")
+    //   .text(d => {
+    //     let result = d[0].groups.filter(g => g.type == this.typeNames[2])
+    //     return result[0].type
+    //   })
 
     // this.chart.append("text")
     //   .attrs({
@@ -307,9 +290,6 @@ export class ProgressPathComponent implements OnInit {
       .call(d3.axisLeft(this.yScale))
     // #endregion
     
-    // parse the date / time
-    let parseTime = d3.timeParse("%d-%b-%y");
-
     //#region the areas
     /*
     let area1 = d3.area()
@@ -357,6 +337,8 @@ export class ProgressPathComponent implements OnInit {
       */
     //#endregion
 
+    // parse the datetime ??? in any case. 
+    let parseTime = d3.timeParse("%d-%b-%y");
   }
 
   initCurve() {
