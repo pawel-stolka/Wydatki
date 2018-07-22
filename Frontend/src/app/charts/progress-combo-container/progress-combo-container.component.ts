@@ -40,7 +40,7 @@ export class ProgressComboContainerComponent implements OnInit {
     let randomWeek = []
     let rowNumber = 2 + Math.floor(Math.random() * 10);
     console.log('rowNumber', rowNumber)
-    for (var i = 1; i <= rowNumber; i++) {
+    for (var i = 0; i < rowNumber; i++) {
       let groups = []
       for (let j = 0; j < types.length; j++) {
         let sum = Math.floor(Math.random() * 100)
