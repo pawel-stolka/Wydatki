@@ -174,16 +174,9 @@ export class ProgressPathComponent implements OnInit {
           .filter(
             g => g.type == this.typeNames[3])
         let result = y(property[0].sum)
-        // yVal.push(property)
-        // yVal = property[0].sum
         _vals[3] = property[0].sum
-        // yVal.push(property[0].sum)
-        // console.log('result', property)
         return result
       })
-    //   .curve(this.curve)
-    //   .x((d:any) => x(d[0]))
-    //   .y((d:any) => y(d[1]))
     //#endregion
 
     _vals.forEach(v => {
@@ -296,7 +289,7 @@ export class ProgressPathComponent implements OnInit {
     //   .text("Other");
     //#endregion 
 
-    // x & y axis
+    //#region x & y axis
     this.xAxis = svg.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.height})`)
@@ -312,6 +305,58 @@ export class ProgressPathComponent implements OnInit {
       // --> decide which scale function depending on type of chart <--
       // .call(d3.axisLeft(y))
       .call(d3.axisLeft(this.yScale))
+    // #endregion
+    
+    // parse the date / time
+    let parseTime = d3.timeParse("%d-%b-%y");
+
+    //#region the areas
+    /*
+    let area1 = d3.area()
+        .curve(this.curve)
+        .x((d:any) => x(d.week))
+        .y0(this.height)
+        .y1((d:any) => {
+          let prop = d.groups.filter(g => g.type == this.typeNames[1])
+          let result = y(prop[0].sum)
+          return result
+        })
+    let area2 = d3.area()
+        .curve(this.curve)
+        .x((d:any) => x(d.week))
+        .y0(this.height)
+        .y1((d:any) => {
+          let prop = d.groups.filter(g => g.type == this.typeNames[2])
+          let result = y(prop[0].sum)
+          return result
+        })
+
+    let area3 = d3.area()
+        .curve(this.curve)
+        .x((d:any) => x(d.week))
+        .y0(this.height)
+        .y1((d:any) => {
+          let prop = d.groups.filter(g => g.type == this.typeNames[3])
+          let result = y(prop[0].sum)
+          return result
+        })
+
+    // add the areas
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area1")
+      .attr("d", area1);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area2")
+      .attr("d", area2);
+    this.chart.append("path")
+      .data([this.data])
+      .attr("class", "area3")
+      .attr("d", area3);
+      */
+    //#endregion
+
   }
 
   initCurve() {

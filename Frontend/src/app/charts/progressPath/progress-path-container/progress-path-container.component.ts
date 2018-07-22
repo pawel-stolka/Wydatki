@@ -25,7 +25,7 @@ export class ProgressPathContainerComponent implements OnInit {
     ]
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
     let randomWeek = []
-    let rowNumber = 5 + Math.floor(Math.random() * 10);
+    let rowNumber = 2 + Math.floor(Math.random() * 10);
     console.log('rowNumber', rowNumber)
     for (var i = 1; i <= rowNumber; i++) {
       let groups = []
@@ -39,14 +39,13 @@ export class ProgressPathContainerComponent implements OnInit {
           groups: groups,
           week: i
       })
-      // let sums = []
-      // sums.push(rowNumber)
       // this.chartData.push([
         // `x=${i}`,
         // Math.floor(Math.random() * 10)
       // ])
     }
     console.log('randomWeek', randomWeek)
+    //#region test hardcoded weeks
     let weeks = [
       { 
         groups: [
@@ -95,9 +94,9 @@ export class ProgressPathContainerComponent implements OnInit {
         week: 23
       }
     ]
+    //#endregion
 
     for (let i = 0; i < rowNumber; i++) {
-      const e = 5[i];
       this.chartData.push(randomWeek[i])
     }
 
