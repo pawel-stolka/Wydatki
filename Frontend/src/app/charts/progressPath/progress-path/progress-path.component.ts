@@ -107,24 +107,18 @@ export class ProgressPathComponent implements OnInit {
 
     //#region define the lines
     let yLabelValue = []
-    let _vals = []
     let valueline = d3.line()
       .curve(this.curve)
       .x((d:any) => this.xScale(d.week))
       .y((d:any) => {
         let property = d.groups
           .filter(g => g.type == this.typeNames[0])
-        // return y(property[0].sum)
-        let result = this.yScale(property[0].sum)
-        // _vals[0] = property[0].sum
-        // yVal = property[0].sum
-        // yLabelValue.push({ 
-          yLabelValue = [{ 
-            type: this.typeNames[0],
-            v: property[0].sum
-          }]
-        
-        return result
+        // last Y valueline value
+        yLabelValue = [{ 
+          type: this.typeNames[0],
+          v: property[0].sum
+        }]
+        return this.yScale(property[0].sum)
       })
     //#endregion
     
@@ -179,7 +173,6 @@ export class ProgressPathComponent implements OnInit {
       .attr("class", "line1")
       .attr("d", valueline);
 
-      console.log('yLabelValue', yLabelValue[0].v)
     // this.chart.append("path")
     //   .data([this.data])
     //   .attr("class", "line2")
@@ -215,9 +208,6 @@ export class ProgressPathComponent implements OnInit {
           g => g.type == this.typeNames[0])
         return result[0].type
       })
-
-      // console.log((this.data, d => d.type)
-      // .text("Close");
 
     // this.chart
     //   .append("text")
