@@ -16,14 +16,37 @@ export class ProgressPathContainerComponent implements OnInit {
 
   generateData(type = '') {
     this.chartData = []
+    let types = [
+      'opłaty',
+      'na mieście',
+      'pierdoły',
+      'spożywka',
+      'leki'
+    ]
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
-    // let rowNumber = 5 + Math.floor(Math.random() * 10);
-    // for (var i = 1; i <= rowNumber; i++) {
-    //   this.chartData.push([
-    //     `x=${i}`,
-    //     Math.floor(Math.random() * 10)
-    //   ])
-    // }
+    let randomWeek = []
+    let rowNumber = 5 + Math.floor(Math.random() * 10);
+    console.log('rowNumber', rowNumber)
+    for (var i = 1; i <= rowNumber; i++) {
+      let groups = []
+      for (let j = 0; j < types.length; j++) {
+        let sum = Math.floor(Math.random() * 100)
+        groups.push(
+          {type: types[j], sum: sum}
+        )
+      }
+      randomWeek.push({
+          groups: groups,
+          week: i
+      })
+      // let sums = []
+      // sums.push(rowNumber)
+      // this.chartData.push([
+        // `x=${i}`,
+        // Math.floor(Math.random() * 10)
+      // ])
+    }
+    console.log('randomWeek', randomWeek)
     let weeks = [
       { 
         groups: [
@@ -73,7 +96,12 @@ export class ProgressPathContainerComponent implements OnInit {
       }
     ]
 
-    this.chartData = weeks
+    for (let i = 0; i < rowNumber; i++) {
+      const e = 5[i];
+      this.chartData.push(randomWeek[i])
+    }
+
+    // this.chartData = weeks
 
     //#endregion
 
