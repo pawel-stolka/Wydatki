@@ -66,17 +66,17 @@ export class ProgressPathComponent implements OnInit {
             `translate(${this.margin.left}, ${this.margin.top})`);
     
     // format the data
-    this.data.forEach((d,i) => {
-      console.log(`d${i}`, d)
-    });
+    // this.data.forEach((d,i) => {
+    //   console.log(`d${i}`, d)
+    // });
 
     // define X & Y domains
-    let xDomain = this.data.map(d => d.week);
+    let xDomain = d3.extent(this.data, (d) => d.week )
     let yDomain = [
       0, 
       d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
     ];
-    console.log('xDomain, yDomain', xDomain, yDomain)
+    // console.log('xDomain, yDomain', xDomain, yDomain)
 
 
     //#region create scales -------- which one to choose? ------
@@ -89,14 +89,16 @@ export class ProgressPathComponent implements OnInit {
       // .scaleSequential()
       .nice()
       .range([0, this.width])
-      .domain(d3.extent(this.data, (d) => d.week ));
+      .domain(xDomain)
+      
 
     this.yScale = d3.scaleLinear()
       .range([this.height, 0])
-      .domain([
-        0, 
-        d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
-      ])
+      .domain(yDomain)
+      // .domain([
+      //   0, 
+      //   d3.max(this.data, d => +d3.max(d.groups, (g:any) => g.sum))
+      // ])
     // this.xScale = d3.scaleBand().padding(0.1)
     //   .domain(xDomain)
     //   .rangeRound([0, this.width]);
@@ -269,7 +271,10 @@ export class ProgressPathComponent implements OnInit {
       
       // --> decide which scale function depending on type of chart <--
       // .call(d3.axisBottom(x))
-      .call(d3.axisBottom(this.xScale))
+      .call(
+        d3.axisBottom(this.xScale)
+        .ticks(this.data.length)
+      )
 
     this.yAxis = svg.append('g')
       .attr('class', 'axis axis-y')
