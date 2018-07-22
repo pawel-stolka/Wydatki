@@ -1,4 +1,5 @@
 import { Component, OnInit, group } from '@angular/core';
+import { ExpenseService } from '../../../expense.service';
 
 @Component({
   selector: 'progress-path-container',
@@ -7,11 +8,43 @@ import { Component, OnInit, group } from '@angular/core';
 })
 export class ProgressPathContainerComponent implements OnInit {
   private chartData: any[]
+  private periodTypes = []
 
-  constructor() { }
+  constructor(private expenseService: ExpenseService) { }
 
   ngOnInit() {
     this.generateData()
+    this.getTypes()
+  }
+
+  getTypes() {
+    let types = this.chartData
+    this.chartData.forEach(e => {
+      console.log('forEach', e.groups)
+    });
+
+    // only unique values
+    // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates/16065720#16065720
+    // let list = [ 1,3,4,1,3,5,1].sort()
+    // let unique = list.filter((x, i, a) => a.indexOf(x) == i)
+    // console.log('getTypes unique', list, unique)
+
+    let uniqueTypes = this.chartData
+          .filter((v, i, a) => a.indexOf(v) == i)
+
+    console.log('getTypes unique', types, uniqueTypes)
+    // return this.expenseService.getTypes()
+    // .subscribe(
+    //   data => {
+    //     this.types = data.json()
+    //     // types.sort(this.byCount)
+
+    //     console.log('types', this.types)
+    //     // types.forEach(element => {
+    //     //   this.selection.push(element)
+    //     // });
+    //   }
+    // )
   }
 
   generateData(type = '') {
@@ -99,6 +132,13 @@ export class ProgressPathContainerComponent implements OnInit {
     for (let i = 0; i < rowNumber; i++) {
       this.chartData.push(randomWeek[i])
     }
+
+    // for test with other type
+    // let otherType = {
+    //   groups: [{"type": "a co!", sum: 12}],
+    //   week: 8
+    // }
+    // this.chartData.push(otherType)
 
     // this.chartData = weeks
 

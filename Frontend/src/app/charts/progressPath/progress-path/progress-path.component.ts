@@ -25,7 +25,8 @@ export class ProgressPathComponent implements OnInit {
     'na mieście',
     'spożywka',
     'opłaty',
-    'pierdoły'
+    'pierdoły',
+    "a co!"
   ]
   // typeName = this.typeNames
 
@@ -115,12 +116,18 @@ export class ProgressPathComponent implements OnInit {
       .y((d:any) => {
         let property = d.groups
           .filter(g => g.type == this.typeNames[0])
+          console.log('d.groups', d.groups)
+        console.log('property', property)
         // last Y valueline value
+        let value = property.length !== 0 
+          ? property[0].sum
+          : 0
+
         yLabelValue = [{ 
           type: this.typeNames[0],
-          v: property[0].sum
+          v: value
         }]
-        return this.yScale(property[0].sum)
+        return this.yScale(value)
       })
     
     // another valuelines...
