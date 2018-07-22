@@ -1,0 +1,7 @@
+.d3-chart {
+    width: 100%;
+    height: 300px;
+    background-color: #c3f3c1;
+    border: 1px solid green;
+    margin: 5px 0;
+  }

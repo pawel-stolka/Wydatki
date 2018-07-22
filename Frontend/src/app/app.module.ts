@@ -44,6 +44,8 @@ import { PathComponent } from './charts/path/path/path.component';
 import { Path2Component } from './charts/path/path2/path2.component';
 import { ProgressPathContainerComponent } from './charts/progressPath/progress-path-container/progress-path-container.component';
 import { ProgressPathComponent } from './charts/progressPath/progress-path/progress-path.component';
+import { ProgressComboComponent } from './charts/progress-combo/progress-combo/progress-combo.component';
+import { ProgressComboContainerComponent } from './charts/progress-combo-container/progress-combo-container.component';
 
 
 const routes = [
@@ -62,7 +64,8 @@ const routes = [
   { path: 'pie-labeled', component: PieLabeledContainerComponent },
   { path: 'progress', component: ProgressContainerComponent },
   { path: 'path', component: PathContainerComponent },
-  { path: 'progress-path', component: ProgressPathContainerComponent }
+  { path: 'progress-path', component: ProgressPathContainerComponent },
+  { path: 'progress-combo', component: ProgressComboContainerComponent}
 ]
 
 
@@ -95,7 +98,9 @@ const routes = [
     PathComponent,
     Path2Component,
     ProgressPathContainerComponent,
-    ProgressPathComponent
+    ProgressPathComponent,
+    ProgressComboComponent,
+    ProgressComboContainerComponent
   ],
   imports: [
     BrowserModule,
