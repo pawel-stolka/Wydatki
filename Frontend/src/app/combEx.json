@@ -1,0 +1,141 @@
+[{
+  "data": [{
+      "date": "2018-05-24",
+      "name": "halls",
+      "price": 3.5,
+      "type": "pierdoły"
+    },
+    {
+      "date": "2018-05-25",
+      "name": "airwaves",
+      "price": 3.5,
+      "type": "pierdoły"
+    }
+  ],
+  "groups": [{
+      "sum": 57,
+      "type": "opłaty"
+    },
+    {
+      "sum": 93,
+      "type": "pierdoły"
+    },
+    {
+      "sum": 13,
+      "type": "na mieście"
+    },
+    {
+      "sum": 31,
+      "type": "leki"
+    },
+    {
+      "sum": 83,
+      "type": "spożywka"
+    }
+  ]
+}, {
+  "data": [{
+      "date": "2018-05-24",
+      "name": "halls",
+      "price": 3.5,
+      "type": "pierdoły"
+    },
+    {
+      "date": "2018-05-25",
+      "name": "airwaves",
+      "price": 3.5,
+      "type": "pierdoły"
+    }
+  ],
+  "groups": [{
+      "type": "opłaty",
+      "sum": 91
+    },
+    {
+      "type": "na mieście",
+      "sum": 99
+    },
+    {
+      "type": "pierdoły",
+      "sum": 13
+    },
+    {
+      "type": "spożywka",
+      "sum": 68
+    },
+    {
+      "type": "leki",
+      "sum": 91
+    }
+  ]
+}, {
+  "data": [{
+      "date": "2018-05-24",
+      "name": "halls",
+      "price": 3.5,
+      "type": "pierdoły"
+    },
+    {
+      "date": "2018-05-25",
+      "name": "airwaves",
+      "price": 3.5,
+      "type": "pierdoły"
+    }
+  ],
+  "groups": [{
+      "type": "opłaty",
+      "sum": 60
+    },
+    {
+      "type": "na mieście",
+      "sum": 64
+    },
+    {
+      "type": "pierdoły",
+      "sum": 52
+    },
+    {
+      "type": "spożywka",
+      "sum": 59
+    },
+    {
+      "type": "leki",
+      "sum": 38
+    }
+  ]
+}, {
+  "data": [{
+      "date": "2018-05-24",
+      "name": "halls",
+      "price": 3.5,
+      "type": "pierdoły"
+    },
+    {
+      "date": "2018-05-25",
+      "name": "airwaves",
+      "price": 3.5,
+      "type": "pierdoły"
+    }
+  ],
+  "groups": [{
+      "type": "opłaty",
+      "sum": 81
+    },
+    {
+      "type": "na mieście",
+      "sum": 49
+    },
+    {
+      "type": "pierdoły",
+      "sum": 72
+    },
+    {
+      "type": "spożywka",
+      "sum": 21
+    },
+    {
+      "type": "leki",
+      "sum": 14
+    }
+  ]
+}]

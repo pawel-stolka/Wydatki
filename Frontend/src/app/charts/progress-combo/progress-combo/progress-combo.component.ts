@@ -90,17 +90,18 @@ export class ProgressComboComponent implements OnInit {
     let yLabelValue = []
     let valueline = d3.line()
       .curve(this.curve)
-      .x((d:any) => this.xScale(d.week))
+      .x((d:any) => {
+        let res = this.xScale(d.week)
+        console.log('x...',res, d)
+        return res
+      })
       .y((d:any) => {
         let property = d.groups
           .filter(g => g.type == this.typeNames[0])
-          // console.log('d.groups', d.groups)
-        // console.log('property', property)
         // last Y valueline value
         let value = property.length !== 0 
           ? property[0].sum
           : 0
-
         yLabelValue = [{ 
           type: this.typeNames[0],
           v: value
