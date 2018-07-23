@@ -8,6 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ProgressComboContainerComponent implements OnInit {
   @Input()
   private chartData: any[]
+  private types = [
+    'opłaty',
+    'na mieście',
+    'pierdoły',
+    'spożywka',
+    'leki'
+  ]
+  private currentType = this.types[0]
 
   constructor() {}
 

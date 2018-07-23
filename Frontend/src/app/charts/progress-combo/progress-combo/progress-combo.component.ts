@@ -9,7 +9,7 @@ import * as d3 from 'd3';
 export class ProgressComboComponent implements OnInit {
   @ViewChild('chart') private chartContainer: ElementRef;
   @Input() private data: Array<any>;
-  @Input() public d: any
+  @Input() public typeName: any
   
   private chart: any;
   private margin = { top: 50, right: 100, bottom: 50, left: 50 }
@@ -97,13 +97,13 @@ export class ProgressComboComponent implements OnInit {
       })
       .y((d:any) => {
         let property = d.groups
-          .filter(g => g.type == this.typeNames[0])
+          .filter(g => g.type == this.typeName)
         // last Y valueline value
         let value = property.length !== 0 
           ? property[0].sum
           : 0
         yLabelValue = [{ 
-          type: this.typeNames[0],
+          type: this.typeName,
           v: value
         }]
         return this.yScale(value)
