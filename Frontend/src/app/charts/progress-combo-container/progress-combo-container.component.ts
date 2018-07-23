@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'progress-combo-container',
@@ -6,12 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./progress-combo-container.component.css']
 })
 export class ProgressComboContainerComponent implements OnInit {
+  @Input()
   private chartData: any[]
 
   constructor() {}
 
   ngOnInit() {
-    this.generateData()
+    this.chooseDataSource()
+    // this.generateData()
     this.getTypes()
   }
 
@@ -27,7 +29,16 @@ export class ProgressComboContainerComponent implements OnInit {
     console.log('getTypes unique', types, uniqueTypes)
   }
 
+  chooseDataSource() {
+    if(this.chartData == undefined) {
+      console.log('data generated!')
+      this.generateData()
+    } else
+      console.log('real data :)')
+  }
+
   generateData(type = '') {
+    
     this.chartData = []
     let types = [
       'opłaty',
