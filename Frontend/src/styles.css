@@ -53,7 +53,7 @@ polyline {
   stroke-width: 2px;
 }
 
-/* .line2 {
+.line2 {
   fill: none;
   stroke: red;
   stroke-width: 2px;
@@ -69,7 +69,7 @@ polyline {
   fill: none;
   stroke: rgb(177, 20, 164);
   stroke-width: 2px;
-} */
+} 
 
 .axis { font: 14px sans-serif; }
 

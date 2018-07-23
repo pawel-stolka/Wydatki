@@ -13,7 +13,7 @@ export class ProgressComboContainerComponent implements OnInit {
     'na mieście',
     'pierdoły',
     'spożywka',
-    // 'leki'
+    'leki'
   ]
   private currentType = this.types[0]
 
@@ -46,24 +46,17 @@ export class ProgressComboContainerComponent implements OnInit {
   }
 
   generateData(type = '') {
-    
     this.chartData = []
-    let types = [
-      'opłaty',
-      'na mieście',
-      // 'pierdoły',
-      // 'spożywka',
-      // 'leki'
-    ]
+    
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
     let randomWeek = []
     let rowNumber = 2 + Math.floor(Math.random() * 10);
     console.log('rowNumber', rowNumber)
     for (var i = 0; i < rowNumber; i++) {
       let groups = []
-      for (let j = 0; j < types.length; j++) {
+      for (let j = 0; j < this.types.length; j++) {
         let sum = Math.floor(Math.random() * 100)
-        let group = {type: types[j], sum: sum}
+        let group = {type: this.types[j], sum: sum}
         groups.push(group)
       }
 
