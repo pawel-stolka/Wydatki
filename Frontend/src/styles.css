@@ -18,8 +18,6 @@
   height: 300px;
 }
 
-
-
 polyline {
 	opacity: .55;
 	stroke: black;
@@ -45,11 +43,17 @@ polyline {
 
 .line1 {
   fill: none;
+  stroke: rgb(179, 11, 114);
+  stroke-width: 2px;
+}
+
+.line {
+  fill: none;
   stroke: steelblue;
   stroke-width: 2px;
 }
 
-.line2 {
+/* .line2 {
   fill: none;
   stroke: red;
   stroke-width: 2px;
@@ -65,7 +69,7 @@ polyline {
   fill: none;
   stroke: rgb(177, 20, 164);
   stroke-width: 2px;
-}
+} */
 
 .axis { font: 14px sans-serif; }
 

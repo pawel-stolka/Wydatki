@@ -13,7 +13,7 @@ export class ProgressComboContainerComponent implements OnInit {
     'na mieście',
     'pierdoły',
     'spożywka',
-    'leki'
+    // 'leki'
   ]
   private currentType = this.types[0]
 
@@ -51,9 +51,9 @@ export class ProgressComboContainerComponent implements OnInit {
     let types = [
       'opłaty',
       'na mieście',
-      'pierdoły',
-      'spożywka',
-      'leki'
+      // 'pierdoły',
+      // 'spożywka',
+      // 'leki'
     ]
     //#region ---- RANDOM DATA - ONLY FOR FIRST DATA TESTS -----
     let randomWeek = []

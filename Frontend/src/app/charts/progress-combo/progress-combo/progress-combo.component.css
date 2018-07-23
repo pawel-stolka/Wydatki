@@ -5,3 +5,9 @@
     border: 1px solid green;
     margin: 5px 0;
   }
+
+  .line {
+    fill: none;
+    stroke: rgb(179, 11, 114);
+    stroke-width: 2px;
+  }
