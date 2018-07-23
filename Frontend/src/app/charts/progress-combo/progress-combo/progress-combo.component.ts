@@ -118,21 +118,34 @@ export class ProgressComboComponent implements OnInit {
     this.xAxis = svg.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.height})`)
-      
-      // --> decide which scale function depending on type of chart <--
-      // .call(d3.axisBottom(x))
-      .call(
-        d3.axisBottom(this.xScale)
-        .ticks(this.data.length)
-      )
+      .call(d3.axisBottom(this.xScale))
 
     this.yAxis = svg.append('g')
       .attr('class', 'axis axis-y')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
-
-      // --> decide which scale function depending on type of chart <--
-      // .call(d3.axisLeft(y))
       .call(d3.axisLeft(this.yScale))
+
+    // 8. line label
+    // let lineSpan = 3,
+    //     _d = this.data,
+    //     _x = +_d[_d.length - 1].week,
+    //     xValue = this.xScale(_x) + lineSpan,
+    //     yValue = this.yScale(yLabelValue[0].v)
+
+    // this.chart
+    //   .append("text")
+    //   .data([this.data])
+    //   .attrs({
+    //     transform: `translate(${xValue},${yValue})`,    
+    //     dy: '.35em',
+    //     'text-anchor': 'start'
+    //   })
+    //   .text(d => {
+    //     let result = d[0].groups.filter(
+    //       g => g.type == this.typeNames[0])
+    //       return result[0].type
+    //     })
+    //   .style("fill", "steelblue")
   }
 
   initCurve() {
