@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExpenseService } from '../expense.service';
 import { FormControl, FormGroupDirective, Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
-import { ToasterConfig, ToasterService } from 'angular2-toaster';
+// import { ToasterConfig, ToasterService } from 'angular2-toaster';
 import { Bill } from '../models/Bill';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -47,15 +47,15 @@ export class ExpensesComponent implements OnInit {
   constructor(
     private expenseService: ExpenseService,
     public formBuilder: FormBuilder,
-    private toasterService: ToasterService
+    // private toasterService: ToasterService
   ) { }
 
-  public config1: ToasterConfig = new ToasterConfig({
-    limit: 7,
-    tapToDismiss: true,
-    showCloseButton: true,
-    mouseoverTimerStop: true
-  });
+  // public config1: ToasterConfig = new ToasterConfig({
+  //   limit: 7,
+  //   tapToDismiss: true,
+  //   showCloseButton: true,
+  //   mouseoverTimerStop: true
+  // });
 
   ngOnInit() {
     // this.selection.push("option 1")
@@ -77,7 +77,7 @@ export class ExpensesComponent implements OnInit {
       // bodyOutputType: BodyOutputType.TrustedHtml
     };
 
-    this.toasterService.pop(toast);
+    // this.toasterService.pop(toast);
   }
 
   submitForm() {
