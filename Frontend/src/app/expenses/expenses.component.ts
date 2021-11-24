@@ -2,16 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExpenseService } from '../expense.service';
 import { FormControl, FormGroupDirective, Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
-import { ErrorStateMatcher } from '@angular/material';
 import { Bill } from '../models/Bill';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 /** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+// export class MyErrorStateMatcher implements ErrorStateMatcher {
+//   isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
+//     throw new Error('Method not implemented.');
+//   }
+//   // isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//   //   const isSubmitted = form && form.submitted;
+//   //   return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+//   // }
+// }
 
 @Component({
   selector: 'expenses',
@@ -39,8 +42,8 @@ export class ExpensesComponent implements OnInit {
     'extraFormControl': this.extraFormControl
   })
 
-  matcher = new MyErrorStateMatcher();
-  
+  matcher // = new MyErrorStateMatcher();
+
   constructor(
     private expenseService: ExpenseService,
     public formBuilder: FormBuilder,
@@ -57,7 +60,7 @@ export class ExpensesComponent implements OnInit {
   ngOnInit() {
     // this.selection.push("option 1")
     // this.selection.push("option 2")
-    // let types = 
+    // let types =
     // this.getNames()
     this.getTypes()
     // console.log(this.types)
@@ -101,7 +104,7 @@ export class ExpensesComponent implements OnInit {
             console.log(err)
           }
       )
-      
+
     } catch (error) {
       this.error = error
       console.error('something with Bill', error)
@@ -115,9 +118,9 @@ export class ExpensesComponent implements OnInit {
   getTypes() {
     return this.expenseService.getTypes()
     .subscribe(
-      data => {
-        let types = data.json()
-        
+      (data: any[]) => {
+        let types = data//.json()
+
         types.sort(this.byCount)
 
         console.log(types)
@@ -132,8 +135,8 @@ export class ExpensesComponent implements OnInit {
     return this.expenseService.getNames()
     .subscribe(
       data => {
-        console.log(data.json())
-        
+        // console.log(data.json())
+
       }
     )
   }

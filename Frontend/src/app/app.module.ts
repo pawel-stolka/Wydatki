@@ -9,14 +9,13 @@ import { MatCardModule } from '@angular/material/card'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatInputModule } from '@angular/material/input'
 import { MatListModule } from '@angular/material/list'
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { ExpenseService } from './expense.service';
-import { HttpModule } from '@angular/http';
 import { DataService } from './data.service';
 import { SimpleChartComponent } from './charts/simple/simple-chart/simple-chart.component';
 import { ContainerComponent } from './charts/simple/container/container.component';
@@ -106,7 +105,7 @@ const routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    HttpModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,

@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Bill } from './models/Bill';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class ExpenseService {
   url = 'http://localhost:7000'
   error
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.getBills()
@@ -43,7 +43,7 @@ export class ExpenseService {
   // private extractData(res: Response) {
   //   console.log(res.json())
   //   let body = res.json();
-    
+
   //   return body || [];
   // }
 

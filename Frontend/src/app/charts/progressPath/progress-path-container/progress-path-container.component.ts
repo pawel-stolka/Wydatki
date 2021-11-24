@@ -1,4 +1,4 @@
-import { Component, OnInit, group } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../../../expense.service';
 
 @Component({
@@ -80,7 +80,7 @@ export class ProgressPathContainerComponent implements OnInit {
     console.log('randomWeek', randomWeek)
     //#region test hardcoded weeks
     let weeks = [
-      { 
+      {
         groups: [
           {type: 'opłaty', sum: 144},
           {type: 'na mieście', sum: 108.789999},
@@ -89,7 +89,7 @@ export class ProgressPathContainerComponent implements OnInit {
           {type: 'leki', sum: 6.5}
         ],
         week: 19
-      }, { 
+      }, {
         groups: [
           {type: 'opłaty', sum: 212},
           {type: 'na mieście', sum: 144.2},
@@ -98,7 +98,7 @@ export class ProgressPathContainerComponent implements OnInit {
           {type: 'leki', sum: 16.5}
         ],
         week: 20
-      }, { 
+      }, {
         groups: [
           {type: 'opłaty', sum: 74.24},
           {type: 'na mieście', sum: 488.789999},
@@ -107,7 +107,7 @@ export class ProgressPathContainerComponent implements OnInit {
           {type: 'leki', sum: 56.5}
         ],
         week: 21
-      }, { 
+      }, {
         groups: [
           {type: 'opłaty', sum: 312.24},
           {type: 'na mieście', sum: 388.789999},
@@ -116,7 +116,7 @@ export class ProgressPathContainerComponent implements OnInit {
           {type: 'leki', sum: 26.5}
         ],
         week: 22
-      }, { 
+      }, {
         groups: [
           {type: 'opłaty', sum: 52.24},
           {type: 'na mieście', sum: 588.789999},
@@ -154,7 +154,7 @@ export class ProgressPathContainerComponent implements OnInit {
     //     selection
     //   ])
     // });
- 
+
     console.log(this.chartData)
   }
 
