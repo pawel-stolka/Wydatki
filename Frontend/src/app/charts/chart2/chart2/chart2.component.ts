@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, AfterViewInit, Input } from '@angular/core';
-import { D3Service, D3, Selection } from 'd3-ng2-service';
+// import { D3Service, D3, Selection } from 'd3-ng2-service';
 import { ExpenseService } from '../../../expense.service';
 import { DataService } from '../../../data.service';
 import * as moment from 'moment';
@@ -11,7 +11,7 @@ import * as moment from 'moment';
 })
 export class Chart2Component implements OnInit {
   private apiData = [];
-  private d3: D3;
+  // private d3: D3;
   private parentNativeElement: any;
   private parent;
   private error;
@@ -26,14 +26,16 @@ export class Chart2Component implements OnInit {
 
   constructor(
     element: ElementRef,
-    d3Service: D3Service,
+    // d3Service: D3Service,
     public dataService: DataService,
     public expenseService: ExpenseService
-  ) { 
-    this.d3 = d3Service.getD3();
+  ) {
+    // this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
   }
 
+  ngOnInit() {}
+/*
   ngAfterViewInit() {
     this.svg = this.d3.select("svg")
     let _width = 850,
@@ -44,7 +46,7 @@ export class Chart2Component implements OnInit {
     this.margin = { top: 20, right: 20, bottom: 10, left: 50 }
     this.width = _width - this.margin.left - this.margin.right
     this.height = _height - this.margin.top - this.margin.bottom
-  
+
     // set the ranges
     this.x = this.d3.scaleTime()
       .range([0, this.width]);
@@ -79,7 +81,7 @@ export class Chart2Component implements OnInit {
           date: x.date.substr(0,10),
           fulldate: new Date(x.date),
           price: x.price,
-          extra: x.extra          
+          extra: x.extra
         }))
       .sort(this.compareDate)
       // console.log(mapped)
@@ -87,7 +89,7 @@ export class Chart2Component implements OnInit {
       let byDay = this.groupBy(mapped, item => item.date),
         byMonth = this.groupBy(mapped, item => item.date.substr(5,2)),
         byWeek = this.groupBy(mapped, x => moment(x.date).week())
-      
+
       switch (by) {
         case 'byDay':
           bills = Array.from(byDay)//byMonth)
@@ -102,7 +104,7 @@ export class Chart2Component implements OnInit {
           bills = Array.from(byWeek)//byMonth)
           break;
       }
-      
+
         let sum = [];
         bills.forEach(element => {
           let _sum = 0
@@ -118,7 +120,7 @@ export class Chart2Component implements OnInit {
         this.apiData = bills
         console.log(this.apiData)
     })
-    
+
   }
 
   groupBy(list, prop) {
@@ -156,15 +158,15 @@ export class Chart2Component implements OnInit {
       .attr("width", totalWidth)
       .attr("height", totalHeight)
       .append('g')
-      .attr("transform", "translate(" 
+      .attr("transform", "translate("
             + this.margin.left + "," + this.margin.top
             + ")");
-    
+
     // let g = svg.select('g')
     // g.selectAll('rect')
     // var arr = [10, 8, 40, 34, 52, 45, 33, 75];
     // console.log(this.apiData)
-    
+
     // let data = this.apiData//arr
     let data2 = this.apiData.map((d) => d[1])
     let data = this.apiData// data2[1]
@@ -192,7 +194,7 @@ export class Chart2Component implements OnInit {
     .range(<any[]>['orange', 'red']);
     // .range(<any[]>['orange', 'blueviolet']);
 
-    
+
     g
     .selectAll("rect")
     // .data(data)
@@ -206,7 +208,7 @@ export class Chart2Component implements OnInit {
         // console.log('height',res)
         return res
       },
-      x: (d,i) => { 
+      x: (d,i) => {
         let res = i * this.width/data.length
         // console.log(res, data.length)
         return res
@@ -219,7 +221,7 @@ export class Chart2Component implements OnInit {
             d2 = yScale(d.price)
         // console.log('y',res)//,d1, d2, d.price)
         return res;
-      } 
+      }
     })
     .style('fill', (d, i) => this.colors(i))
     // .style('fill', 'red')
@@ -256,11 +258,11 @@ export class Chart2Component implements OnInit {
       // .exit()
       // .remove()
 
-    
+
 // .attrs({
     //   width: this.width / this.apiData.length,
     //   height: (d) => yScale(d),
-    //   x: (d,i) => { 
+    //   x: (d,i) => {
     //     return i * this.width/this.apiData.length
     //   },
     //   y: (d) => this.height - yScale(d)
@@ -275,13 +277,13 @@ export class Chart2Component implements OnInit {
     // .attrs({
     //   width: this.width / arr.length,
     //   height: (d) => yScale(d),
-    //   x: (d,i) => { 
+    //   x: (d,i) => {
     //     return i * this.width/arr.length
     //   },
     //   y: (d) => this.height - yScale(d)
     // })
 
-    
+
     g
     .selectAll("rect")
     // .data(data)
@@ -293,11 +295,11 @@ export class Chart2Component implements OnInit {
 
   loadD3() {
     let d3 = this.d3;
-    let d3ParentElement: Selection < any, any, any, any > ;
+    // let d3ParentElement: Selection < any, any, any, any > ;
     if (this.parentNativeElement !== null) {
       this.parent = d3.select(this.parentNativeElement);
       let data = this.apiData
     }
   }
-
+*/
 }

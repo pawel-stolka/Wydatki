@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, AfterViewInit, Input } from '@angular/core';
-import { D3Service, D3, Selection } from 'd3-ng2-service';
+// import { D3Service, D3, Selection } from 'd3-ng2-service';
 import { ExpenseService } from '../../../expense.service';
 // import { ApiService } from '../api.service';
 
@@ -10,7 +10,7 @@ import { ExpenseService } from '../../../expense.service';
 })
 export class Chart1Component implements OnInit {
   private apiData = [];
-  private d3: D3;
+  // private d3: D3;
   private parentNativeElement: any;
   private parent;
   private error;
@@ -28,14 +28,21 @@ export class Chart1Component implements OnInit {
 
   constructor(
     element: ElementRef,
-    d3Service: D3Service,
+    // d3Service: D3Service,
     public expenseService: ExpenseService
     // public apiService: ApiService
     ) {
-      this.d3 = d3Service.getD3();
+      // this.d3 = d3Service.getD3();
       this.parentNativeElement = element.nativeElement;
-  }
+    }
 
+    ngOnInit() {
+      // this.loadData()
+      //   .then(() => this.loadD3())
+      //   .then(() => this.loadGraph())
+      //   // .catch((err) => this.error = `error: ${this.apiService.error}`)
+    }
+/*
   ngAfterViewInit() {
     this.svg = this.d3.select("svg")
     let _width = 850,
@@ -46,7 +53,7 @@ export class Chart1Component implements OnInit {
     this.margin = { top: 40, right: 20, bottom: 100, left: 70 }
     this.width = _width - this.margin.left - this.margin.right
     this.height = _height - this.margin.top - this.margin.bottom
-    
+
     this.dotRadius = 5
     this.parseTime = this.d3.timeParse("%d-%b-%y");
 
@@ -55,7 +62,7 @@ export class Chart1Component implements OnInit {
       .range([0, this.width]);
     this.y = this.d3.scaleLinear()
       .range([this.height, 0]);
-    
+
     // define the line
     this.valueline = this.d3.line()
       .x((d:any) => this.x(d.date))
@@ -63,12 +70,6 @@ export class Chart1Component implements OnInit {
       .curve(this.d3.curveMonotoneX)
   }
 
-  ngOnInit() {
-    this.loadData()
-      .then(() => this.loadD3())
-      .then(() => this.loadGraph())
-      // .catch((err) => this.error = `error: ${this.apiService.error}`)
-  }
 
   loadData() {
     // return this.apiService.getSimpleGraph()
@@ -99,7 +100,7 @@ export class Chart1Component implements OnInit {
       .attr("width", totalWidth)
       .attr("height", totalHeight)
       .append('g')
-      .attr("transform", "translate(" 
+      .attr("transform", "translate("
             + this.margin.left + "," + this.margin.top
             + ")");
 
@@ -108,7 +109,7 @@ export class Chart1Component implements OnInit {
     let minClose = 0// this.d3.min(this.apiData, (d) => d.close )
     let maxClose = this.d3.max(this.apiData, (d) => d.close )
     console.log(minMaxDate, minClose, maxClose)
-    
+
     this.x.domain(minMaxDate);
     this.y.domain([minClose, maxClose]);
 
@@ -138,7 +139,7 @@ export class Chart1Component implements OnInit {
             .tickSize(-this.width)
             // .tickFormat("")
         )
-    
+
     // Add the scatterplot
     svg.selectAll("dot")
       .data(this.apiData)
@@ -199,12 +200,12 @@ export class Chart1Component implements OnInit {
 
   loadD3() {
     let d3 = this.d3;
-    let d3ParentElement: Selection < any, any, any, any > ;
+    // let d3ParentElement: Selection < any, any, any, any > ;
     if (this.parentNativeElement !== null) {
       this.parent = d3.select(this.parentNativeElement);
       let data = this.apiData
     }
   }
 
-
+*/
 }

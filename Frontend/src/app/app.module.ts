@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-import { ToasterModule, ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+// import { ToasterModule, ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { MatCardModule } from '@angular/material/card'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -20,7 +20,7 @@ import { DataService } from './data.service';
 import { SimpleChartComponent } from './charts/simple/simple-chart/simple-chart.component';
 import { ContainerComponent } from './charts/simple/container/container.component';
 import { Chart1Component } from './charts/chart1/chart1/chart1.component';
-import { D3Service } from 'd3-ng2-service';
+// import { D3Service } from 'd3-ng2-service';
 import { Chart2Component } from './charts/chart2/chart2/chart2.component';
 import { ChartUpdateComponent } from './charts/chart2/chart-update/chart-update.component';
 import { ChartContainerComponent } from './charts/chart1/chart-container/chart-container.component';
@@ -114,14 +114,15 @@ const routes = [
     MatRadioModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    ToasterModule,
+    // ToasterModule,
   ],
-  providers: [ExpenseService, DataService, D3Service,
-    ToasterService, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: DataService,// AuthInterceptorService,
-      multi: true
-  }],
+  providers: [ExpenseService, DataService//, D3Service,
+  //   ToasterService, {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: DataService,// AuthInterceptorService,
+  //     multi: true
+  // }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

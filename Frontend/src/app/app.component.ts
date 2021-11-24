@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToasterConfig, ToasterService } from 'angular2-toaster';
+// import { ToasterConfig, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +10,18 @@ export class AppComponent {
   title = 'Nasze Finanse';
   comboData
 
-  public configRight: ToasterConfig = new ToasterConfig({
-    limit: 7,
-    tapToDismiss: true,
-    showCloseButton: true,
-    positionClass: 'toast-top-right',
-    mouseoverTimerStop: true,
+  // public configRight: ToasterConfig = new ToasterConfig({
+  //   limit: 7,
+  //   tapToDismiss: true,
+  //   showCloseButton: true,
+  //   positionClass: 'toast-top-right',
+  //   mouseoverTimerStop: true,
 
-  });
+  // });
 
   constructor(
-    private toasterService: ToasterService) {}
+    // private toasterService: ToasterService
+  ) {}
 
   ngOnInit() {
     console.log('this.makeData()')
