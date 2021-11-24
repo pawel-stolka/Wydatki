@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
   selector: 'chart3',
   templateUrl: './chart3.component.html',
-  styleUrls: ['./chart3.component.css']
+  styleUrls: ['./chart3.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Chart3Component implements OnInit {
   @ViewChild('chart') private chartContainer: ElementRef;
@@ -21,7 +22,7 @@ export class Chart3Component implements OnInit {
   private colors
   private xAxis
   private yAxis
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -63,7 +64,7 @@ export class Chart3Component implements OnInit {
       .domain(yDomain)
       .range([this.height, 0]);
 
-      // bar colors
+    // bar colors
     this.colors = d3.scaleLinear()
     .domain([0, this.data.length])
     .range(<any[]>['red', 'blue']);
@@ -103,7 +104,7 @@ export class Chart3Component implements OnInit {
 
    // remove existing bars
    update.exit().remove();
-   
+
    // update existing bars
    this.chart.selectAll('.bar').transition()
      .attr('x', d => this.xScale(d[0]))
